@@ -14,6 +14,15 @@ def parse_id(id_string: str) -> int:
     )
 
 
+def restore_id(id: int) -> str:
+    mask = 2**ID_BYTES - 1
+    ids = []
+    while id != 0:
+        ids.append(str(mask & id))
+        id = id >> ID_BYTES
+    return ".".join(ids)
+
+
 def parse_node(cursor: sqlite3.Cursor, node: dict, table_name: str) -> id:
     id = parse_id(node["idf"])
     name = node["name"]
