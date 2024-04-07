@@ -36,19 +36,16 @@ def parse_node(cursor: sqlite3.Cursor, node: dict, table_name: str) -> id:
     return id
 
 
-def parse_collection(
-    cursor: sqlite3.Cursor,
-    threat_id: int,
-    array: list[dict],
-    match_table_name: str,
-    math_table_column: str,
-    obj_table_name: str,
-):
+def parse_collection(cursor: sqlite3.Cursor, threat_id: int, array: list[dict], entity_name: str):
+    obj_table_name = f"{entity_name}s"
+    match_table_name = f"threats_{obj_table_name}"
+    match_table_column = f"{entity_name}_id"
+
     for node in array:
         id = parse_node(cursor, node, obj_table_name)
 
         sql = f"""
-            INSERT INTO {match_table_name} (threat_id, {math_table_column})
+            INSERT INTO {match_table_name} (threat_id, {match_table_column})
             VALUES (?, ?);
             """
 
@@ -87,11 +84,11 @@ def main(filename: str, database: str):
                 sql, (id, name, description, type_id, object_id, tech_group_id)
             )
 
-            parse_collection(cursor, id, threat["defGroups"], "threats_def_groups", "def_group_id", "def_groups")
-            parse_collection(cursor, id, threat["technics"], "threats_technics", "technics_id", "technics")
-            parse_collection(cursor, id, threat["components"], "threats_components", "components_id", "components")
-            parse_collection(cursor, id, threat["potentials"], "threats_potentials", "potentials_id", "potentials")
-            parse_collection(cursor, id, threat["defenses"], "threats_defenses", "defenses_id", "defenses")
+            parse_collection(cursor, id, threat["defGroups"], "def_group")
+            parse_collection(cursor, id, threat["technics"], "technic")
+            parse_collection(cursor, id, threat["components"], "component")
+            parse_collection(cursor, id, threat["potentials"], "potential")
+            parse_collection(cursor, id, threat["defenses"], "defense")
 
     connection.commit()
     connection.close()

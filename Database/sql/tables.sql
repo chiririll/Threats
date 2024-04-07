@@ -61,32 +61,32 @@ CREATE TABLE IF NOT EXISTS threats_def_groups (
 
 CREATE TABLE IF NOT EXISTS threats_technics (
     threat_id INTEGER NOT NULL,
-    technics_id INTEGER NOT NULL,
+    technic_id INTEGER NOT NULL,
 
     FOREIGN KEY (threat_id) REFERENCES threats(id),
-    FOREIGN KEY (technics_id) REFERENCES technics(id)
+    FOREIGN KEY (technic_id) REFERENCES technics(id)
 );
 
 CREATE TABLE IF NOT EXISTS threats_components (
     threat_id INTEGER NOT NULL,
-    components_id INTEGER NOT NULL,
+    component_id INTEGER NOT NULL,
 
     FOREIGN KEY (threat_id) REFERENCES threats(id),
-    FOREIGN KEY (components_id) REFERENCES components(id)
+    FOREIGN KEY (component_id) REFERENCES components(id)
 );
 
 CREATE TABLE IF NOT EXISTS threats_potentials (
     threat_id INTEGER NOT NULL,
-    potentials_id INTEGER NOT NULL,
+    potential_id INTEGER NOT NULL,
 
     FOREIGN KEY (threat_id) REFERENCES threats(id),
-    FOREIGN KEY (potentials_id) REFERENCES potentials(id)
+    FOREIGN KEY (potential_id) REFERENCES potentials(id)
 );
 
 CREATE TABLE IF NOT EXISTS threats_defenses (
     threat_id INTEGER NOT NULL,
-    defenses_id INTEGER NOT NULL,
+    defense_id INTEGER NOT NULL,
 
     FOREIGN KEY (threat_id) REFERENCES threats(id),
-    FOREIGN KEY (defenses_id) REFERENCES defenses(id)
+    FOREIGN KEY (defense_id) REFERENCES defenses(id)
 );
