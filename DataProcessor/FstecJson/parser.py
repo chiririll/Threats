@@ -1,7 +1,11 @@
 import json
 import sqlite3
 
-TABLES_SCRIPT = "sql/tables.sql"
+from os import path
+
+BASE_DIR = path.dirname(__file__)
+SQL_DIR = "sql"
+TABLES_SCRIPT = path.join(BASE_DIR, SQL_DIR, "tables.sql")
 ID_BYTES = 8
 
 
@@ -95,4 +99,4 @@ def main(filename: str, database: str):
 
 
 if __name__ == "__main__":
-    main("data/Перечень сформированных угроз.json", "data/threats.db")
+    main(path.join("Input", "Перечень сформированных угроз.json"), "threats.db")
