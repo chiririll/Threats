@@ -35,3 +35,16 @@ CREATE TABLE IF NOT EXISTS threats_objects (
     FOREIGN KEY (threat_id) REFERENCES threats(id),
     FOREIGN KEY (object_id) REFERENCES objects(id)
 );
+
+CREATE TABLE IF NOT EXISTS negative_types(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS negatives(
+    id INTEGER PRIMARY KEY,
+    type INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    
+    FOREIGN KEY (type) REFERENCES negative_types(id)
+);

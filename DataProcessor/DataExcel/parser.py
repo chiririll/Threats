@@ -9,6 +9,13 @@ SQL_DIR = "sql"
 TABLES_SCRIPT = path.join(BASE_DIR, SQL_DIR, "tables.sql")
 
 
+class Negative:
+    def __init__(self, id: int, name: str, neg_type: int):
+        self.id = id
+        self.name = name
+        self.type = neg_type
+
+
 class Threat:
     def __init__(
         self,
@@ -42,7 +49,7 @@ class Source:
         self.type = self.get_type(name.lower())
         self.potential = self.get_potential(name.lower())
         pass
-    
+
     def get_potential(self, name: str) -> int:
         if "низк" in name:
             return 1
@@ -59,6 +66,16 @@ class Source:
 
 
 def main(excel_file: str, database: str):
+
+    connection = sqlite3.connect(database)
+    cursor = connection.cursor()
+
+    with open(TABLES_SCRIPT, "r", encoding="UTF-8") as f:
+        tables_command = f.read()
+
+    cursor.executescript(tables_command)
+    connection.commit()
+
     wb = openpyxl.load_workbook(excel_file, True)
 
     sources_names = []
@@ -66,7 +83,33 @@ def main(excel_file: str, database: str):
     threats = []
 
     threats_sheet = wb.worksheets[0]
-    types_sheet = wb.worksheets[1]
+    negatives_sheet = wb.worksheets[1]
+
+    negative_types = []
+    negatives = []
+    for row in negatives_sheet:
+        neg_type = row[0].value
+        if neg_type not in negative_types:
+            negative_types.append(neg_type)
+        negatives.append(
+            Negative(len(negatives) + 1, row[1].value, negative_types.index(neg_type))
+        )
+
+    for i, neg_type in enumerate(negative_types):
+        sql = """
+            INSERT INTO negative_types(id, name)
+            VALUES (?, ?);
+            """
+        cursor.execute(sql, (i + 1, neg_type))
+
+    for negative in negatives:
+        sql = """
+            INSERT INTO negatives(id, type, name)
+            VALUES (?, ?, ?);
+            """
+        cursor.execute(sql, (negative.id, negative.type, negative.name))
+
+    connection.commit()
 
     for i, row in enumerate(threats_sheet):
         if i < 2 or len(row[1].value.strip()) < 1:
@@ -111,15 +154,6 @@ def main(excel_file: str, database: str):
                 row[9].value.strftime("%Y-%m-%d"),
             )
         )
-
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
-
-    with open(TABLES_SCRIPT, "r", encoding="UTF-8") as f:
-        tables_command = f.read()
-
-    cursor.executescript(tables_command)
-    connection.commit()
 
     for i, source_name in enumerate(sources_names):
         source = Source(i + 1, source_name)
