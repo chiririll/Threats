@@ -2,19 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="450"
-             x:Class="Threats.Views.PollView">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Threats.Views.QuestionView">
   <DockPanel>
-    <Button DockPanel.Dock="Bottom"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center">
-        Next
-    </Button>
     <Label DockPanel.Dock="Top"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Left">
       Test
     </Label>
+
     <ScrollViewer>
       <StackPanel>
         <CheckBox Margin="4">Ущерб физическому лицу (У1)</CheckBox>

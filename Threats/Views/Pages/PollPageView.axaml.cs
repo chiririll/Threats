@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Threats.Views;
 
-public partial class PollView : UserControl
+public partial class PollPageView : UserControl
 {
-    public PollView()
+    public PollPageView()
     {
         InitializeComponent();
     }

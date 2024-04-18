@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace ToDoList.Views;
+namespace Threats.Views;
 
 public partial class QuestionView : UserControl
 {
