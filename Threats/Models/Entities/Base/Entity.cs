@@ -1,7 +1,6 @@
-namespace Threats.Models.Entities
+namespace Threats.Models.Entities;
+
+public abstract class Entity(int id)
 {
-    public abstract class Entity(int id)
-    {
-        public int Id { get; } = id;
-    }
+    public int Id { get; } = id;
 }

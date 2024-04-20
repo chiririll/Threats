@@ -1,6 +1,5 @@
-namespace Threats.Models.Poll
+namespace Threats.Models.Poll;
+
+public class IntruderPotentialSelector
 {
-    public class IntruderPotentialSelector
-    {
-    }
 }
