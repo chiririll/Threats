@@ -3,20 +3,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Threats.Views.QuestionView">
+             xmlns:vm="using:Threats.ViewModels.Poll"
+             x:Class="Threats.Views.Poll.QuestionView"
+             x:DataType="vm:QuestionViewModel">
   <DockPanel>
     <Label DockPanel.Dock="Top"
             HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Left">
-      Test
-    </Label>
-
+            HorizontalContentAlignment="Left"
+            Content="{Binding Description}" />
     <ScrollViewer>
-      <StackPanel>
-        <CheckBox Margin="4">Ущерб физическому лицу (У1)</CheckBox>
-        <CheckBox Margin="4">Ущерб юридическому лицу, индивидуальному предпринимателю, связанный с хозяйственной деятельностью (У2)</CheckBox>
-        <CheckBox Margin="4">Ущерб государству (У3)</CheckBox>
-      </StackPanel>
+      <ItemsControl ItemsSource="{Binding Options}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <CheckBox Margin="4"
+                      IsChecked="{Binding Selected}"
+                      Content="{Binding Label}" />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
     </ScrollViewer>
   </DockPanel>
 </UserControl>
