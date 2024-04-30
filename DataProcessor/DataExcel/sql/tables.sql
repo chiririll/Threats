@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS threats (
     update_date TEXT
 );
 
-CREATE TABLE IF NOT EXISTS sources (
+CREATE TABLE IF NOT EXISTS intruders (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     type INTEGER NOT NULL,
@@ -20,12 +20,12 @@ CREATE TABLE IF NOT EXISTS objects (
     name TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS threats_sources (
+CREATE TABLE IF NOT EXISTS threats_intruders (
     threat_id INTEGER NOT NULL,
-    source_id INTEGER NOT NULL,
+    intruder_id INTEGER NOT NULL,
 
     FOREIGN KEY (threat_id) REFERENCES threats(id),
-    FOREIGN KEY (source_id) REFERENCES sources(id)
+    FOREIGN KEY (intruder_id) REFERENCES intruders(id)
 );
 
 CREATE TABLE IF NOT EXISTS threats_objects (

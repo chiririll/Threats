@@ -22,7 +22,7 @@ class Threat:
         id: int,
         name: str,
         desc: str,
-        sources: list[int],
+        intruders: list[int],
         objects: list[int],
         violation: int,
         add_date: str,
@@ -32,7 +32,7 @@ class Threat:
         self.name = name
         self.desc = desc
 
-        self.sources = sources
+        self.intruders = intruders
         self.objects = objects
 
         self.violation = violation
@@ -41,7 +41,7 @@ class Threat:
         self.upd_date = upd_date
 
 
-class Source:
+class Intruder:
     def __init__(self, id: int, name: str):
         self.id = id
         self.name = name
@@ -65,35 +65,27 @@ class Source:
             return 2
 
 
-def main(excel_file: str, database: str):
-
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
-
-    with open(TABLES_SCRIPT, "r", encoding="UTF-8") as f:
-        tables_command = f.read()
-
-    cursor.executescript(tables_command)
-    connection.commit()
-
-    wb = openpyxl.load_workbook(excel_file, True)
-
-    sources_names = []
-    objects_names = []
-    threats = []
-
-    threats_sheet = wb.worksheets[0]
-    negatives_sheet = wb.worksheets[1]
+def parse_negatives(negatives_file: str, cursor):
+    with open(negatives_file, 'r', encoding="utf-8") as f:
+        lines = f.readlines()
 
     negative_types = []
     negatives = []
-    for row in negatives_sheet:
-        neg_type = row[0].value
-        if neg_type not in negative_types:
-            negative_types.append(neg_type)
-        negatives.append(
-            Negative(len(negatives) + 1, row[1].value, negative_types.index(neg_type))
-        )
+    
+    has_type = False
+    for line in lines:
+        line = line.replace('\r', '').replace('\r', '').strip()
+
+        if not line:
+            has_type = False
+            continue
+
+        if not has_type:
+            has_type = True
+            negative_types.append(line)
+            continue
+
+        negatives.append(Negative(len(negatives) + 1, line, len(negative_types)))
 
     for i, neg_type in enumerate(negative_types):
         sql = """
@@ -109,29 +101,46 @@ def main(excel_file: str, database: str):
             """
         cursor.execute(sql, (negative.id, negative.type, negative.name))
 
-    connection.commit()
+
+def parse_objects(objects_str: str) -> list[str]:
+    
+
+    return map(
+        lambda s: s[0].title() + s[1:],
+        map(lambda s: s.strip(), objects_str.split(separator)),
+    )
+
+
+def parse_threats(excel_file: str, cursor):    
+    wb = openpyxl.load_workbook(excel_file, True)
+
+    intruders_names = []
+    objects_names = []
+    threats = []
+
+    threats_sheet = wb.worksheets[0]
 
     for i, row in enumerate(threats_sheet):
         if i < 2 or len(row[1].value.strip()) < 1:
             continue
 
-        sources_ids = []
+        intruders_ids = []
         objects_ids = []
 
-        included_sources = map(
+        included_intruders = map(
             lambda s: s[0].title() + s[1:] if len(s) > 0 else s,
             map(lambda s: s.strip(), row[3].value.split(";")),
         )
-        for source_name in included_sources:
-            if len(source_name) < 1:
+        for intruder_name in included_intruders:
+            if len(intruder_name) < 1:
                 continue
-            if source_name not in sources_names:
-                sources_names.append(source_name)
-            sources_ids.append(sources_names.index(source_name) + 1)
+            if intruder_name not in intruders_names:
+                intruders_names.append(intruder_name)
+            intruders_ids.append(intruders_names.index(intruder_name) + 1)
 
         included_objects = map(
             lambda s: s[0].title() + s[1:],
-            map(lambda s: s.strip(), row[4].value.split(";")),
+            map(lambda s: s.strip(), row[4].value.split(';')),
         )
         for object_name in included_objects:
             if object_name not in objects_names:
@@ -147,7 +156,7 @@ def main(excel_file: str, database: str):
                 int(row[0].value),
                 row[1].value,
                 row[2].value,
-                sources_ids,
+                intruders_ids,
                 objects_ids,
                 violations,
                 row[8].value.strftime("%Y-%m-%d"),
@@ -155,13 +164,13 @@ def main(excel_file: str, database: str):
             )
         )
 
-    for i, source_name in enumerate(sources_names):
-        source = Source(i + 1, source_name)
+    for i, intruder_name in enumerate(intruders_names):
+        intruder = Intruder(i + 1, intruder_name)
         sql = """
-            INSERT OR IGNORE INTO sources (id, name, type, potential) 
+            INSERT OR IGNORE INTO intruders (id, name, type, potential) 
             VALUES (?, ?, ?, ?);
             """
-        cursor.execute(sql, (source.id, source.name, source.type, source.potential))
+        cursor.execute(sql, (intruder.id, intruder.name, intruder.type, intruder.potential))
 
     for i, obj in enumerate(objects_names):
         sql = """
@@ -188,12 +197,12 @@ def main(excel_file: str, database: str):
             ),
         )
 
-        for source in threat.sources:
+        for intruder in threat.intruders:
             sql = """
-            INSERT OR IGNORE INTO threats_sources (threat_id, source_id) 
+            INSERT OR IGNORE INTO threats_intruders (threat_id, intruder_id) 
             VALUES (?, ?);
             """
-            cursor.execute(sql, (threat.id, source))
+            cursor.execute(sql, (threat.id, intruder))
 
         for obj in threat.objects:
             sql = """
@@ -202,9 +211,31 @@ def main(excel_file: str, database: str):
             """
             cursor.execute(sql, (threat.id, obj))
 
+
+def main(excel_file: str, negatives_file: str, database: str):
+    connection = sqlite3.connect(database)
+    cursor = connection.cursor()
+
+    with open(TABLES_SCRIPT, "r", encoding="UTF-8") as f:
+        tables_command = f.read()
+
+    cursor.executescript(tables_command)
     connection.commit()
+
+    parse_negatives(negatives_file, cursor)
+    connection.commit()
+
+    parse_threats(excel_file, cursor)
+    connection.commit()
+
+    connection.close()
 
 
 if __name__ == "__main__":
+    
+    input_folder = "Input"
+    
+    excel_file = path.join(input_folder, "thrlist.xlsx")
+    negatives_file = path.join(input_folder, "negatives.txt")
 
-    main(path.join("Input", "thrlist.xlsx"), "threats.db")
+    main(excel_file, negatives_file, "threats.db")
