@@ -2,20 +2,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:views="clr-namespace:Threats.Views.Poll"
+             xmlns:views="clr-namespace:Threats.Views.Survey"
              xmlns:vm="using:Threats.ViewModels.Pages"
              mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="450"
-             x:Class="Threats.Views.Pages.PollPageView"
-             x:DataType="vm:PollPageViewModel">
+             x:Class="Threats.Views.Pages.SurveyPageView"
+             x:DataType="vm:SurveyPageViewModel">
   <DockPanel>
 
     <Button DockPanel.Dock="Bottom"
             HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center">
+            HorizontalContentAlignment="Center"
+            Command="{Binding Submit}">
         Next
     </Button>
 
-    <views:QuestionView DataContext="{Binding Question}" />
+    <!-- <views:QuestionView DataContext="{Binding Question}" /> -->
 
   </DockPanel>
 </UserControl>

@@ -8,8 +8,8 @@ public class StartPageViewModel : ViewModelBase
 {
     public StartPageViewModel()
     {
-        StartPoll = ReactiveCommand.Create(() => { });
+        StartSurvey = ReactiveCommand.Create(() => { });
     }
 
-    public IObservable<Unit> StartPoll { get; }
+    public IObservable<Unit> StartSurvey { get; }
 }

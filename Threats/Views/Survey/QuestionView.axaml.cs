@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace Threats.Views.Pages;
+namespace Threats.Views.Survey;
 
-public partial class PollPageView : UserControl
+public partial class QuestionView : UserControl
 {
-    public PollPageView()
+    public QuestionView()
     {
         InitializeComponent();
     }

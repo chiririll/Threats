@@ -13,7 +13,7 @@ public class MainWindowViewModel : ViewModelBase
         var startPage = new StartPageViewModel();
 
         startPage
-            .StartPoll
+            .StartSurvey
             .Subscribe(_ => StartSurvey());
 
         content = startPage;
@@ -27,6 +27,6 @@ public class MainWindowViewModel : ViewModelBase
 
     public void StartSurvey()
     {
-        Content = new PollPageViewModel();
+        Content = new SurveyPageViewModel();
     }
 }

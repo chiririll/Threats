@@ -7,6 +7,6 @@
              x:Class="Threats.Views.Pages.StartPageView"
              x:DataType="vm:StartPageViewModel">
   
-  <Button Command="{Binding StartPoll}">Start</Button>
+  <Button Command="{Binding StartSurvey}">Start</Button>
 
 </UserControl>

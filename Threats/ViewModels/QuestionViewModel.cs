@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using ReactiveUI;
 using Threats.Models.Questions;
 
-namespace Threats.ViewModels.Poll;
+namespace Threats.ViewModels.Survey;
 
 public class QuestionViewModel : ViewModelBase
 {
