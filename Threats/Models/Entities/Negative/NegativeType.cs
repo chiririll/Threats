@@ -1,6 +1,11 @@
 namespace Threats.Models.Entities;
 
-public class NegativeType(int id, string name) : Entity(id)
+public class NegativeType : Entity
 {
-    public string Name { get; } = name;
+    public NegativeType(int id, string name) : base(id)
+    {
+        Name = name;
+    }
+
+    public string Name { get; }
 }

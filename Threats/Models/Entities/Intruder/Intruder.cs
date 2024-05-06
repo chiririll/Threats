@@ -1,7 +1,13 @@
 namespace Threats.Models.Entities;
 
-public class Intruder(int id, IntruderType type, IntruderPotential potential) : Entity(id)
+public class Intruder : Entity
 {
-    public IntruderType Type { get; } = type;
-    public IntruderPotential Potential { get; } = potential;
+    public Intruder(int id, IntruderType type, IntruderPotential potential) : base(id)
+    {
+        Type = type;
+        Potential = potential;
+    }
+
+    public IntruderType Type { get; }
+    public IntruderPotential Potential { get; }
 }

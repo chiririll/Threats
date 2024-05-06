@@ -2,8 +2,14 @@ using System.Collections.Generic;
 
 namespace Threats.Models.Questions;
 
-public class Question(string description, IEnumerable<Option> options)
+public class Question
 {
-    public string Description { get; } = description;
-    public IEnumerable<Option> Options { get; } = options;
+    public Question(string description, IEnumerable<Option> options)
+    {
+        Description = description;
+        Options = options;
+    }
+
+    public string Description { get; }
+    public IEnumerable<Option> Options { get; }
 }

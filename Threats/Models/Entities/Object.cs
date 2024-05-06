@@ -1,6 +1,11 @@
 namespace Threats.Models.Entities;
 
-public class Object(int id, string name) : Entity(id)
+public class Object : Entity
 {
-    public string Name { get; } = name;
+    public Object(int id, string name) : base(id)
+    {
+        Name = name;
+    }
+
+    public string Name { get; }
 }

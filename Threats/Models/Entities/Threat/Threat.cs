@@ -3,23 +3,34 @@ using System.Collections.Generic;
 
 namespace Threats.Models.Entities;
 
-public class Threat(
-    int id,
-    string name,
-    string description,
-    SafetyViolations violations,
-    IReadOnlyList<Intruder> intruders,
-    IReadOnlyList<Object> objects,
-    DateOnly addDate,
-    DateOnly updateDate) : Entity(id)
+public class Threat : Entity
 {
-    public string Name { get; } = name;
-    public string Description { get; } = description;
-    public SafetyViolations Violations { get; } = violations;
+    public Threat(
+        int id,
+        string name,
+        string description,
+        SafetyViolations violations,
+        IReadOnlyList<Intruder> intruders,
+        IReadOnlyList<Object> objects,
+        DateOnly addDate,
+        DateOnly updateDate) : base(id)
+    {
+        Name = name;
+        Description = description;
+        Violations = violations;
+        Intruders = intruders;
+        Object = objects;
+        AddDate = addDate;
+        UpdateDate = updateDate;
+    }
 
-    public IReadOnlyList<Intruder> Intruders { get; } = intruders;
-    public IReadOnlyList<Object> Object { get; } = objects;
+    public string Name { get; }
+    public string Description { get; }
+    public SafetyViolations Violations { get; }
 
-    public DateOnly AddDate { get; } = addDate;
-    public DateOnly UpdateDate { get; } = updateDate;
+    public IReadOnlyList<Intruder> Intruders { get; }
+    public IReadOnlyList<Object> Object { get; }
+
+    public DateOnly AddDate { get; }
+    public DateOnly UpdateDate { get; }
 }

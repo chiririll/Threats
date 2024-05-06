@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using ReactiveUI;
 using Threats.Models.Questions;
 using Threats.ViewModels.Poll;
@@ -12,11 +10,12 @@ public class PollPageViewModel : ViewModelBase
 
     public PollPageViewModel()
     {
-        var q = new Question("Test question:",
-        [
-            new (1, "Test 1"),
-            new (2, "Test 2"),
-        ]);
+        var options = new Option[] {
+            new(1, "Test 1"),
+            new(2, "Test 2"),
+        };
+
+        var q = new Question("Test question:", options);
 
         question = new(q);
     }
