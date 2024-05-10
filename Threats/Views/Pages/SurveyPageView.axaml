@@ -15,8 +15,12 @@
             Command="{Binding Submit}">
         Next
     </Button>
+           
+    <Label DockPanel.Dock="Top"
+           HorizontalContentAlignment="Center"
+           Content="{Binding Title}"/>
 
-    <!-- <views:QuestionView DataContext="{Binding Question}" /> -->
+    <views:StepView DataContext="{Binding StepContainer}" />
 
   </DockPanel>
 </UserControl>
