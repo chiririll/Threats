@@ -1,6 +1,6 @@
 using System;
 
-namespace Threats.Models.Entities;
+namespace Threats.Data.Entities;
 
 [Flags]
 public enum SafetyViolations

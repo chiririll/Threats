@@ -1,4 +1,4 @@
-namespace Threats.Models.Entities;
+namespace Threats.Data.Entities;
 
 public class Intruder : Entity
 {

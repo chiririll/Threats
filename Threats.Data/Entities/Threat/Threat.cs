@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Threats.Models.Entities;
+namespace Threats.Data.Entities;
 
 public class Threat : Entity
 {

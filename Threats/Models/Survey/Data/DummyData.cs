@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Threats.Models.Entities;
+using Threats.Data.Entities;
 
 namespace Threats.Models.Survey.Data;
 
