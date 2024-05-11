@@ -15,12 +15,15 @@
             Command="{Binding Submit}">
         Next
     </Button>
-           
+
     <Label DockPanel.Dock="Top"
            HorizontalContentAlignment="Center"
-           Content="{Binding Title}"/>
+           Content="{Binding Title}" 
+           FontSize="21"/>
 
-    <views:StepView DataContext="{Binding StepContainer}" />
+    <ScrollViewer>
+      <views:StepView DataContext="{Binding StepContainer}" />
+    </ScrollViewer>
 
   </DockPanel>
 </UserControl>

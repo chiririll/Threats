@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using ReactiveUI;
 using Threats.Models.Questions;
 
-namespace Threats.ViewModels.Survey;
+namespace Threats.ViewModels.Questions;
 
 public class QuestionViewModel : ViewModelBase
 {
@@ -10,7 +10,8 @@ public class QuestionViewModel : ViewModelBase
 
     public QuestionViewModel(Question question)
     {
-        description = question.Description;
+        Label = new(question.Label);
+
         Options = new(question.Options);
     }
 
@@ -21,4 +22,5 @@ public class QuestionViewModel : ViewModelBase
     }
 
     public ObservableCollection<Option> Options { get; }
+    public LabelWithHelpButtonViewModel Label { get; }
 }

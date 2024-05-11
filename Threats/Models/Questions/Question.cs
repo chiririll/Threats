@@ -4,12 +4,21 @@ namespace Threats.Models.Questions;
 
 public class Question
 {
-    public Question(string description, IEnumerable<Option> options)
+    private readonly List<Option> options = new();
+
+    public Question(string label, IEnumerable<Option> options, string? description = null) : this(new(label, description), options)
     {
-        Description = description;
-        Options = options;
     }
 
-    public string Description { get; }
-    public IEnumerable<Option> Options { get; }
+    public Question(LabelWithDescription label, IEnumerable<Option> options)
+    {
+        Label = label;
+
+        this.options = new(options);
+    }
+
+    public LabelWithDescription Label { get; }
+    public IEnumerable<Option> Options => options;
+
+    public IEnumerable<Option> Selected => options.FindAll(opt => opt.Selected);
 }

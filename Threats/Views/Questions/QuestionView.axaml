@@ -3,15 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vm="using:Threats.ViewModels.Survey"
-             x:Class="Threats.Views.Survey.QuestionView"
+             xmlns:vm="using:Threats.ViewModels.Questions"
+             xmlns:views="using:Threats.Views.Questions"
+             x:Class="Threats.Views.Questions.QuestionView"
              x:DataType="vm:QuestionViewModel">
-  <DockPanel>
-    <Label DockPanel.Dock="Top"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Left"
-            Content="{Binding Description}" />
-    <ScrollViewer>
+  <DockPanel VerticalAlignment="Top">
+    <StackPanel>
+
+      <views:LabelWithHelpButton DataContext="{Binding Label}"/>
+
       <ItemsControl ItemsSource="{Binding Options}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
@@ -21,6 +21,7 @@
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
-    </ScrollViewer>
+
+    </StackPanel>
   </DockPanel>
 </UserControl>

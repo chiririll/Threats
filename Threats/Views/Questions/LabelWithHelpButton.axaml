@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Threats.ViewModels.Questions"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Threats.Views.Questions.LabelWithHelpButton"
+             x:DataType="vm:LabelWithHelpButtonViewModel">
+
+  <StackPanel Orientation="Horizontal">
+
+    <Label DockPanel.Dock="Top"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left"
+            Content="{Binding Label}" />
+
+    <Button Content="?"
+            Width="16"
+            Height="16"
+            Padding="2"
+            CornerRadius="10"
+            HorizontalContentAlignment="Center"
+            FontSize="10"
+            FontWeight="Bold"
+            IsVisible="{Binding HasDescription}">
+      <Button.Flyout>
+        <Flyout>
+          <TextBlock Text="{Binding Description}"
+                     MaxWidth="400"
+                     TextWrapping="Wrap"/>
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+
+  </StackPanel>
+
+</UserControl>
