@@ -25,8 +25,8 @@ class Threat:
         intruders: list[int],
         objects: list[int],
         violation: int,
-        add_date: str,
-        upd_date: str,
+        # add_date: str,
+        # upd_date: str,
     ):
         self.id = id
         self.name = name
@@ -37,8 +37,8 @@ class Threat:
 
         self.violation = violation
 
-        self.add_date = add_date
-        self.upd_date = upd_date
+        # self.add_date = add_date
+        # self.upd_date = upd_date
 
 
 class Intruder:
@@ -138,7 +138,7 @@ def parse_threats(excel_file: str, cursor):
                 intruders_names.append(intruder_name)
             intruders_ids.append(intruders_names.index(intruder_name) + 1)
 
-        included_objects = map(
+        included_objects = [] if row[4].value is None else map(
             lambda s: s[0].title() + s[1:],
             map(lambda s: s.strip(), row[4].value.split(';')),
         )
@@ -159,8 +159,8 @@ def parse_threats(excel_file: str, cursor):
                 intruders_ids,
                 objects_ids,
                 violations,
-                row[8].value.strftime("%Y-%m-%d"),
-                row[9].value.strftime("%Y-%m-%d"),
+                # row[8].value.strftime("%Y-%m-%d"),
+                # row[9].value.strftime("%Y-%m-%d"),
             )
         )
 
@@ -180,9 +180,13 @@ def parse_threats(excel_file: str, cursor):
         cursor.execute(sql, (i + 1, obj))
 
     for threat in threats:
+        # sql = """
+        #     INSERT OR IGNORE INTO threats (id, name, description, violations, add_date, update_date) 
+        #     VALUES (?, ?, ?, ?, ?, ?);
+        #     """
         sql = """
-            INSERT OR IGNORE INTO threats (id, name, description, violations, add_date, update_date) 
-            VALUES (?, ?, ?, ?, ?, ?);
+            INSERT OR IGNORE INTO threats (id, name, description, violations) 
+            VALUES (?, ?, ?, ?);
             """
 
         cursor.execute(
@@ -192,8 +196,8 @@ def parse_threats(excel_file: str, cursor):
                 threat.name,
                 threat.desc,
                 threat.violation,
-                threat.add_date,
-                threat.upd_date,
+                # threat.add_date,
+                # threat.upd_date,
             ),
         )
 

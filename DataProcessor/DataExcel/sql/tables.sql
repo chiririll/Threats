@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS threats (
     name TEXT NOT NULL,
     description TEXT,
     
-    violations INTEGER NOT NULL,
-    add_date TEXT,
-    update_date TEXT
+    violations INTEGER NOT NULL
+    -- add_date TEXT,
+    -- update_date TEXT
 );
 
 CREATE TABLE IF NOT EXISTS intruders (
