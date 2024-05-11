@@ -1,4 +1,8 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using ReactiveUI;
 using Threats.Models.Questions;
 
@@ -6,21 +10,17 @@ namespace Threats.ViewModels.Questions;
 
 public class QuestionViewModel : ViewModelBase
 {
-    private string description;
-
     public QuestionViewModel(Question question)
     {
         Label = new(question.Label);
 
+        Updated = ReactiveCommand.Create(() => { });
+
         Options = new(question.Options);
     }
 
-    public string Description
-    {
-        get => description;
-        private set => this.RaiseAndSetIfChanged(ref description, value);
-    }
+    public ReactiveCommand<Unit, Unit> Updated { get; }
 
-    public ObservableCollection<Option> Options { get; }
     public LabelWithHelpButtonViewModel Label { get; }
+    public ObservableCollection<Option> Options { get; }
 }

@@ -1,15 +1,16 @@
 using Threats.Models.Survey.Data;
-using Threats.Models.Survey.State;
 
 namespace Threats.Models.Survey;
 
-public abstract class SurveyStep<TData> : SurveyStep
+public abstract class SurveyStep<TState, TData> : SurveyStep
     where TData : IStepData
 {
+    protected readonly TState state;
     protected readonly TData data;
 
-    public SurveyStep(SurveyState state, TData data) : base(state)
+    public SurveyStep(TState state, TData data)
     {
+        this.state = state;
         this.data = data;
     }
 
@@ -18,17 +19,22 @@ public abstract class SurveyStep<TData> : SurveyStep
 
 public abstract class SurveyStep
 {
-    protected readonly SurveyState state;
-
-    public SurveyStep(SurveyState state)
+    public SurveyStep()
     {
-        this.state = state;
     }
 
     public abstract string Title { get; }
 
-    // public abstract void Save();
+    public abstract void Save();
 
-    public abstract bool MoveNext();
+    /// <summary>
+    /// Проверка текущего состояния этапа на готовность перехода к следующему состоянию или этапу
+    /// </summary>
     public abstract bool CanMoveNext();
+
+    /// <summary>
+    /// Совершить попытку перевода этапа в следующее состояние
+    /// </summary>
+    /// <returns>true - Переход обработан внутри этапа; false - Состояний больше нет, необходим переход к следующему этапу</returns>
+    public abstract bool MoveNext();
 }

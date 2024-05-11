@@ -3,8 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:questions="clr-namespace:Threats.Views.Questions"
              xmlns:vm="using:Threats.ViewModels.Survey"
              x:Class="Threats.Views.Survey.NegativesStepView"
              x:DataType="vm:NegativesStepViewModel">
-  NegativesStepView
+
+  <questions:QuestionView DataContext="{Binding Question}" />
+
 </UserControl>

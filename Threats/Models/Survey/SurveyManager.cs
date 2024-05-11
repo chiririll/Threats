@@ -42,10 +42,12 @@ public class SurveyManager
             return false;
         }
 
+        current.Save();
+
         // Переход внутри шага 
         if (current.MoveNext())
         {
-            return false;
+            return true;
         }
 
         // current.Complete();

@@ -1,3 +1,6 @@
+using System;
+using System.Reactive;
+using System.Reactive.Subjects;
 using Threats.Models.Survey;
 
 namespace Threats.ViewModels.Survey;
@@ -13,6 +16,15 @@ public abstract class SurveyStepViewModel<TStep> : SurveyStepViewModel
     }
 }
 
-public abstract class SurveyStepViewModel : ViewModelBase
+public abstract class SurveyStepViewModel : ViewModelBase, IDisposable
 {
+    protected readonly Subject<Unit> updated = new();
+
+    public IObservable<Unit> Updated => updated;
+
+    public abstract void Refresh();
+
+    public virtual void Dispose()
+    {
+    }
 }

@@ -20,5 +20,5 @@ public class Question
     public LabelWithDescription Label { get; }
     public IEnumerable<Option> Options => options;
 
-    public IEnumerable<Option> Selected => options.FindAll(opt => opt.Selected);
+    public IReadOnlyList<Option> Selected => options.FindAll(opt => opt.Selected);
 }

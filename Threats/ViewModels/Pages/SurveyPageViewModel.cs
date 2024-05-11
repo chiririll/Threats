@@ -20,6 +20,7 @@ public class SurveyPageViewModel : ViewModelBase
         survey = new(new DummySurveyData());
 
         StepContainer.SetStep(survey.CurrentStep!);
+        StepContainer.Updated.Subscribe(_ => UpdateMoveNextButtonState());
 
         Submit = ReactiveCommand.Create(MoveToNextStep, canMoveNext);
         UpdateMoveNextButtonState();
