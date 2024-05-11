@@ -26,4 +26,9 @@ public abstract class SurveyStep
     }
 
     public abstract string Title { get; }
+
+    // public abstract void Save();
+
+    public abstract bool MoveNext();
+    public abstract bool CanMoveNext();
 }

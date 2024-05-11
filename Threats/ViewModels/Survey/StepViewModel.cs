@@ -1,15 +1,22 @@
-using System;
+using ReactiveUI;
+using Threats.Models.Survey;
 
 namespace Threats.ViewModels.Survey;
 
 public sealed class StepViewModel : ViewModelBase
 {
-    public StepViewModel(SurveyStepViewModel step)
+    private SurveyStepViewModel? step;
+
+    public StepViewModel()
     {
-        Step = step;
     }
 
-    public SurveyStepViewModel Step { get; private set; }
+    public SurveyStepViewModel Step
+    {
+        get => step!;
+        private set => this.RaiseAndSetIfChanged(ref step, value);
+    }
 
-    internal void SetStep(SurveyStepViewModel step) => Step = step;
+    public void SetStep(SurveyStepViewModel step) => Step = step;
+    public void SetStep(SurveyStep step) => Step = SurveyStepViewModelFactory.Create(step);
 }

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Reactive.Subjects;
 using Threats.Models.Survey.Data;
 using Threats.Models.Survey.State;
 
@@ -10,8 +8,6 @@ public class SurveyManager
 {
     private readonly SurveyState state;
     private readonly ISurveyData data;
-
-    private readonly Subject<bool> canSubmitCurrentStep = new();
 
     private readonly List<SurveyStep> steps;
     private int currentStep = 0;
@@ -36,12 +32,18 @@ public class SurveyManager
         ? steps[currentStep]
         : null;
 
-    public IObservable<bool> CanSubmitCurrentStep => canSubmitCurrentStep;
+    public bool CanMoveNext() => CurrentStep?.CanMoveNext() ?? false;
 
     public bool MoveToNextStep()
     {
         var current = CurrentStep;
         if (current == null)
+        {
+            return false;
+        }
+
+        // Переход внутри шага 
+        if (current.MoveNext())
         {
             return false;
         }

@@ -8,4 +8,7 @@ public class NegativesStep : SurveyStep<INegativesStepData>
     public NegativesStep(SurveyState state, INegativesStepData data) : base(state, data)
     {
     }
+
+    public override bool CanMoveNext() => true;
+    public override bool MoveNext() => false;
 }

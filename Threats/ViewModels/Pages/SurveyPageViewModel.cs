@@ -10,30 +10,43 @@ namespace Threats.ViewModels.Pages;
 
 public class SurveyPageViewModel : ViewModelBase
 {
-    private readonly SurveyManager survey;
-
+    private readonly Subject<bool> canMoveNext = new();
     private readonly Subject<SurveyManager> onComplete = new();
+
+    private readonly SurveyManager survey;
 
     public SurveyPageViewModel()
     {
         survey = new(new DummySurveyData());
 
-        StepContainer = new(SurveyStepViewModelFactory.Create(survey.CurrentStep!));
+        StepContainer.SetStep(survey.CurrentStep!);
 
-        Submit = ReactiveCommand.Create(MoveToNextStep, survey.CanSubmitCurrentStep);
+        Submit = ReactiveCommand.Create(MoveToNextStep, canMoveNext);
+        UpdateMoveNextButtonState();
     }
 
     public IObservable<SurveyManager> OnComplete => onComplete;
     public IObservable<Unit> Submit { get; }
 
     public string Title => survey.Title;
-    public StepViewModel StepContainer { get; }
+    public StepViewModel StepContainer { get; } = new();
+
+    private void UpdateMoveNextButtonState()
+    {
+        canMoveNext.OnNext(survey.CanMoveNext());
+    }
 
     private void MoveToNextStep()
     {
         if (!survey.MoveToNextStep())
         {
             onComplete.OnNext(survey);
+            return;
         }
+
+        StepContainer.SetStep(survey.CurrentStep!);
+        this.RaisePropertyChanged(nameof(Title));
+
+        UpdateMoveNextButtonState();
     }
 }
