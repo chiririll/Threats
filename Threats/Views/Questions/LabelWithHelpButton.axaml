@@ -7,12 +7,7 @@
              x:Class="Threats.Views.Questions.LabelWithHelpButton"
              x:DataType="vm:LabelWithHelpButtonViewModel">
 
-  <StackPanel Orientation="Horizontal">
-
-    <Label DockPanel.Dock="Top"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Left"
-            Content="{Binding Label}" />
+  <Grid ColumnDefinitions="20, *">
 
     <Button Content="?"
             Width="16"
@@ -20,6 +15,7 @@
             Padding="2"
             CornerRadius="10"
             HorizontalContentAlignment="Center"
+            Grid.Column="0"
             FontSize="10"
             FontWeight="Bold"
             IsVisible="{Binding HasDescription}">
@@ -32,6 +28,13 @@
       </Button.Flyout>
     </Button>
 
-  </StackPanel>
+    <TextBlock DockPanel.Dock="Top"
+            HorizontalAlignment="Stretch"
+            Grid.Column="1"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            Text="{Binding Label}" />
+
+  </Grid>
 
 </UserControl>
