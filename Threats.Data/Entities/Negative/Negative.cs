@@ -2,12 +2,12 @@ namespace Threats.Data.Entities;
 
 public class Negative : Entity
 {
-    public Negative(int id, string name, NegativeType type) : base(id)
+    public Negative(int id, string name, int typeId) : base(id)
     {
         Name = name;
-        Type = type;
+        TypeId = typeId;
     }
 
     public string Name { get; }
-    public NegativeType Type { get; }
+    public int TypeId { get; }
 }

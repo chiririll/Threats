@@ -21,7 +21,7 @@
             "args": [
                 "${workspaceFolder}/Data/Input/thrlist.xlsx",
                 "${workspaceFolder}/Data/Input/negatives.txt",
-                "${workspaceFolder}/Data/threats.json"
+                "${workspaceFolder}/Data/Include/threats.json"
             ],
             "cwd": "${workspaceFolder}/Threats",
             "console": "internalConsole",

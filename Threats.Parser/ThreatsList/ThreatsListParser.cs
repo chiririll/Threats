@@ -59,7 +59,7 @@ public class ThreatsListParser
             var description = row.Field<string>(Rows.Description)!.Replace("\r", "");
 
             var intruders = intrudersParser.Parse(row.Field<string>(Rows.Intruders));
-            var objects = objectsParser.Parse(row.Field<string>(Rows.Objects));
+            var objects = objectsParser.Parse(row.Field<string>(Rows.Objects)).Select(o => o.Id).ToList();
 
             var violations = SafetyViolations.None;
             violations |= Convert.ToBoolean(row[Rows.Violations.Privacy]) ? SafetyViolations.Privacy : SafetyViolations.None;

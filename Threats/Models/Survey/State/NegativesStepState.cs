@@ -11,6 +11,8 @@ public class NegativesStepState
     public IReadOnlyList<NegativeType> Types => types;
     public IReadOnlyList<Negative> Negatives => negatives;
 
+    public bool HasType(int typeId) => types.Find(t => t.Id.Equals(typeId)) != null;
+
     public void SetTypes(IEnumerable<NegativeType> types)
     {
         this.types.Clear();

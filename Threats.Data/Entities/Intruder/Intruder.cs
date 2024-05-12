@@ -1,6 +1,6 @@
 namespace Threats.Data.Entities;
 
-public struct Intruder
+public readonly struct Intruder
 {
     public Intruder(IntruderType type, IntruderPotential potential)
     {

@@ -46,7 +46,7 @@ public class NegativesStep : SurveyStep<NegativesStepState, INegativesStepData>
             return false;
         }
 
-        var negatives = data.Negatives.Where(n => state.Types.Contains(n.Type));
+        var negatives = data.Negatives.Where(n => state.HasType(n.TypeId));
 
         negativesQuestion = new(
             data.NegativesQuestionLabel,

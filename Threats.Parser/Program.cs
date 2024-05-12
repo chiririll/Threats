@@ -44,7 +44,7 @@ internal sealed class Program
 
     private static void Save(ThreatsData data, string outputPath)
     {
-        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        var json = data.ToEntitiesData().ToJson();
 
         var stream = File.Open(outputPath, FileMode.OpenOrCreate, FileAccess.Write);
         var streamWriter = new StreamWriter(stream, System.Text.Encoding.UTF8);

@@ -31,7 +31,7 @@ public class ObjectsParser
             var obj = data.objects.Find(o => o.Name.ToLowerInvariant().Equals(lowered));
             if (obj == null)
             {
-                obj = new Object(data.objects.Count, name);
+                obj = new Object(data.objects.Count + 1, name);
                 data.objects.Add(obj);
             }
 

@@ -1,10 +1,20 @@
+using Threats.Data;
+
 namespace Threats.Models.Survey.Data;
 
 public class SurveyData : ISurveyData
 {
-    public string TitleFormat => throw new System.NotImplementedException();
+    private readonly NegativesStepData negatives;
+    private readonly ThreatsStepData threats;
 
-    public INegativesStepData NegativesStepData => throw new System.NotImplementedException();
+    public SurveyData(EntitiesData data)
+    {
+        negatives = new(data);
+        threats = new();
+    }
 
-    public IThreatsStepData ThreatsStepData => throw new System.NotImplementedException();
+    public string TitleFormat => "{0}: {1}";
+
+    public INegativesStepData NegativesStepData => negatives;
+    public IThreatsStepData ThreatsStepData => threats;
 }

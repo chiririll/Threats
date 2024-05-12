@@ -11,7 +11,7 @@ public class Threat : Entity
         string description,
         SafetyViolations violations,
         IReadOnlyList<Intruder> intruders,
-        IReadOnlyList<Object> objects,
+        IReadOnlyList<int> objectIds,
         DateOnly addDate,
         DateOnly updateDate) : base(id)
     {
@@ -19,7 +19,7 @@ public class Threat : Entity
         Description = description;
         Violations = violations;
         Intruders = intruders;
-        Object = objects;
+        ObjectIds = objectIds;
         AddDate = addDate;
         UpdateDate = updateDate;
     }
@@ -29,7 +29,7 @@ public class Threat : Entity
     public SafetyViolations Violations { get; }
 
     public IReadOnlyList<Intruder> Intruders { get; }
-    public IReadOnlyList<Object> Object { get; }
+    public IReadOnlyList<int> ObjectIds { get; }
 
     public DateOnly AddDate { get; }
     public DateOnly UpdateDate { get; }

@@ -30,14 +30,14 @@ public class NegativesListParser
 
             if (!hasType)
             {
-                var type = new NegativeType(data.negativeTypes.Count, name);
+                var type = new NegativeType(data.negativeTypes.Count + 1, name);
                 data.negativeTypes.Add(type);
 
                 hasType = true;
                 continue;
             }
 
-            var negative = new Negative(data.negatives.Count, name, data.negativeTypes[^1]);
+            var negative = new Negative(data.negatives.Count + 1, name, data.negativeTypes.Count);
             data.negatives.Add(negative);
         }
     }
