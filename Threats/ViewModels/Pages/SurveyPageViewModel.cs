@@ -3,7 +3,6 @@ using System.Reactive;
 using System.Reactive.Subjects;
 using ReactiveUI;
 using Threats.Models.Survey;
-using Threats.Models.Survey.Data;
 using Threats.ViewModels.Survey;
 
 namespace Threats.ViewModels.Pages;
@@ -15,9 +14,10 @@ public class SurveyPageViewModel : ViewModelBase
 
     private readonly SurveyManager survey;
 
-    public SurveyPageViewModel()
+    public SurveyPageViewModel(SurveyManager survey)
     {
-        survey = new(new DummySurveyData());
+
+        this.survey = survey;
 
         StepContainer.SetStep(survey.CurrentStep!);
         StepContainer.Updated.Subscribe(_ => UpdateMoveNextButtonState());

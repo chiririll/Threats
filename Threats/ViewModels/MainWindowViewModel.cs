@@ -1,5 +1,7 @@
 ﻿using System;
 using ReactiveUI;
+using Threats.Models.Survey;
+using Threats.Models.Survey.Data;
 using Threats.ViewModels.Pages;
 
 namespace Threats.ViewModels;
@@ -7,6 +9,8 @@ namespace Threats.ViewModels;
 public class MainWindowViewModel : ViewModelBase
 {
     private ViewModelBase content;
+
+    private SurveyManager? survey;
 
     public MainWindowViewModel()
     {
@@ -27,6 +31,9 @@ public class MainWindowViewModel : ViewModelBase
 
     public void StartSurvey()
     {
-        Content = new SurveyPageViewModel();
+        var data = new DatabaseSurveyData();
+        survey = new(data);
+
+        Content = new SurveyPageViewModel(survey);
     }
 }
