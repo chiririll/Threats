@@ -1,8 +1,8 @@
 namespace Threats.Data.Entities;
 
-public class Intruder : Entity
+public struct Intruder
 {
-    public Intruder(int id, IntruderType type, IntruderPotential potential) : base(id)
+    public Intruder(IntruderType type, IntruderPotential potential)
     {
         Type = type;
         Potential = potential;
@@ -10,4 +10,6 @@ public class Intruder : Entity
 
     public IntruderType Type { get; }
     public IntruderPotential Potential { get; }
+
+    public string GetName() => $"(Intruder: {Type}, {Potential})";
 }
