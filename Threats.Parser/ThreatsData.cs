@@ -5,19 +5,15 @@ namespace Threats.Parser;
 
 public class ThreatsData
 {
-    private readonly List<Threat> threats = new();
-    private readonly List<Object> objects = new();
+    internal readonly List<Threat> threats = new();
+    internal readonly List<Object> objects = new();
+
+    internal readonly List<NegativeType> negativeTypes = new();
+    internal readonly List<Negative> negatives = new();
 
     public IReadOnlyList<Threat> Threats => threats;
     public IReadOnlyList<Object> Objects => objects;
 
-    internal void AddThreats(IEnumerable<Threat> threats)
-    {
-        this.threats.AddRange(threats);
-    }
-
-    internal void AddObjects(IEnumerable<Object> objects)
-    {
-        this.objects.AddRange(objects);
-    }
+    public IReadOnlyList<NegativeType> NegativeTypes => negativeTypes;
+    public IReadOnlyList<Negative> Negatives => negatives;
 }

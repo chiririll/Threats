@@ -19,8 +19,9 @@
             "preLaunchTask": "build-parser",
             "program": "${workspaceFolder}/Threats.Parser/bin/Debug/net6.0/Threats.Parser.dll",
             "args": [
-                "${workspaceFolder}/DataProcessor/Input/thrlist.xlsx",
-                "${workspaceFolder}/threats.json"
+                "${workspaceFolder}/Data/Input/thrlist.xlsx",
+                "${workspaceFolder}/Data/Input/negatives.txt",
+                "${workspaceFolder}/Data/threats.json"
             ],
             "cwd": "${workspaceFolder}/Threats",
             "console": "internalConsole",

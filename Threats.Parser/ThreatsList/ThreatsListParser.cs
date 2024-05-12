@@ -11,26 +11,18 @@ namespace Threats.Parser.ThreatsList;
 public class ThreatsListParser
 {
     private readonly string path;
+    private readonly ThreatsData data;
 
     private readonly IntrudersParser intrudersParser;
     private readonly ObjectsParser objectsParser;
 
-    private readonly ThreatsListParserResult result;
-
-    public ThreatsListParser(string path)
+    public ThreatsListParser(string path, ThreatsData data)
     {
         this.path = path;
-
-        result = new();
+        this.data = data;
 
         intrudersParser = new();
-        objectsParser = new(result);
-    }
-
-    public void Fill(ThreatsData data)
-    {
-        data.AddThreats(result.threats);
-        data.AddObjects(result.objects);
+        objectsParser = new(data);
     }
 
     public void Parse()
@@ -55,7 +47,7 @@ public class ThreatsListParser
             .Where(t => t != null)
             .Select(t => t!);
 
-        result.threats.AddRange(threats!);
+        data.threats.AddRange(threats!);
     }
 
     private Threat? ParseThreat(DataRow row)
@@ -64,7 +56,7 @@ public class ThreatsListParser
         {
             var id = Convert.ToInt32(row[Rows.Id]);
             var name = row.Field<string>(Rows.Name)!;
-            var description = row.Field<string>(Rows.Description)!;
+            var description = row.Field<string>(Rows.Description)!.Replace("\r", "");
 
             var intruders = intrudersParser.Parse(row.Field<string>(Rows.Intruders));
             var objects = objectsParser.Parse(row.Field<string>(Rows.Objects));
