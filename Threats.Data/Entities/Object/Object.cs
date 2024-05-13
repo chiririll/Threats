@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace Threats.Data.Entities;
 
 public class Object : Entity
@@ -7,5 +9,5 @@ public class Object : Entity
         Name = name;
     }
 
-    public string Name { get; }
+    [JsonProperty("name")] public string Name { get; }
 }

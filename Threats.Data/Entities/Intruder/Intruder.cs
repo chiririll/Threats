@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace Threats.Data.Entities;
 
 public readonly struct Intruder
@@ -8,8 +10,8 @@ public readonly struct Intruder
         Potential = potential;
     }
 
-    public IntruderType Type { get; }
-    public IntruderPotential Potential { get; }
+    [JsonProperty("t")] public IntruderType Type { get; }
+    [JsonProperty("p")] public IntruderPotential Potential { get; }
 
     public string GetName() => $"(Intruder: {Type}, {Potential})";
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Threats.Data.Entities;
 
@@ -24,13 +25,13 @@ public class Threat : Entity
         UpdateDate = updateDate;
     }
 
-    public string Name { get; }
-    public string Description { get; }
-    public SafetyViolations Violations { get; }
+    [JsonProperty("name")] public string Name { get; }
+    [JsonProperty("desc")] public string Description { get; }
+    [JsonProperty("violations")] public SafetyViolations Violations { get; }
 
-    public IReadOnlyList<Intruder> Intruders { get; }
-    public IReadOnlyList<int> ObjectIds { get; }
+    [JsonProperty("intruders")] public IReadOnlyList<Intruder> Intruders { get; }
+    [JsonProperty("objects")] public IReadOnlyList<int> ObjectIds { get; }
 
-    public DateOnly AddDate { get; }
-    public DateOnly UpdateDate { get; }
+    [JsonProperty("added")] public DateOnly AddDate { get; }
+    [JsonProperty("updated")] public DateOnly UpdateDate { get; }
 }

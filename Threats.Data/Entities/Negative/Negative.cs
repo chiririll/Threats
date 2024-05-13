@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace Threats.Data.Entities;
 
 public class Negative : Entity
@@ -8,6 +10,6 @@ public class Negative : Entity
         TypeId = typeId;
     }
 
-    public string Name { get; }
-    public int TypeId { get; }
+    [JsonProperty("name")] public string Name { get; }
+    [JsonProperty("type")] public int TypeId { get; }
 }

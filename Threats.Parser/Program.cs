@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using Newtonsoft.Json;
 using Threats.Parser.NegativesLIst;
 using Threats.Parser.ThreatsList;
 
@@ -46,13 +45,7 @@ internal sealed class Program
     {
         var json = data.ToEntitiesData().ToJson();
 
-        var stream = File.Open(outputPath, FileMode.OpenOrCreate, FileAccess.Write);
-        var streamWriter = new StreamWriter(stream, System.Text.Encoding.UTF8);
-
-        streamWriter.Write(json);
-
-        streamWriter.Close();
-        stream.Close();
+        File.WriteAllText(outputPath, json, System.Text.Encoding.UTF8);
     }
 
     private static void Exit()
