@@ -1,12 +1,15 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json;
+using Threats.Models.Survey.Data;
 
 namespace Threats.Data;
 
 internal static class DataLoader
 {
     private const string entitiesResource = "threats.json";
+    private const string surveyDataResource = "steps.json";
 
     private static readonly Assembly assembly;
     private static readonly string assemblyName;
@@ -19,7 +22,23 @@ internal static class DataLoader
 
     internal static EntitiesData LoadEntitiesData()
     {
-        var stream = GetResource(entitiesResource);
+        var json = GetResourceJson(entitiesResource);
+
+        return EntitiesData.FromJson(json);
+    }
+
+    internal static SurveyData LoadSurveyData()
+    {
+        var json = GetResourceJson(surveyDataResource);
+
+        return JsonConvert.DeserializeObject<SurveyData>(json)!;
+    }
+
+    private static Stream GetResource(string name) => assembly.GetManifestResourceStream($"{assemblyName}.{name}")!;
+
+    private static string GetResourceJson(string name)
+    {
+        var stream = GetResource(name);
         var reader = new StreamReader(stream, Encoding.UTF8);
 
         var json = reader.ReadToEnd();
@@ -27,8 +46,6 @@ internal static class DataLoader
         reader.Close();
         stream.Close();
 
-        return EntitiesData.FromJson(json);
+        return json;
     }
-
-    private static Stream GetResource(string name) => assembly.GetManifestResourceStream($"{assemblyName}.{name}")!;
 }

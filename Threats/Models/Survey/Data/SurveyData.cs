@@ -1,19 +1,21 @@
-using Threats.Data;
+using Newtonsoft.Json;
 
 namespace Threats.Models.Survey.Data;
 
 public class SurveyData : ISurveyData
 {
-    private readonly NegativesStepData negatives;
-    private readonly ThreatsStepData threats;
-
-    public SurveyData(EntitiesData data)
+    public SurveyData(string titleFormat, NegativesStepData negatives, ThreatsStepData threats)
     {
-        negatives = new(data);
-        threats = new();
+        TitleFormat = titleFormat;
+
+        this.negatives = negatives;
+        this.threats = threats;
     }
 
-    public string TitleFormat => "{0}: {1}";
+    [JsonProperty("negatives")] private readonly NegativesStepData negatives;
+    [JsonProperty("threats")] private readonly ThreatsStepData threats;
+
+    [JsonProperty("title")] public string TitleFormat { get; }
 
     public INegativesStepData NegativesStepData => negatives;
     public IThreatsStepData ThreatsStepData => threats;

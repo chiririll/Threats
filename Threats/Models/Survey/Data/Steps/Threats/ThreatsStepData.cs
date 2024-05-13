@@ -1,6 +1,10 @@
+using Threats.Models.Survey.Data.Base;
+
 namespace Threats.Models.Survey.Data;
 
-public class ThreatsStepData : IThreatsStepData
+public class ThreatsStepData : StepData, IThreatsStepData
 {
-    public string Title => "TODO: Ugrozi";
+    public ThreatsStepData(string title) : base(title)
+    {
+    }
 }

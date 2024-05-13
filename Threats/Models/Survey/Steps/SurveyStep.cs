@@ -1,3 +1,4 @@
+using Threats.Data;
 using Threats.Models.Survey.Data;
 
 namespace Threats.Models.Survey;
@@ -8,7 +9,7 @@ public abstract class SurveyStep<TState, TData> : SurveyStep
     protected readonly TState state;
     protected readonly TData data;
 
-    public SurveyStep(TState state, TData data)
+    public SurveyStep(TState state, TData data, IEntitiesData entities) : base(entities)
     {
         this.state = state;
         this.data = data;
@@ -19,8 +20,11 @@ public abstract class SurveyStep<TState, TData> : SurveyStep
 
 public abstract class SurveyStep
 {
-    public SurveyStep()
+    protected readonly IEntitiesData entities;
+
+    public SurveyStep(IEntitiesData entities)
     {
+        this.entities = entities;
     }
 
     public abstract string Title { get; }

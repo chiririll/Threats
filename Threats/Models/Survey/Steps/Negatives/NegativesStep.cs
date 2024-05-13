@@ -1,4 +1,5 @@
 using System.Linq;
+using Threats.Data;
 using Threats.Models.Questions;
 using Threats.Models.Survey.Data;
 using Threats.Models.Survey.State;
@@ -10,9 +11,10 @@ public class NegativesStep : SurveyStep<NegativesStepState, INegativesStepData>
     private readonly Question typesQuestion;
     private Question? negativesQuestion;
 
-    public NegativesStep(SurveyState state, INegativesStepData data) : base(state.NegativesStep, data)
+    public NegativesStep(SurveyState state, INegativesStepData data, IEntitiesData entities)
+        : base(state.NegativesStep, data, entities)
     {
-        typesQuestion = new(data.TypesQuestionLabel, data.NegativeTypes.Select(t => new Option(t.Id, t.Name)), "afs");
+        typesQuestion = new(data.TypesQuestionLabel, entities.NegativeTypes.Select(t => new Option(t.Id, t.Name)), "Подсказка");
         negativesQuestion = null;
 
         CurrentQuestion = typesQuestion;
@@ -23,12 +25,12 @@ public class NegativesStep : SurveyStep<NegativesStepState, INegativesStepData>
     public override void Save()
     {
         var selectedTypes = typesQuestion.Selected.Select(t => t.Id);
-        state.SetTypes(data.NegativeTypes.Where(t => selectedTypes.Contains(t.Id)));
+        state.SetTypes(entities.NegativeTypes.Where(t => selectedTypes.Contains(t.Id)));
 
         if (negativesQuestion != null)
         {
             var selectedNegatives = negativesQuestion.Selected.Select(n => n.Id);
-            state.SetNegatives(data.Negatives.Where(n => selectedNegatives.Contains(n.Id)));
+            state.SetNegatives(entities.Negatives.Where(n => selectedNegatives.Contains(n.Id)));
         }
     }
 
@@ -46,7 +48,7 @@ public class NegativesStep : SurveyStep<NegativesStepState, INegativesStepData>
             return false;
         }
 
-        var negatives = data.Negatives.Where(n => state.HasType(n.TypeId));
+        var negatives = entities.Negatives.Where(n => state.HasType(n.TypeId));
 
         negativesQuestion = new(
             data.NegativesQuestionLabel,

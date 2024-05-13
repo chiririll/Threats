@@ -10,6 +10,7 @@ namespace Threats.ViewModels;
 public class MainWindowViewModel : ViewModelBase
 {
     private readonly EntitiesData entities;
+    private readonly SurveyData surveyData;
 
     private ViewModelBase content;
 
@@ -18,6 +19,7 @@ public class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         entities = DataLoader.LoadEntitiesData();
+        surveyData = DataLoader.LoadSurveyData();
 
         var startPage = new StartPageViewModel();
 
@@ -36,8 +38,7 @@ public class MainWindowViewModel : ViewModelBase
 
     public void StartSurvey()
     {
-        var data = new SurveyData(entities);
-        survey = new(data);
+        survey = new(surveyData, entities);
 
         Content = new SurveyPageViewModel(survey);
     }

@@ -1,23 +1,17 @@
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using Threats.Data;
-using Threats.Data.Entities;
+using Threats.Models.Survey.Data.Base;
 
 namespace Threats.Models.Survey.Data;
 
-public class NegativesStepData : INegativesStepData
+public class NegativesStepData : StepData, INegativesStepData
 {
-    private readonly EntitiesData data;
-
-    public NegativesStepData(EntitiesData data)
+    public NegativesStepData(string title, string typesQuestionLabel, string negativesQuestionLabel) : base(title)
     {
-        this.data = data;
+        TypesQuestionLabel = typesQuestionLabel;
+        NegativesQuestionLabel = negativesQuestionLabel;
     }
 
-    public string Title => "TODO";
-
-    public string TypesQuestionLabel => "TODO";
-    public string NegativesQuestionLabel => "TODO";
-
-    public IEnumerable<NegativeType> NegativeTypes => data.NegativeTypes;
-    public IEnumerable<Negative> Negatives => data.Negatives;
+    [JsonProperty("types_question_label")] public string TypesQuestionLabel { get; }
+    [JsonProperty("negatives_question_label")] public string NegativesQuestionLabel { get; }
 }

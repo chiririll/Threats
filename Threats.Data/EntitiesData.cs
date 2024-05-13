@@ -4,7 +4,7 @@ using Threats.Data.Entities;
 
 namespace Threats.Data;
 
-public class EntitiesData
+public class EntitiesData : IEntitiesData
 {
     [JsonProperty("threats")] private readonly List<Threat> threats = new();
     [JsonProperty("objects")] private readonly List<Object> objects = new();

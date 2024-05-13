@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Threats.Data;
 using Threats.Models.Survey.Data;
 using Threats.Models.Survey.State;
 
@@ -8,19 +9,21 @@ public class SurveyManager
 {
     private readonly SurveyState state;
     private readonly ISurveyData data;
+    private readonly IEntitiesData entities;
 
     private readonly List<SurveyStep> steps;
     private int currentStep = 0;
 
-    public SurveyManager(ISurveyData data)
+    public SurveyManager(ISurveyData data, IEntitiesData entities)
     {
         this.state = new();
         this.data = data;
+        this.entities = entities;
 
         steps = new()
         {
-            new NegativesStep(state, data.NegativesStepData),
-            new ThreatsStep(state, data.ThreatsStepData),
+            new NegativesStep(state, data.NegativesStepData, entities),
+            new ThreatsStep(state, data.ThreatsStepData, entities),
         };
     }
 

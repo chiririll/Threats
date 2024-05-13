@@ -1,3 +1,4 @@
+using Threats.Data;
 using Threats.Models.Survey.Data;
 using Threats.Models.Survey.State;
 
@@ -5,13 +6,12 @@ namespace Threats.Models.Survey;
 
 public class ThreatsStep : SurveyStep<ThreatsStepState, IThreatsStepData>
 {
-    public ThreatsStep(SurveyState state, IThreatsStepData data) : base(state.ThreatsStep, data)
+    public ThreatsStep(SurveyState state, IThreatsStepData data, IEntitiesData entities) : base(state.ThreatsStep, data, entities)
     {
     }
 
     public override void Save()
     {
-        throw new System.NotImplementedException();
     }
 
     public override bool CanMoveNext() => true;
