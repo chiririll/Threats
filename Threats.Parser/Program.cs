@@ -3,37 +3,41 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Threats.Parser.NegativesLIst;
+using Threats.Parser.ObjectsList;
 using Threats.Parser.ThreatsList;
 
 namespace Threats.Parser;
 
 internal sealed class Program
 {
-    private readonly string outputPath;
+    private readonly string entitiesFile;
+    private readonly string questionsFile;
 
     private readonly List<IParser> parsers;
 
-    public Program(string outputPath, string threatsPath, string negativesPath, string objectsPath)
+    public Program(string entitiesFile, string questionsFile, string threatsPath, string negativesPath, string objectsPath)
     {
-        this.outputPath = outputPath;
+        this.entitiesFile = entitiesFile;
+        this.questionsFile = questionsFile;
 
         parsers = new()
         {
             new ThreatsListParser(threatsPath),
             new NegativesListParser(negativesPath),
+            new ObjectsListParser(objectsPath),
         };
     }
 
     public static void Main(string[] args)
     {
-        if (args.Length < 4)
+        if (args.Length < 5)
         {
             return;
         }
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-        var program = new Program(args[0], args[1], args[2], args[3]);
+        var program = new Program(args[0], args[1], args[2], args[3], args[4]);
         program.Run();
     }
 
@@ -47,16 +51,17 @@ internal sealed class Program
             parser.Parse();
         }
 
-        Save(data, outputPath);
-
+        Save(data);
         Exit();
     }
 
-    private static void Save(ParsedData data, string outputPath)
+    private void Save(ParsedData data)
     {
-        var json = data.ToEntitiesData().ToJson();
+        var entitiesJson = data.ToEntitiesData().ToJson();
+        var questionsJson = data.ToQuestionsData().ToJson();
 
-        File.WriteAllText(outputPath, json, System.Text.Encoding.UTF8);
+        File.WriteAllText(entitiesFile, entitiesJson, System.Text.Encoding.UTF8);
+        File.WriteAllText(questionsFile, questionsJson, System.Text.Encoding.UTF8);
     }
 
     private static void Exit()

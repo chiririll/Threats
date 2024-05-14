@@ -10,5 +10,4 @@ public interface IEntitiesData
 
     public IReadOnlyList<NegativeType> NegativeTypes { get; }
     public IReadOnlyList<Negative> Negatives { get; }
-
 }

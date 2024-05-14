@@ -8,7 +8,8 @@ namespace Threats.Data;
 
 internal static class DataLoader
 {
-    private const string entitiesResource = "threats.json";
+    private const string entitiesResource = "entities.json";
+    private const string questionsResource = "questions.json";
     private const string surveyDataResource = "stages.json";
 
     private static readonly Assembly assembly;
@@ -25,6 +26,13 @@ internal static class DataLoader
         var json = GetResourceJson(entitiesResource);
 
         return EntitiesData.FromJson(json);
+    }
+
+    internal static QuestionsData LoadQuestionsData()
+    {
+        var json = GetResourceJson(questionsResource);
+
+        return QuestionsData.FromJson(json);
     }
 
     internal static SurveyData LoadSurveyData()
