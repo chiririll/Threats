@@ -5,7 +5,7 @@ namespace Threats.Data.Questions;
 
 public class QuestionData
 {
-    [JsonProperty("options")] private readonly List<OptionData> options;
+    [JsonProperty("options", Order = 10)] private readonly List<OptionData> options;
 
     public QuestionData(int id, string title, string? helpText, IEnumerable<OptionData> options)
     {

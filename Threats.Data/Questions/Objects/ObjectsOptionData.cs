@@ -5,8 +5,8 @@ namespace Threats.Data.Questions;
 
 public class ObjectsOptionData : OptionData
 {
-    [JsonProperty("add")] private readonly HashSet<int> objectsToAdd;
-    [JsonProperty("exclude")] private readonly HashSet<int> objectsToExclude;
+    [JsonProperty("add", Order = 11)] private readonly HashSet<int> objectsToAdd;
+    [JsonProperty("exclude", Order = 12)] private readonly HashSet<int> objectsToExclude;
 
     public ObjectsOptionData(
         int id,

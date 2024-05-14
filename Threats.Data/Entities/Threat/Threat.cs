@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -12,17 +11,22 @@ public class Threat : Entity
         string description,
         SafetyViolations violations,
         IReadOnlyList<Intruder> intruders,
-        IReadOnlyList<int> objectIds,
-        DateOnly addDate,
-        DateOnly updateDate) : base(id)
+        IReadOnlyList<int> objectIds
+#if THREATS_DATE
+        , System.DateOnly addDate,
+        System.DateOnly updateDate
+#endif
+        ) : base(id)
     {
         Name = name;
         Description = description;
         Violations = violations;
         Intruders = intruders;
         ObjectIds = objectIds;
+#if THREATS_DATE
         AddDate = addDate;
         UpdateDate = updateDate;
+#endif
     }
 
     [JsonProperty("name")] public string Name { get; }
@@ -32,6 +36,8 @@ public class Threat : Entity
     [JsonProperty("intruders")] public IReadOnlyList<Intruder> Intruders { get; }
     [JsonProperty("objects")] public IReadOnlyList<int> ObjectIds { get; }
 
+#if THREATS_DATE
     [JsonProperty("added")] public DateOnly AddDate { get; }
     [JsonProperty("updated")] public DateOnly UpdateDate { get; }
+#endif
 }
