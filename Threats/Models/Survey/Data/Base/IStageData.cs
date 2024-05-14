@@ -1,6 +1,6 @@
 namespace Threats.Models.Survey.Data;
 
-public interface IStepData
+public interface IStageData
 {
     public string Title { get; }
 }

@@ -3,13 +3,13 @@ using Threats.Models.Survey.Data;
 
 namespace Threats.Models.Survey;
 
-public abstract class SurveyStep<TState, TData> : SurveyStep
-    where TData : IStepData
+public abstract class SurveyStage<TState, TData> : SurveyStage
+    where TData : IStageData
 {
     protected readonly TState state;
     protected readonly TData data;
 
-    public SurveyStep(TState state, TData data, IEntitiesData entities) : base(entities)
+    public SurveyStage(TState state, TData data, IEntitiesData entities) : base(entities)
     {
         this.state = state;
         this.data = data;
@@ -18,11 +18,11 @@ public abstract class SurveyStep<TState, TData> : SurveyStep
     public override string Title => data.Title;
 }
 
-public abstract class SurveyStep
+public abstract class SurveyStage
 {
     protected readonly IEntitiesData entities;
 
-    public SurveyStep(IEntitiesData entities)
+    public SurveyStage(IEntitiesData entities)
     {
         this.entities = entities;
     }

@@ -5,18 +5,18 @@ using Threats.Models.Survey;
 
 namespace Threats.ViewModels.Survey;
 
-public abstract class SurveyStepViewModel<TStep> : SurveyStepViewModel
-    where TStep : SurveyStep
+public abstract class SurveyStageViewModel<TStage> : SurveyStageViewModel
+    where TStage : SurveyStage
 {
-    protected readonly TStep step;
+    protected readonly TStage stage;
 
-    public SurveyStepViewModel(TStep step)
+    public SurveyStageViewModel(TStage stage)
     {
-        this.step = step;
+        this.stage = stage;
     }
 }
 
-public abstract class SurveyStepViewModel : ViewModelBase, IDisposable
+public abstract class SurveyStageViewModel : ViewModelBase, IDisposable
 {
     protected readonly Subject<Unit> updated = new();
 

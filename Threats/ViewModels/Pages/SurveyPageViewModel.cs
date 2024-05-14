@@ -18,10 +18,10 @@ public class SurveyPageViewModel : ViewModelBase
     {
         this.survey = survey;
 
-        StepContainer.SetStep(survey.CurrentStep!);
-        StepContainer.Updated.Subscribe(_ => UpdateMoveNextButtonState());
+        StageContainer.SetStage(survey.CurrentStage!);
+        StageContainer.Updated.Subscribe(_ => UpdateMoveNextButtonState());
 
-        Submit = ReactiveCommand.Create(MoveToNextStep, canMoveNext);
+        Submit = ReactiveCommand.Create(MoveToNextStage, canMoveNext);
         UpdateMoveNextButtonState();
     }
 
@@ -29,22 +29,22 @@ public class SurveyPageViewModel : ViewModelBase
     public IObservable<Unit> Submit { get; }
 
     public string Title => survey.Title;
-    public StepViewModel StepContainer { get; } = new();
+    public StageViewModel StageContainer { get; } = new();
 
     private void UpdateMoveNextButtonState()
     {
         canMoveNext.OnNext(survey.CanMoveNext());
     }
 
-    private void MoveToNextStep()
+    private void MoveToNextStage()
     {
-        if (!survey.MoveToNextStep())
+        if (!survey.MoveToNextStage())
         {
             onComplete.OnNext(survey.GetResult());
             return;
         }
 
-        StepContainer.SetStep(survey.CurrentStep!);
+        StageContainer.SetStage(survey.CurrentStage!);
         this.RaisePropertyChanged(nameof(Title));
 
         UpdateMoveNextButtonState();

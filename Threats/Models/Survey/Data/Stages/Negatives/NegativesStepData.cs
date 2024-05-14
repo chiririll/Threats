@@ -4,9 +4,9 @@ using Threats.Models.Survey.Data.Base;
 
 namespace Threats.Models.Survey.Data;
 
-public class NegativesStepData : StepData, INegativesStepData
+public class NegativesStageData : StageData, INegativesStageData
 {
-    public NegativesStepData(string title, string typesQuestionLabel, string negativesQuestionLabel) : base(title)
+    public NegativesStageData(string title, string typesQuestionLabel, string negativesQuestionLabel) : base(title)
     {
         TypesQuestionLabel = typesQuestionLabel;
         NegativesQuestionLabel = negativesQuestionLabel;

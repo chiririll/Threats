@@ -7,15 +7,15 @@ using Threats.ViewModels.Questions;
 
 namespace Threats.ViewModels.Survey;
 
-public class NegativesStepViewModel : SurveyStepViewModel<NegativesStep>
+public class NegativesStageViewModel : SurveyStageViewModel<NegativesStage>
 {
     private readonly CompositeDisposable questionSub = new();
 
     private QuestionViewModel question;
 
-    public NegativesStepViewModel(NegativesStep step) : base(step)
+    public NegativesStageViewModel(NegativesStage stage) : base(stage)
     {
-        question = new(step.CurrentQuestion);
+        question = new(stage.CurrentQuestion);
 
         question.Updated
             .Subscribe(_ => updated.OnNext(default))
@@ -30,7 +30,7 @@ public class NegativesStepViewModel : SurveyStepViewModel<NegativesStep>
 
     public override void Refresh()
     {
-        Question = new(step.CurrentQuestion);
+        Question = new(stage.CurrentQuestion);
     }
 
     public override void Dispose()

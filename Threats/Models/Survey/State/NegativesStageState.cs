@@ -3,7 +3,7 @@ using Threats.Data.Entities;
 
 namespace Threats.Models.Survey.State;
 
-public class NegativesStepState
+public class NegativesStageState
 {
     private readonly List<NegativeType> types = new();
     private readonly List<Negative> negatives = new();

@@ -4,19 +4,19 @@ public class SurveyState
 {
     public SurveyState()
     {
-        NegativesStep = new();
-        ThreatsStep = new();
+        NegativesStage = new();
+        ThreatsStage = new();
     }
 
-    public NegativesStepState NegativesStep { get; }
-    public ThreatsStepState ThreatsStep { get; }
+    public NegativesStageState NegativesStage { get; }
+    public ThreatsStageState ThreatsStage { get; }
 
     public SurveyResult GetResult()
     {
         var builder = new SurveyResultBuilder();
 
-        NegativesStep.FillResult(builder);
-        ThreatsStep.FillResult(builder);
+        NegativesStage.FillResult(builder);
+        ThreatsStage.FillResult(builder);
 
         return builder.Build();
     }

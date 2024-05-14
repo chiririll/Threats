@@ -11,8 +11,8 @@ public class SurveyManager
     private readonly ISurveyData data;
     private readonly IEntitiesData entities;
 
-    private readonly List<SurveyStep> steps;
-    private int currentStep = 0;
+    private readonly List<SurveyStage> stages;
+    private int currentStage = 0;
 
     public SurveyManager(ISurveyData data, IEntitiesData entities)
     {
@@ -20,26 +20,26 @@ public class SurveyManager
         this.data = data;
         this.entities = entities;
 
-        steps = new()
+        stages = new()
         {
-            new NegativesStep(state, data.NegativesStepData, entities),
-            // new ThreatsStep(state, data.ThreatsStepData, entities),
+            new NegativesStage(state, data.NegativesStageData, entities),
+            // new ThreatsStage(state, data.ThreatsStageData, entities),
         };
     }
 
-    public string Title => CurrentStep != null
-        ? string.Format(data.TitleFormat, currentStep + 1, CurrentStep.Title)
+    public string Title => CurrentStage != null
+        ? string.Format(data.TitleFormat, currentStage + 1, CurrentStage.Title)
         : string.Empty;
 
-    public SurveyStep? CurrentStep => currentStep >= 0 && currentStep < steps.Count
-        ? steps[currentStep]
+    public SurveyStage? CurrentStage => currentStage >= 0 && currentStage < stages.Count
+        ? stages[currentStage]
         : null;
 
-    public bool CanMoveNext() => CurrentStep?.CanMoveNext() ?? false;
+    public bool CanMoveNext() => CurrentStage?.CanMoveNext() ?? false;
 
-    public bool MoveToNextStep()
+    public bool MoveToNextStage()
     {
-        var current = CurrentStep;
+        var current = CurrentStage;
         if (current == null)
         {
             return false;
@@ -54,9 +54,9 @@ public class SurveyManager
         }
 
         // current.Complete();
-        currentStep++;
+        currentStage++;
 
-        return CurrentStep != null;
+        return CurrentStage != null;
     }
 
     public SurveyResult GetResult() => state.GetResult();

@@ -9,7 +9,7 @@ namespace Threats.Data;
 internal static class DataLoader
 {
     private const string entitiesResource = "threats.json";
-    private const string surveyDataResource = "steps.json";
+    private const string surveyDataResource = "stages.json";
 
     private static readonly Assembly assembly;
     private static readonly string assemblyName;

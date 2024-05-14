@@ -2,9 +2,9 @@ using Newtonsoft.Json;
 
 namespace Threats.Models.Survey.Data.Base;
 
-public abstract class StepData : IStepData
+public abstract class StageData : IStageData
 {
-    public StepData(string title)
+    public StageData(string title)
     {
         Title = title;
     }

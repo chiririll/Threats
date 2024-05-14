@@ -4,6 +4,6 @@ public interface ISurveyData
 {
     public string TitleFormat { get; }
 
-    public INegativesStepData NegativesStepData { get; }
-    public IThreatsStepData ThreatsStepData { get; }
+    public INegativesStageData NegativesStageData { get; }
+    public IThreatsStageData ThreatsStageData { get; }
 }

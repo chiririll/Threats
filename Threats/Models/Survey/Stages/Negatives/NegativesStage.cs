@@ -6,13 +6,13 @@ using Threats.Models.Survey.State;
 
 namespace Threats.Models.Survey;
 
-public class NegativesStep : SurveyStep<NegativesStepState, INegativesStepData>
+public class NegativesStage : SurveyStage<NegativesStageState, INegativesStageData>
 {
     private readonly Question typesQuestion;
     private Question? negativesQuestion;
 
-    public NegativesStep(SurveyState state, INegativesStepData data, IEntitiesData entities)
-        : base(state.NegativesStep, data, entities)
+    public NegativesStage(SurveyState state, INegativesStageData data, IEntitiesData entities)
+        : base(state.NegativesStage, data, entities)
     {
         typesQuestion = new(data.TypesQuestionLabel, entities.NegativeTypes.Select(t => new Option(t.Id, t.Name)), "Подсказка");
         negativesQuestion = null;

@@ -22,7 +22,7 @@
            FontSize="21"/>
 
     <ScrollViewer>
-      <views:StepView DataContext="{Binding StepContainer}" />
+      <views:StageView DataContext="{Binding StageContainer}" />
     </ScrollViewer>
 
   </DockPanel>

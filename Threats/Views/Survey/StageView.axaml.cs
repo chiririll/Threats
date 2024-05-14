@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Threats.Views.Survey;
 
-public partial class StepView : UserControl
+public partial class StageView : UserControl
 {
-    public StepView()
+    public StageView()
     {
         InitializeComponent();
     }

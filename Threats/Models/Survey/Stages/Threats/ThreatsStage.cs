@@ -4,9 +4,9 @@ using Threats.Models.Survey.State;
 
 namespace Threats.Models.Survey;
 
-public class ThreatsStep : SurveyStep<ThreatsStepState, IThreatsStepData>
+public class ThreatsStage : SurveyStage<ThreatsStageState, IThreatsStageData>
 {
-    public ThreatsStep(SurveyState state, IThreatsStepData data, IEntitiesData entities) : base(state.ThreatsStep, data, entities)
+    public ThreatsStage(SurveyState state, IThreatsStageData data, IEntitiesData entities) : base(state.ThreatsStage, data, entities)
     {
     }
 
