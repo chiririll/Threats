@@ -14,6 +14,7 @@ public class OptionBuilder
     private string? helpText;
 
     private readonly HashSet<int> objectsToAdd = new();
+    private readonly HashSet<int> objectsToRemove = new();
 
     public OptionBuilder(int id, int questionId)
     {
@@ -39,10 +40,37 @@ public class OptionBuilder
         return this;
     }
 
+    public OptionBuilder AddObjects(IEnumerable<int> ids)
+    {
+        foreach (var id in ids)
+        {
+            objectsToAdd.Add(id);
+        }
+
+        return this;
+    }
+
+    public OptionBuilder ExcludeObject(int id)
+    {
+        objectsToRemove.Add(id);
+        return this;
+    }
+
+    public OptionBuilder ExcludeObjects(IEnumerable<int> ids)
+    {
+        foreach (var id in ids)
+        {
+            objectsToRemove.Add(id);
+        }
+
+        return this;
+    }
+
     public ObjectsOptionData Build() => new(
         id,
         GroupPrefix + questionId.ToString(),
         title ?? string.Empty,
         helpText,
-        objectsToAdd);
+        objectsToAdd,
+        objectsToRemove);
 }

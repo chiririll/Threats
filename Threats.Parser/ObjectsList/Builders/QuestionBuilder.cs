@@ -64,10 +64,11 @@ public class QuestionBuilder
         return option;
     }
 
-    public OptionBuilder AddOptionObject(int id)
-    {
-        return options[^1].AddObject(id);
-    }
+    public OptionBuilder AddOptionObject(int id) => options[^1].AddObject(id);
+    public OptionBuilder AddOptionObjects(IEnumerable<int> ids) => options[^1].AddObjects(ids);
+
+    public OptionBuilder ExcludeOptionObject(int id) => options[^1].ExcludeObject(id);
+    public OptionBuilder ExcludeOptionObjects(IEnumerable<int> ids) => options[^1].ExcludeObjects(ids);
 
     public QuestionData Build()
     {

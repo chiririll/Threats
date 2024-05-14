@@ -65,42 +65,57 @@ public class ObjectsListParser : IParser
                 question.AddOption(option);
             }
 
-            foreach (var objectId in TryParseObjects(row.Field<string>(Columns.Object)))
-            {
-                question.AddOptionObject(objectId);
-            }
+            ParseObjects(row.Field<string>(Columns.Object), out var addObjects, out var removeObjects);
+            question.AddOptionObjects(addObjects);
+            question.ExcludeOptionObjects(removeObjects);
         }
 
         data!.objectsQuestion.AddRange(questions.Select(q => q.Build()));
     }
 
-    private IEnumerable<int> TryParseObjects(string? str)
+    private void ParseObjects(string? str, out List<int> addObjects, out List<int> removeObjects)
     {
-        var objects = new List<int>();
+        addObjects = new();
+        removeObjects = new();
 
         var objectString = str?.Trim() ?? null;
         if (string.IsNullOrWhiteSpace(objectString))
         {
-            return objects;
+            return;
         }
 
         foreach (var obj in objectString.Split(';'))
         {
-            if (!TryParseObject(obj, out int id))
+            if (!TryParseObject(obj, out int id, out bool exclude))
                 continue;
 
-            objects.Add(id);
+            if (exclude)
+            {
+                removeObjects.Add(id);
+            }
+            else
+            {
+                addObjects.Add(id);
+            }
         }
-
-        return objects;
     }
 
-    private bool TryParseObject(string objectString, out int id)
+    private bool TryParseObject(string objectString, out int id, out bool exclude)
     {
         id = default;
+        exclude = default;
 
-        var lowered = objectString.Trim().ToLower();
-        if (lowered.Equals(EmptyObjectsString))
+        objectString = objectString.Trim();
+        if (objectString.Length < 1)
+        {
+            return false;
+        }
+
+        exclude = objectString[0] == '!';
+        objectString = exclude ? objectString[1..] : objectString;
+
+        var lowered = objectString.ToLower();
+        if (lowered.Length < 1 || lowered.Equals(EmptyObjectsString))
         {
             return false;
         }
