@@ -15,6 +15,8 @@ public class ParsedData
 
     internal readonly List<QuestionData> objectsQuestion = new();
 
-    public EntitiesData ToEntitiesData() => new(threats, objects, negativeTypes, negatives);
+    internal readonly List<IntruderData> intruders = new();
+
+    public EntitiesData ToEntitiesData() => new(threats, objects, negativeTypes, negatives, intruders);
     public QuestionsData ToQuestionsData() => new(objectsQuestion);
 }

@@ -12,17 +12,22 @@ public class EntitiesData : IEntitiesData
     [JsonProperty("negative_types")] private readonly List<NegativeType> negativeTypes = new();
     [JsonProperty("negatives")] private readonly List<Negative> negatives = new();
 
+    [JsonProperty("intruders")] private readonly List<IntruderData> intruders = new();
+
     public EntitiesData(
         IEnumerable<Threat> threats,
         IEnumerable<Object> objects,
         IEnumerable<NegativeType> negativeTypes,
-        IEnumerable<Negative> negatives)
+        IEnumerable<Negative> negatives,
+        IEnumerable<IntruderData> intruders)
     {
         this.threats.AddRange(threats);
         this.objects.AddRange(objects);
 
         this.negativeTypes.AddRange(negativeTypes);
         this.negatives.AddRange(negatives);
+
+        this.intruders.AddRange(intruders);
     }
 
     [JsonIgnore] public IReadOnlyList<Threat> Threats => threats;
@@ -30,6 +35,8 @@ public class EntitiesData : IEntitiesData
 
     [JsonIgnore] public IReadOnlyList<NegativeType> NegativeTypes => negativeTypes;
     [JsonIgnore] public IReadOnlyList<Negative> Negatives => negatives;
+
+    [JsonIgnore] public IReadOnlyList<IntruderData> Intruders => intruders;
 
     public static EntitiesData FromJson(string json)
     {

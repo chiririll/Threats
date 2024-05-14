@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using Threats.Parser.IntrudersList;
 using Threats.Parser.NegativesLIst;
 using Threats.Parser.ObjectsList;
 using Threats.Parser.ThreatsList;
@@ -15,7 +16,7 @@ internal sealed class Program
 
     private readonly List<IParser> parsers;
 
-    public Program(string entitiesFile, string questionsFile, string threatsPath, string negativesPath, string objectsPath)
+    public Program(string entitiesFile, string questionsFile, string threatsPath, string negativesPath, string objectsPath, string intrudersPath)
     {
         this.entitiesFile = entitiesFile;
         this.questionsFile = questionsFile;
@@ -25,19 +26,20 @@ internal sealed class Program
             new ThreatsListParser(threatsPath),
             new NegativesListParser(negativesPath),
             new ObjectsListParser(objectsPath),
+            new IntrudersListParser(intrudersPath),
         };
     }
 
     public static void Main(string[] args)
     {
-        if (args.Length < 5)
+        if (args.Length < 6)
         {
             return;
         }
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-        var program = new Program(args[0], args[1], args[2], args[3], args[4]);
+        var program = new Program(args[0], args[1], args[2], args[3], args[4], args[5]);
         program.Run();
     }
 

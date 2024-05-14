@@ -24,6 +24,7 @@
                 "${workspaceFolder}/Data/Input/thrlist.xlsx",
                 "${workspaceFolder}/Data/Input/negatives.txt",
                 "${workspaceFolder}/Data/Input/objects.xlsx",
+                "${workspaceFolder}/Data/Input/intruders.xlsx",
             ],
             "cwd": "${workspaceFolder}/Threats",
             "console": "internalConsole",
