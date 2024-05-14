@@ -4,7 +4,7 @@ namespace Threats.Models.Survey.Data;
 
 public class SurveyData : ISurveyData
 {
-    public SurveyData(string titleFormat, NegativesStageData negatives, ThreatsStageData threats)
+    public SurveyData(string titleFormat, NegativesStageData negatives, ObjectsStageData threats)
     {
         TitleFormat = titleFormat;
 
@@ -13,10 +13,10 @@ public class SurveyData : ISurveyData
     }
 
     [JsonProperty("negatives")] private readonly NegativesStageData negatives;
-    [JsonProperty("threats")] private readonly ThreatsStageData threats;
+    [JsonProperty("threats")] private readonly ObjectsStageData threats;
 
     [JsonProperty("title")] public string TitleFormat { get; }
 
     public INegativesStageData NegativesStageData => negatives;
-    public IThreatsStageData ThreatsStageData => threats;
+    public IObjectsStageData ObjectsStageData => threats;
 }

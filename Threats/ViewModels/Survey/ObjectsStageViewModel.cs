@@ -2,9 +2,9 @@ using Threats.Models.Survey;
 
 namespace Threats.ViewModels.Survey;
 
-public class ThreatsStageViewModel : SurveyStageViewModel<ThreatsStage>
+public class ObjectsStageViewModel : SurveyStageViewModel<ObjectsStage>
 {
-    public ThreatsStageViewModel(ThreatsStage stage) : base(stage)
+    public ObjectsStageViewModel(ObjectsStage stage) : base(stage)
     {
     }
 

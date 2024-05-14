@@ -1,6 +1,6 @@
 namespace Threats.Models.Survey.State;
 
-public class ThreatsStageState
+public class ObjectsStageState
 {
     public void FillResult(SurveyResultBuilder builder)
     {
