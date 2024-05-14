@@ -8,17 +8,23 @@ using Threats.Data.Entities;
 
 namespace Threats.Parser.ThreatsList;
 
-public class ThreatsListParser
+public class ThreatsListParser : IParser
 {
+    private const int HeaderRowsCount = 2;
+
     private readonly string path;
-    private readonly ThreatsData data;
 
-    private readonly IntrudersParser intrudersParser;
-    private readonly ObjectsParser objectsParser;
+    private ParsedData? data;
+    private IntrudersParser? intrudersParser;
+    private ObjectsParser? objectsParser;
 
-    public ThreatsListParser(string path, ThreatsData data)
+    public ThreatsListParser(string path)
     {
         this.path = path;
+    }
+
+    public void Init(ParsedData data)
+    {
         this.data = data;
 
         intrudersParser = new();
@@ -32,8 +38,8 @@ public class ThreatsListParser
 
         var data = reader.AsDataSet();
 
-        var threats_table = data.Tables[0];
-        ParseThreats(threats_table);
+        var threatsTable = data.Tables[0];
+        ParseThreats(threatsTable);
 
         reader.Close();
         stream.Close();
@@ -42,32 +48,32 @@ public class ThreatsListParser
     private void ParseThreats(DataTable table)
     {
         var threats = table.AsEnumerable()
-            .Skip(2)
+            .Skip(HeaderRowsCount)
             .Select(t => ParseThreat(t))
             .Where(t => t != null)
             .Select(t => t!);
 
-        data.threats.AddRange(threats!);
+        data!.threats.AddRange(threats!);
     }
 
     private Threat? ParseThreat(DataRow row)
     {
         try
         {
-            var id = Convert.ToInt32(row[Rows.Id]);
-            var name = row.Field<string>(Rows.Name)!;
-            var description = row.Field<string>(Rows.Description)!.Replace("\r", "");
+            var id = Convert.ToInt32(row[Columns.Id]);
+            var name = row.Field<string>(Columns.Name)!;
+            var description = row.Field<string>(Columns.Description)!.Replace("\r", "");
 
-            var intruders = intrudersParser.Parse(row.Field<string>(Rows.Intruders));
-            var objects = objectsParser.Parse(row.Field<string>(Rows.Objects)).Select(o => o.Id).ToList();
+            var intruders = intrudersParser!.Parse(row.Field<string>(Columns.Intruders));
+            var objects = objectsParser!.Parse(row.Field<string>(Columns.Objects)).Select(o => o.Id).ToList();
 
             var violations = SafetyViolations.None;
-            violations |= Convert.ToBoolean(row[Rows.Violations.Privacy]) ? SafetyViolations.Privacy : SafetyViolations.None;
-            violations |= Convert.ToBoolean(row[Rows.Violations.Integrity]) ? SafetyViolations.Integrity : SafetyViolations.None;
-            violations |= Convert.ToBoolean(row[Rows.Violations.Availability]) ? SafetyViolations.Availability : SafetyViolations.None;
+            violations |= Convert.ToBoolean(row[Columns.Violations.Privacy]) ? SafetyViolations.Privacy : SafetyViolations.None;
+            violations |= Convert.ToBoolean(row[Columns.Violations.Integrity]) ? SafetyViolations.Integrity : SafetyViolations.None;
+            violations |= Convert.ToBoolean(row[Columns.Violations.Availability]) ? SafetyViolations.Availability : SafetyViolations.None;
 
-            var addDate = row.Field<DateOnly?>(Rows.AddDate, DataRowVersion.Current) ?? default;
-            var updateDate = row.Field<DateOnly?>(Rows.UpdateDate, DataRowVersion.Current) ?? default;
+            var addDate = row.Field<DateOnly?>(Columns.AddDate, DataRowVersion.Current) ?? default;
+            var updateDate = row.Field<DateOnly?>(Columns.UpdateDate, DataRowVersion.Current) ?? default;
 
             return new Threat(id, name, description, violations, intruders, objects, addDate, updateDate);
         }
@@ -79,7 +85,7 @@ public class ThreatsListParser
         return null;
     }
 
-    private static class Rows
+    private static class Columns
     {
         public const int Id = 0;
 

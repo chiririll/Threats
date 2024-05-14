@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Threats.Parser.NegativesLIst;
@@ -8,40 +9,50 @@ namespace Threats.Parser;
 
 internal sealed class Program
 {
+    private readonly string outputPath;
+
+    private readonly List<IParser> parsers;
+
+    public Program(string outputPath, string threatsPath, string negativesPath, string objectsPath)
+    {
+        this.outputPath = outputPath;
+
+        parsers = new()
+        {
+            new ThreatsListParser(threatsPath),
+            new NegativesListParser(negativesPath),
+        };
+    }
+
     public static void Main(string[] args)
     {
-        if (args.Length < 3)
+        if (args.Length < 4)
         {
             return;
         }
 
-        Init();
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-        var data = Parse(args[0], args[1]);
-        Save(data, args[2]);
+        var program = new Program(args[0], args[1], args[2], args[3]);
+        program.Run();
+    }
+
+    public void Run()
+    {
+        var data = new ParsedData();
+
+        foreach (var parser in parsers)
+        {
+            parser.Init(data);
+            parser.Parse();
+        }
+
+        Save(data, outputPath);
 
         Exit();
     }
 
-    private static void Init()
-    {
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-    }
-
-    private static ThreatsData Parse(string threatsPath, string negativesPath)
-    {
-        var data = new ThreatsData();
-
-        var threatsParser = new ThreatsListParser(threatsPath, data);
-        var negativesParser = new NegativesListParser(negativesPath, data);
-
-        threatsParser.Parse();
-        negativesParser.Parse();
-
-        return data;
-    }
-
-    private static void Save(ThreatsData data, string outputPath)
+    private static void Save(ParsedData data, string outputPath)
     {
         var json = data.ToEntitiesData().ToJson();
 

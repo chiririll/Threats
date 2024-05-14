@@ -5,9 +5,9 @@ namespace Threats.Parser.ThreatsList;
 
 public class ObjectsParser
 {
-    private readonly ThreatsData data;
+    private readonly ParsedData data;
 
-    public ObjectsParser(ThreatsData data)
+    public ObjectsParser(ParsedData data)
     {
         this.data = data;
     }

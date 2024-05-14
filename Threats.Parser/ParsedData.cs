@@ -4,7 +4,7 @@ using Threats.Data.Entities;
 
 namespace Threats.Parser;
 
-public class ThreatsData
+public class ParsedData
 {
     internal readonly List<Threat> threats = new();
     internal readonly List<Object> objects = new();
