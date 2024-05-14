@@ -23,7 +23,7 @@ public class SurveyManager
         steps = new()
         {
             new NegativesStep(state, data.NegativesStepData, entities),
-            new ThreatsStep(state, data.ThreatsStepData, entities),
+            // new ThreatsStep(state, data.ThreatsStepData, entities),
         };
     }
 
@@ -56,6 +56,8 @@ public class SurveyManager
         // current.Complete();
         currentStep++;
 
-        return true;
+        return CurrentStep != null;
     }
+
+    public SurveyResult GetResult() => state.GetResult();
 }

@@ -10,13 +10,12 @@ namespace Threats.ViewModels.Pages;
 public class SurveyPageViewModel : ViewModelBase
 {
     private readonly Subject<bool> canMoveNext = new();
-    private readonly Subject<SurveyManager> onComplete = new();
+    private readonly Subject<SurveyResult> onComplete = new();
 
     private readonly SurveyManager survey;
 
     public SurveyPageViewModel(SurveyManager survey)
     {
-
         this.survey = survey;
 
         StepContainer.SetStep(survey.CurrentStep!);
@@ -26,7 +25,7 @@ public class SurveyPageViewModel : ViewModelBase
         UpdateMoveNextButtonState();
     }
 
-    public IObservable<SurveyManager> OnComplete => onComplete;
+    public IObservable<SurveyResult> OnComplete => onComplete;
     public IObservable<Unit> Submit { get; }
 
     public string Title => survey.Title;
@@ -41,7 +40,7 @@ public class SurveyPageViewModel : ViewModelBase
     {
         if (!survey.MoveToNextStep())
         {
-            onComplete.OnNext(survey);
+            onComplete.OnNext(survey.GetResult());
             return;
         }
 

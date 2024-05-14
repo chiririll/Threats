@@ -24,4 +24,9 @@ public class NegativesStepState
         this.negatives.Clear();
         this.negatives.AddRange(negatives);
     }
+
+    public void FillResult(SurveyResultBuilder builder)
+    {
+        builder.WithNegatives(negatives);
+    }
 }

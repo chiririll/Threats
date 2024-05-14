@@ -10,4 +10,14 @@ public class SurveyState
 
     public NegativesStepState NegativesStep { get; }
     public ThreatsStepState ThreatsStep { get; }
+
+    public SurveyResult GetResult()
+    {
+        var builder = new SurveyResultBuilder();
+
+        NegativesStep.FillResult(builder);
+        ThreatsStep.FillResult(builder);
+
+        return builder.Build();
+    }
 }
