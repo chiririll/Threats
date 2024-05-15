@@ -9,7 +9,7 @@ public static class SurveyStageViewModelFactory
         return stage switch
         {
             NegativesStage negatives => new NegativesStageViewModel(negatives),
-            ObjectsStage threats => new ObjectsStageViewModel(threats),
+            ObjectsStage objects => new ObjectsStageViewModel(objects),
 
             _ => throw new System.ArgumentException("Invalid stage type"),
         };
