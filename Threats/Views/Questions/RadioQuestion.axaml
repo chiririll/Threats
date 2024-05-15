@@ -5,20 +5,21 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Threats.ViewModels.Questions"
              xmlns:views="using:Threats.Views.Questions"
-             x:Class="Threats.Views.Questions.QuestionView"
+             x:Class="Threats.Views.Questions.RadioQuestion"
              x:DataType="vm:QuestionViewModel">
+  
   <StackPanel>
-
     <views:LabelWithLeftHelpButton DataContext="{Binding Label}"/>
 
     <ItemsControl ItemsSource="{Binding Options}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <CheckBox Margin="4"
-                    Command="{Binding $parent[views:QuestionView].((vm:QuestionViewModel)DataContext).Updated}"
+          <RadioButton Margin="4"
+                    GroupName="{Binding Group}"
+                    Command="{Binding $parent[views:RadioQuestion].((vm:QuestionViewModel)DataContext).Updated}"
                     IsChecked="{Binding Selected}">
             <views:LabelWithHelpButton DataContext="{Binding Label}"/>
-          </CheckBox>
+          </RadioButton>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>

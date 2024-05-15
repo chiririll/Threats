@@ -3,25 +3,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Threats.ViewModels.Questions"
-             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="30"
-             x:Class="Threats.Views.Questions.LabelWithHelpButton"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Threats.Views.Questions.LabelWithLeftHelpButton"
              x:DataType="vm:LabelWithHelpButtonViewModel">
 
-  <Grid ColumnDefinitions="*, 20">
+  <Grid ColumnDefinitions="20, *">
 
-    <TextBlock Grid.Column="0"
-            TextAlignment="Left"
-            TextWrapping="Wrap"
-            Padding="0,0,5,0"
-            Text="{Binding Label}" />
-
-    <Button Grid.Column="1"
-            Content="?"
+    <Button Content="?"
             Width="16"
             Height="16"
             Padding="2"
             CornerRadius="10"
             HorizontalContentAlignment="Center"
+            Grid.Column="0"
             FontSize="10"
             FontWeight="Bold"
             IsVisible="{Binding HasDescription}">
@@ -33,6 +27,12 @@
         </Flyout>
       </Button.Flyout>
     </Button>
+
+    <TextBlock Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            Text="{Binding Label}" />
 
   </Grid>
 

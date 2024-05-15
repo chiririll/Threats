@@ -20,4 +20,6 @@ public class OptionViewModel
         get => option.Selected;
         set => option.Selected = value;
     }
+
+    public string Group => option.Group;
 }
