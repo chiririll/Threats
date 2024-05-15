@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using ReactiveUI;
 using Threats.Models.Questions;
@@ -13,11 +14,11 @@ public class QuestionViewModel : ViewModelBase
 
         Updated = ReactiveCommand.Create(() => { });
 
-        Options = new(question.Options);
+        Options = new(question.Options.Select(o => new OptionViewModel(o)));
     }
 
     public ReactiveCommand<Unit, Unit> Updated { get; }
 
     public LabelWithHelpButtonViewModel Label { get; }
-    public ObservableCollection<Option> Options { get; }
+    public ObservableCollection<OptionViewModel> Options { get; }
 }
