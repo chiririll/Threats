@@ -17,5 +17,6 @@ public class ObjectsStageState
 
     public void FillResult(SurveyResultBuilder builder)
     {
+        builder.WithObjects(objects);
     }
 }

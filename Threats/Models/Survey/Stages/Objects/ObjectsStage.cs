@@ -39,6 +39,6 @@ public class ObjectsStage : SurveyStage<ObjectsStageState, IObjectsStageData>
         state.SetObjects(objects);
     }
 
-    public override bool CanMoveNext() => questions.Find(q => q.Selected.Count == 0) != null;
+    public override bool CanMoveNext() => questions.Find(q => q.Selected.Count == 0) == null;
     public override bool MoveNext() => false;
 }

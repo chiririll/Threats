@@ -7,17 +7,34 @@
              x:Class="Threats.Views.Pages.ResultPageView"
              x:DataType="vm:ResultPageViewModel">
 
-  <DataGrid Margin="20" ItemsSource="{Binding Result.Negatives}"
-            IsReadOnly="True"
-            CanUserReorderColumns="True"
-            CanUserResizeColumns="True"
-            CanUserSortColumns="False"
-            GridLinesVisibility="All"
-            BorderThickness="1" BorderBrush="Gray">
-    <DataGrid.Columns>
-      <DataGridTextColumn Header="Тип" Binding="{Binding TypeId}"/>
-      <DataGridTextColumn Header="Негативное последствие" Binding="{Binding Name}" />
-    </DataGrid.Columns>
-  </DataGrid>
+  <ScrollViewer>
+    <StackPanel>
+      <DataGrid Margin="20" ItemsSource="{Binding Result.Negatives}"
+                IsReadOnly="True"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                CanUserSortColumns="False"
+                GridLinesVisibility="All"
+                BorderThickness="1" BorderBrush="Gray">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Тип" Binding="{Binding TypeId}"/>
+          <DataGridTextColumn Header="Негативное последствие" Binding="{Binding Name}" />
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <DataGrid Margin="20" ItemsSource="{Binding Result.Objects}"
+                IsReadOnly="True"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                CanUserSortColumns="False"
+                GridLinesVisibility="All"
+                BorderThickness="1" BorderBrush="Gray">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+          <DataGridTextColumn Header="Название" Binding="{Binding Name}" />
+        </DataGrid.Columns>
+      </DataGrid>
+    </StackPanel>
+  </ScrollViewer>
 
 </UserControl>
