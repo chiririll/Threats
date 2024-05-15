@@ -10,8 +10,9 @@ namespace Threats.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    private readonly EntitiesData entities;
     private readonly SurveyData surveyData;
+    private readonly EntitiesData entities;
+    private readonly QuestionsData questions;
 
     private readonly CompositeDisposable pageSub = new();
 
@@ -21,8 +22,9 @@ public class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        entities = DataLoader.LoadEntitiesData();
         surveyData = DataLoader.LoadSurveyData();
+        entities = DataLoader.LoadEntitiesData();
+        questions = DataLoader.LoadQuestionsData();
 
         var startPage = new StartPageViewModel();
 
@@ -49,7 +51,7 @@ public class MainWindowViewModel : ViewModelBase
 
     public void StartSurvey()
     {
-        survey = new(surveyData, entities);
+        survey = new(surveyData, entities, questions);
 
         var surveyPage = new SurveyPageViewModel(survey);
         Content = surveyPage;

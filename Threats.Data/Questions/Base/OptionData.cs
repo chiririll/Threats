@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Threats.Data.Questions;
 
-public class OptionData
+public class OptionData : IOptionData
 {
     public OptionData(int id, string? group, string label, string? helpText)
     {

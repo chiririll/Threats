@@ -47,4 +47,6 @@ public class EntitiesData : IEntitiesData
     {
         return JsonConvert.SerializeObject(this, Formatting.Indented);
     }
+
+    public Object? GetObjectById(int id) => objects?.Find(o => o.Id.Equals(id));
 }

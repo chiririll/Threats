@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Threats.Data.Questions;
 
-public class ObjectsOptionData : OptionData
+public class ObjectsOptionData : OptionData, IOptionData
 {
     [JsonProperty("add", Order = 11)] private readonly HashSet<int> objectsToAdd;
     [JsonProperty("exclude", Order = 12)] private readonly HashSet<int> objectsToExclude;

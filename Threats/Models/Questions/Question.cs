@@ -1,10 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
+using Threats.Data.Questions;
 
 namespace Threats.Models.Questions;
 
 public class Question
 {
-    private readonly List<Option> options = new();
+    private readonly List<Option> options;
+
+    public Question(IQuestionData data)
+    {
+        Label = new(data.Title, data.HelpText);
+
+        options = data.Options.Select(o => new Option(o)).ToList();
+    }
 
     public Question(string label, IEnumerable<Option> options, string? description = null) : this(new(label, description), options)
     {

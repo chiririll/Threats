@@ -9,21 +9,25 @@ public class SurveyManager
 {
     private readonly SurveyState state;
     private readonly ISurveyData data;
+
     private readonly IEntitiesData entities;
+    private readonly IQuestionsData questions;
 
     private readonly List<SurveyStage> stages;
     private int currentStage = 0;
 
-    public SurveyManager(ISurveyData data, IEntitiesData entities)
+    public SurveyManager(ISurveyData data, IEntitiesData entities, IQuestionsData questions)
     {
         this.state = new();
         this.data = data;
+
         this.entities = entities;
+        this.questions = questions;
 
         stages = new()
         {
-            new NegativesStage(state, data.NegativesStageData, entities),
-            // new ObjectsStage(state, data.ObjectsStageData, entities),
+            // new NegativesStage(state, data.NegativesStageData, entities),
+            new ObjectsStage(state, data.ObjectsStageData, entities, questions),
         };
     }
 

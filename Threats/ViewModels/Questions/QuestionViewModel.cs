@@ -1,8 +1,5 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using ReactiveUI;
 using Threats.Models.Questions;
 

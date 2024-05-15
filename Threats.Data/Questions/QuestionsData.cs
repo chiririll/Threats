@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Threats.Data.Questions;
+using Threats.Data.Questions.Objects;
 
 namespace Threats.Data;
 
-public class QuestionsData
+public class QuestionsData : IQuestionsData
 {
-    [JsonProperty("objects")] private readonly List<QuestionData> objectsQuestions = new();
+    [JsonProperty("objects")] private readonly List<ObjectsQuestionData> objectsQuestions = new();
 
-    public QuestionsData(IEnumerable<QuestionData> objectsQuestions)
+    public QuestionsData(IEnumerable<ObjectsQuestionData> objectsQuestions)
     {
         this.objectsQuestions.AddRange(objectsQuestions);
     }
 
-    [JsonIgnore] public IReadOnlyList<QuestionData> ObjectsQuestions => objectsQuestions;
+    [JsonIgnore] public IReadOnlyList<ObjectsQuestionData> ObjectsQuestions => objectsQuestions;
 
     public static QuestionsData FromJson(string json)
     {
