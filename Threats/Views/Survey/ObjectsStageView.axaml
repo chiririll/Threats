@@ -8,14 +8,18 @@
              x:Class="Threats.Views.Survey.ObjectsStageView"
              x:DataType="vm:ObjectsStageViewModel">
   
-  <questions:QuestionView DataContext="{Binding PrimaryQuestion}" />
+  <StackPanel>
 
-  <!-- <ItemsControl ItemsSource="{Binding Questions}">
-    <ItemsControl.ItemTemplate>
-      <DataTemplate>
-        <questions:QuestionView/>
-      </DataTemplate>
-    </ItemsControl.ItemTemplate>
-  </ItemsControl> -->
+    <questions:RadioQuestion DataContext="{Binding PrimaryQuestion}" />
+
+    <ItemsControl ItemsSource="{Binding Questions}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <questions:RadioQuestion Padding="0,10"/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+  </StackPanel>
 
 </UserControl>

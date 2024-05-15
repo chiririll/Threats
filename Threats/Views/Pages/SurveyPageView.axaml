@@ -22,7 +22,8 @@
            FontSize="21"/>
 
     <ScrollViewer>
-      <views:StageView DataContext="{Binding StageContainer}" />
+      <views:StageView DataContext="{Binding StageContainer}" 
+                       Padding="0,0,20,0" />
     </ScrollViewer>
 
   </DockPanel>
