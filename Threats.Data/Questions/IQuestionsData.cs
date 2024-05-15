@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Threats.Data.Questions.Objects;
+using Threats.Data.Questions;
 
 namespace Threats.Data;
 
 public interface IQuestionsData
 {
-    public IReadOnlyList<ObjectsQuestionData> ObjectsQuestions { get; }
+    public IReadOnlyList<QuestionData> ObjectsQuestions { get; }
 }

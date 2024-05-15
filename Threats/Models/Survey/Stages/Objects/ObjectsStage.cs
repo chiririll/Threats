@@ -22,7 +22,7 @@ public class ObjectsStage : SurveyStage<ObjectsStageState, IObjectsStageData>
 
     public override void Save()
     {
-        var selectedOptions = questions.SelectMany(q => q.Selected.Select(o => o.Data).OfType<ObjectsOptionData>());
+        var selectedOptions = questions.SelectMany(q => q.Selected.Select(o => o.Payload).OfType<ObjectsOptionPayload>());
 
         var included = selectedOptions.SelectMany(o => o.ObjectsToAdd);
         var excluded = selectedOptions.SelectMany(o => o.ObjectsToExclude);

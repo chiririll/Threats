@@ -12,7 +12,7 @@ public class Option
 
         Label = new(data.Label, data.HelpText);
 
-        Data = data;
+        Payload = data.Payload;
     }
 
     public Option(int id, string label, string? group = null)
@@ -20,15 +20,13 @@ public class Option
         Id = id;
         Label = new(label, null);
         Group = group ?? string.Empty;
-
-        Data = new(id, Group, label, null);
     }
 
     public Option() : this(0, string.Empty)
     {
     }
 
-    public OptionData Data { get; }
+    public IOptionPayload? Payload { get; }
 
     public int Id { get; }
     public string Group { get; }

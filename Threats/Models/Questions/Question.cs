@@ -8,7 +8,7 @@ public class Question
 {
     private readonly List<Option> options;
 
-    public Question(IQuestionData data)
+    public Question(QuestionData data)
     {
         Label = new(data.Title, data.HelpText);
 

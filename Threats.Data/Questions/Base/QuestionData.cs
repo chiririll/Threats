@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Threats.Data.Questions;
 
-public class QuestionData : IQuestionData<OptionData>
+public class QuestionData
 {
     [JsonProperty("options", Order = 10)] private readonly List<OptionData> options;
 

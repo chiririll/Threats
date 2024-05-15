@@ -3,18 +3,14 @@ using Newtonsoft.Json;
 
 namespace Threats.Data.Questions;
 
-public class ObjectsOptionData : OptionData, IOptionData
+public class ObjectsOptionPayload : IOptionPayload
 {
     [JsonProperty("add", Order = 11)] private readonly HashSet<int> objectsToAdd;
     [JsonProperty("exclude", Order = 12)] private readonly HashSet<int> objectsToExclude;
 
-    public ObjectsOptionData(
-        int id,
-        string? group,
-        string label,
-        string? helpText,
+    public ObjectsOptionPayload(
         IEnumerable<int> objectsToAdd,
-        IEnumerable<int> objectsToExclude) : base(id, group, label, helpText)
+        IEnumerable<int> objectsToExclude)
     {
         this.objectsToAdd = new(objectsToAdd);
         this.objectsToExclude = new(objectsToExclude);

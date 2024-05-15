@@ -66,11 +66,10 @@ public class OptionBuilder
         return this;
     }
 
-    public ObjectsOptionData Build() => new(
+    public OptionData Build() => new(
         id,
         GroupPrefix + questionId.ToString(),
         title ?? string.Empty,
         helpText,
-        objectsToAdd,
-        objectsToRemove);
+        new ObjectsOptionPayload(objectsToAdd, objectsToRemove));
 }
