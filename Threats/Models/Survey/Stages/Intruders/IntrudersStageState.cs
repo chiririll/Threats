@@ -14,5 +14,6 @@ public class IntrudersStageState : IStageState
 
     public void FillResult(SurveyResultBuilder builder)
     {
+        builder.WithIntruders(intruders);
     }
 }

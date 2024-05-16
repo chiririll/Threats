@@ -63,5 +63,5 @@ public class SurveyManager
         return CurrentStage != null;
     }
 
-    public SurveyResult GetResult() => state.GetResult();
+    public SurveyResult GetResult() => state.GetResult(entities);
 }

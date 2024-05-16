@@ -9,6 +9,20 @@
 
   <ScrollViewer>
     <StackPanel>
+      <DataGrid Margin="20" ItemsSource="{Binding Result.Threats}"
+                IsReadOnly="True"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                CanUserSortColumns="False"
+                GridLinesVisibility="All"
+                BorderThickness="1" BorderBrush="Gray">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Идентификатор УБИ" Binding="{Binding Id}"/>
+          <DataGridTextColumn Header="Наименование УБИ" Binding="{Binding Name}" />
+          <DataGridTextColumn Header="Последствия" Binding="{Binding Violations}" />
+        </DataGrid.Columns>
+      </DataGrid>
+
       <DataGrid Margin="20" ItemsSource="{Binding Result.Negatives}"
                 IsReadOnly="True"
                 CanUserReorderColumns="True"
@@ -32,6 +46,19 @@
         <DataGrid.Columns>
           <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
           <DataGridTextColumn Header="Название" Binding="{Binding Name}" />
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <DataGrid Margin="20" ItemsSource="{Binding Result.Intruders}"
+                IsReadOnly="True"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                CanUserSortColumns="False"
+                GridLinesVisibility="All"
+                BorderThickness="1" BorderBrush="Gray">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Тип" Binding="{Binding Type}"/>
+          <DataGridTextColumn Header="Потенциал" Binding="{Binding Potential}" />
         </DataGrid.Columns>
       </DataGrid>
     </StackPanel>

@@ -1,3 +1,5 @@
+using Threats.Data;
+
 namespace Threats.Models.Survey.State;
 
 public class SurveyState
@@ -13,7 +15,7 @@ public class SurveyState
     public ObjectsStageState ObjectsStage { get; }
     public IntrudersStageState IntrudersStage { get; }
 
-    public SurveyResult GetResult()
+    public SurveyResult GetResult(IEntitiesData entities)
     {
         var builder = new SurveyResultBuilder();
 
@@ -21,6 +23,6 @@ public class SurveyState
         ObjectsStage.FillResult(builder);
         IntrudersStage.FillResult(builder);
 
-        return builder.Build();
+        return builder.Build(entities);
     }
 }
