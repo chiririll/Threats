@@ -3,7 +3,7 @@ using Threats.Data.Entities;
 
 namespace Threats.Models.Survey.State;
 
-public class ObjectsStageState
+public class ObjectsStageState : IStageState
 {
     private readonly List<Object> objects = new();
 

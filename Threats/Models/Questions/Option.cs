@@ -15,11 +15,12 @@ public class Option
         Payload = data.Payload;
     }
 
-    public Option(int id, string label, string? group = null)
+    public Option(int id, string label, string? group = null, string? helpText = null, IOptionPayload? payload = null)
     {
         Id = id;
-        Label = new(label, null);
+        Label = new(label, helpText);
         Group = group ?? string.Empty;
+        Payload = payload;
     }
 
     public Option() : this(0, string.Empty)

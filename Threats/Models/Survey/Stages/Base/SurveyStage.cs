@@ -4,7 +4,8 @@ using Threats.Models.Survey.Data;
 namespace Threats.Models.Survey;
 
 public abstract class SurveyStage<TState, TData> : SurveyStage
-    where TData : IStageData
+    where TState : class, IStageState
+    where TData : class, IStageData
 {
     protected readonly TState state;
     protected readonly TData data;

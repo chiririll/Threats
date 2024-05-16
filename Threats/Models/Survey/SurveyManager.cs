@@ -57,7 +57,6 @@ public class SurveyManager
             return true;
         }
 
-        // current.Complete();
         currentStage++;
 
         return CurrentStage != null;

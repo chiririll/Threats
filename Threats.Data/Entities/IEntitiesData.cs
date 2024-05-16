@@ -11,5 +11,7 @@ public interface IEntitiesData
     public IReadOnlyList<NegativeType> NegativeTypes { get; }
     public IReadOnlyList<Negative> Negatives { get; }
 
+    public IReadOnlyList<IntruderData> Intruders { get; }
+
     public Object? GetObjectById(int id);
 }

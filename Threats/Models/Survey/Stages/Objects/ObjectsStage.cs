@@ -13,7 +13,11 @@ public class ObjectsStage : SurveyStage<ObjectsStageState, IObjectsStageData>
 {
     private readonly List<Question> questions;
 
-    public ObjectsStage(SurveyState state, IObjectsStageData data, IEntitiesData entities, IQuestionsData questions) : base(state.ObjectsStage, data, entities)
+    public ObjectsStage(
+        SurveyState state,
+        IObjectsStageData data,
+        IEntitiesData entities,
+        IQuestionsData questions) : base(state.ObjectsStage, data, entities)
     {
         this.questions = questions.ObjectsQuestions.Select(q => new Question(q)).ToList();
     }
