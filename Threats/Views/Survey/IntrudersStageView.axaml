@@ -10,18 +10,24 @@
   
   <StackPanel>
     
-    <TextBlock Text="{Binding Intruder.Title}"/>
-    <TextBlock Text="{Binding Intruder.Potential}"/> 
-    <ItemsControl ItemsSource="{Binding Intruder.Goals}">
+    <TextBlock Text="{Binding Intruder.Title}"
+               TextWrapping="Wrap"/>
+    <TextBlock Text="{Binding Intruder.Potential}"
+               TextWrapping="Wrap"/> 
+
+    <ItemsControl ItemsSource="{Binding Intruder.Goals}" Margin="0,10">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <TextBlock/>
+           <StackPanel Orientation="Horizontal" Margin="5">
+              <TextBlock Text="•" FontSize="14" VerticalAlignment="Center" Margin="0,0,5,0"/>
+              <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+            </StackPanel>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
 
-    <questions:RadioQuestion DataContext="{Binding Intruder.IncludedQuestion}"/>
-    <questions:RadioQuestion DataContext="{Binding Intruder.TypeQuestion}"/>
+    <questions:RadioQuestion DataContext="{Binding Intruder.IncludedQuestion}" Margin="0,10"/>
+    <questions:RadioQuestion DataContext="{Binding Intruder.TypeQuestion}" Margin="0,10"/>
 
   </StackPanel>
 </UserControl>

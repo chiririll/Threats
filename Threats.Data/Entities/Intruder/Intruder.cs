@@ -1,8 +1,9 @@
+using System;
 using Newtonsoft.Json;
 
 namespace Threats.Data.Entities;
 
-public readonly struct Intruder
+public class Intruder : IEquatable<Intruder>
 {
     public Intruder(IntruderType type, IntruderPotential potential)
     {
@@ -13,5 +14,5 @@ public readonly struct Intruder
     [JsonProperty("t")] public IntruderType Type { get; }
     [JsonProperty("p")] public IntruderPotential Potential { get; }
 
-    public string GetName() => $"(Intruder: {Type}, {Potential})";
+    public bool Equals(Intruder? other) => other != null && Type.Equals(other.Type) && Potential.Equals(other.Potential);
 }
