@@ -6,4 +6,5 @@ public interface ISurveyData
 
     public INegativesStageData NegativesStageData { get; }
     public IObjectsStageData ObjectsStageData { get; }
+    public IIntrudersStageData IntrudersStageData { get; }
 }
