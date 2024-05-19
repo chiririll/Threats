@@ -17,6 +17,7 @@ public abstract class SurveyStage<TState, TData> : SurveyStage
     }
 
     public override string Title => data.Title;
+    public TData Data => data;
 }
 
 public abstract class SurveyStage

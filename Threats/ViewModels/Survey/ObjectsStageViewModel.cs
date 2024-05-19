@@ -32,6 +32,8 @@ public class ObjectsStageViewModel : SurveyStageViewModel<ObjectsStage>
     public QuestionViewModel PrimaryQuestion { get; }
     public ObservableCollection<QuestionViewModel> Questions { get; }
 
+    public string Header => stage.Data.Header;
+
     private void OnQuestionUpdated(Unit _)
     {
         updated.OnNext(default);

@@ -3,6 +3,7 @@ using System.Reactive;
 using ReactiveUI;
 using Threats.Data.Entities;
 using Threats.Models.Survey;
+using Threats.Models.Survey.Data;
 
 namespace Threats.ViewModels.Survey;
 
@@ -21,6 +22,8 @@ public class ObjectsAppendStageViewModel : SurveyStageViewModel<ObjectsAppendSta
 
     public Object? SelectedItem { get; set; }
     public System.IObservable<Unit> AddObjectCommand { get; }
+
+    public IObjectsStageData Data => stage.Data;
 
     public void AddObject(Object? obj)
     {

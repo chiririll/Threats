@@ -25,8 +25,6 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
         ? entities.Intruders[currentIndex]
         : null;
 
-    public IIntrudersStageData Data => data;
-
     public Question IntruderIncluded { get; private set; }
     public Question IntruderType { get; private set; }
 

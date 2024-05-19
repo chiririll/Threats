@@ -10,6 +10,9 @@
   
   <StackPanel>
 
+    <TextBlock TextWrapping="Wrap"
+              Text="{Binding Header}"/>
+
     <questions:RadioQuestion DataContext="{Binding PrimaryQuestion}" />
 
     <ItemsControl ItemsSource="{Binding Questions}">
