@@ -2,31 +2,24 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Threats.Parser.IntrudersList;
-using Threats.Parser.NegativesLIst;
-using Threats.Parser.ObjectsList;
-using Threats.Parser.ThreatsList;
 
 namespace Threats.Parser;
 
 internal sealed class Program
 {
-    private readonly string entitiesFile;
-    private readonly string questionsFile;
-
+    private readonly Options options;
     private readonly List<IParser> parsers;
 
-    public Program(string entitiesFile, string questionsFile, string threatsPath, string negativesPath, string objectsPath, string intrudersPath)
+    public Program(Options options)
     {
-        this.entitiesFile = entitiesFile;
-        this.questionsFile = questionsFile;
+        this.options = options;
 
         parsers = new()
         {
-            new ThreatsListParser(threatsPath),
-            new NegativesListParser(negativesPath),
-            new ObjectsListParser(objectsPath),
-            new IntrudersListParser(intrudersPath),
+            new ThreatsList.ThreatsListParser(),
+            new NegativesList.NegativesListParser(),
+            new ObjectsList.ObjectsListParser(),
+            new IntrudersList.IntrudersListParser(),
         };
     }
 
@@ -39,7 +32,13 @@ internal sealed class Program
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-        var program = new Program(args[0], args[1], args[2], args[3], args[4], args[5]);
+        var options = CommandLine.Parser.Default.ParseArguments<Options>(args).Value;
+        if (options == null)
+        {
+            return;
+        }
+
+        var program = new Program(options);
         program.Run();
     }
 
@@ -49,8 +48,7 @@ internal sealed class Program
 
         foreach (var parser in parsers)
         {
-            parser.Init(data);
-            parser.Parse();
+            parser.Parse(options, data);
         }
 
         Save(data);
@@ -62,8 +60,8 @@ internal sealed class Program
         var entitiesJson = data.ToEntitiesData().ToJson();
         var questionsJson = data.ToQuestionsData().ToJson();
 
-        File.WriteAllText(entitiesFile, entitiesJson, System.Text.Encoding.UTF8);
-        File.WriteAllText(questionsFile, questionsJson, System.Text.Encoding.UTF8);
+        File.WriteAllText(options.EntitiesFile, entitiesJson, System.Text.Encoding.UTF8);
+        File.WriteAllText(options.QuestionsFile, questionsJson, System.Text.Encoding.UTF8);
     }
 
     private static void Exit()

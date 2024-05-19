@@ -5,14 +5,7 @@ namespace Threats.Parser.ThreatsList;
 
 public class ObjectsParser
 {
-    private readonly ParsedData data;
-
-    public ObjectsParser(ParsedData data)
-    {
-        this.data = data;
-    }
-
-    public List<Object> Parse(string? objectsString)
+    public List<Object> Parse(string? objectsString, ParsedData data)
     {
         var objects = new List<Object>();
 

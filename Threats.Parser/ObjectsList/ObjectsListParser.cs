@@ -12,35 +12,26 @@ public class ObjectsListParser : IParser
     private const int HeaderRowsCount = 1;
     private const string EmptyObjectsString = "новые объекты не добавляются";
 
-    private readonly string path;
-
-    private ParsedData? data;
-
-    public ObjectsListParser(string path)
+    public void Parse(Options options, ParsedData data)
     {
-        this.path = path;
-    }
+        if (string.IsNullOrWhiteSpace(options.ObjectsPath))
+        {
+            return;
+        }
 
-    public void Init(ParsedData data)
-    {
-        this.data = data;
-    }
-
-    public void Parse()
-    {
-        var stream = File.Open(path, FileMode.Open, FileAccess.Read);
+        var stream = File.Open(options.ObjectsPath, FileMode.Open, FileAccess.Read);
         var reader = ExcelReaderFactory.CreateReader(stream);
 
-        var data = reader.AsDataSet();
+        var threatsData = reader.AsDataSet();
 
-        var objectsTable = data.Tables[0];
-        ParseObjects(objectsTable);
+        var objectsTable = threatsData.Tables[0];
+        ParseQuestions(objectsTable, data);
 
         reader.Close();
         stream.Close();
     }
 
-    private void ParseObjects(DataTable table)
+    private void ParseQuestions(DataTable table, ParsedData data)
     {
         var questions = new List<QuestionBuilder>();
 
@@ -65,7 +56,7 @@ public class ObjectsListParser : IParser
                 question.AddOption(option);
             }
 
-            ParseObjects(row.Field<string>(Columns.Object), out var addObjects, out var removeObjects);
+            ParseObjects(data, row.Field<string>(Columns.Object), out var addObjects, out var removeObjects);
             question.AddOptionObjects(addObjects);
             question.ExcludeOptionObjects(removeObjects);
         }
@@ -73,7 +64,7 @@ public class ObjectsListParser : IParser
         data!.objectsQuestion.AddRange(questions.Select(q => q.Build()));
     }
 
-    private void ParseObjects(string? str, out List<int> addObjects, out List<int> removeObjects)
+    private void ParseObjects(ParsedData data, string? str, out List<int> addObjects, out List<int> removeObjects)
     {
         addObjects = new();
         removeObjects = new();
@@ -86,7 +77,7 @@ public class ObjectsListParser : IParser
 
         foreach (var obj in objectString.Split(';'))
         {
-            if (!TryParseObject(obj, out int id, out bool exclude))
+            if (!TryParseObject(data, obj, out int id, out bool exclude))
                 continue;
 
             if (exclude)
@@ -100,7 +91,7 @@ public class ObjectsListParser : IParser
         }
     }
 
-    private bool TryParseObject(string objectString, out int id, out bool exclude)
+    private bool TryParseObject(ParsedData data, string objectString, out int id, out bool exclude)
     {
         id = default;
         exclude = default;

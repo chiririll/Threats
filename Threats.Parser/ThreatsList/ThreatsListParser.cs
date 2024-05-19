@@ -12,51 +12,40 @@ public class ThreatsListParser : IParser
 {
     private const int HeaderRowsCount = 2;
 
-    private readonly string path;
+    private readonly IntrudersParser intrudersParser = new();
+    private readonly ObjectsParser objectsParser = new();
 
-    private ParsedData? data;
-    private IntrudersParser? intrudersParser;
-    private ObjectsParser? objectsParser;
-
-    public ThreatsListParser(string path)
+    public void Parse(Options options, ParsedData data)
     {
-        this.path = path;
-    }
+        if (string.IsNullOrWhiteSpace(options.ThreatsPath))
+        {
+            return;
+        }
 
-    public void Init(ParsedData data)
-    {
-        this.data = data;
-
-        intrudersParser = new();
-        objectsParser = new(data);
-    }
-
-    public void Parse()
-    {
-        var stream = File.Open(path, FileMode.Open, FileAccess.Read);
+        var stream = File.Open(options.ThreatsPath, FileMode.Open, FileAccess.Read);
         var reader = ExcelReaderFactory.CreateReader(stream);
 
-        var data = reader.AsDataSet();
+        var threatsData = reader.AsDataSet();
 
-        var threatsTable = data.Tables[0];
-        ParseThreats(threatsTable);
+        var threatsTable = threatsData.Tables[0];
+        ParseThreats(threatsTable, data);
 
         reader.Close();
         stream.Close();
     }
 
-    private void ParseThreats(DataTable table)
+    private void ParseThreats(DataTable table, ParsedData data)
     {
         var threats = table.AsEnumerable()
             .Skip(HeaderRowsCount)
-            .Select(t => ParseThreat(t))
+            .Select(t => ParseThreat(t, data))
             .Where(t => t != null)
             .Select(t => t!);
 
         data!.threats.AddRange(threats!);
     }
 
-    private Threat? ParseThreat(DataRow row)
+    private Threat? ParseThreat(DataRow row, ParsedData data)
     {
         try
         {
@@ -65,7 +54,7 @@ public class ThreatsListParser : IParser
             var description = row.Field<string>(Columns.Description)!.Replace("\r", "");
 
             var intruders = intrudersParser!.Parse(row.Field<string>(Columns.Intruders));
-            var objects = objectsParser!.Parse(row.Field<string>(Columns.Objects)).Select(o => o.Id).ToList();
+            var objects = objectsParser!.Parse(row.Field<string>(Columns.Objects), data).Select(o => o.Id).ToList();
 
             var violations = SafetyViolations.None;
             violations |= Convert.ToBoolean(row[Columns.Violations.Privacy]) ? SafetyViolations.Privacy : SafetyViolations.None;

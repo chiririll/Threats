@@ -3,7 +3,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using ExcelDataReader;
-using Threats.Data.Entities;
 
 namespace Threats.Parser.IntrudersList;
 
@@ -11,35 +10,27 @@ public class IntrudersListParser : IParser
 {
     private const int HeaderRowsCount = 2;
 
-    private readonly string path;
-
-    private ParsedData? data;
-
-    public IntrudersListParser(string path)
+    public void Parse(Options options, ParsedData data)
     {
-        this.path = path;
-    }
+        if (string.IsNullOrWhiteSpace(options.IntrudersPath))
+        {
+            return;
+        }
 
-    public void Init(ParsedData data)
-    {
-        this.data = data;
-    }
-
-    public void Parse()
-    {
-        var stream = File.Open(path, FileMode.Open, FileAccess.Read);
+        var stream = File.Open(options.IntrudersPath, FileMode.Open, FileAccess.Read);
         var reader = ExcelReaderFactory.CreateReader(stream);
 
-        var data = reader.AsDataSet();
+        var intrudersData = reader.AsDataSet();
 
-        var objectsTable = data.Tables[0];
-        ParseIntruders(objectsTable);
+        var intrudersTable = intrudersData.Tables[0];
+        var intruders = ParseIntruders(intrudersTable);
+        data!.intruders.AddRange(intruders.Select(i => i.Build()));
 
         reader.Close();
         stream.Close();
     }
 
-    private void ParseIntruders(DataTable table)
+    private List<IntruderBuilder> ParseIntruders(DataTable table)
     {
         var intruders = new List<IntruderBuilder>();
 
@@ -59,7 +50,7 @@ public class IntrudersListParser : IParser
             intruder.AddGoal(row.Field<string>(Columns.Goals));
         }
 
-        data!.intruders.AddRange(intruders.Select(i => i.Build()));
+        return intruders;
     }
 
     private static class Columns

@@ -1,29 +1,20 @@
 using System.IO;
 using Threats.Data.Entities;
 
-namespace Threats.Parser.NegativesLIst;
+namespace Threats.Parser.NegativesList;
 
 public class NegativesListParser : IParser
 {
-    private readonly string path;
-
-    private ParsedData? data;
-
-    public NegativesListParser(string path)
+    public void Parse(Options options, ParsedData data)
     {
-        this.path = path;
-    }
+        if (string.IsNullOrWhiteSpace(options.NegativesPath))
+        {
+            return;
+        }
 
-    public void Init(ParsedData data)
-    {
-        this.data = data;
-    }
-
-    public void Parse()
-    {
         var hasType = false;
 
-        foreach (var line in File.ReadLines(path, System.Text.Encoding.UTF8))
+        foreach (var line in File.ReadLines(options.NegativesPath, System.Text.Encoding.UTF8))
         {
             if (string.IsNullOrWhiteSpace(line))
             {
