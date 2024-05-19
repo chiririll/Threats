@@ -15,6 +15,17 @@ public class ObjectsStageState : IStageState
         this.objects.AddRange(objects);
     }
 
+    public bool AddObject(Object obj)
+    {
+        if (objects.Find(o => o.Id.Equals(obj.Id)) != null)
+        {
+            return false;
+        }
+
+        objects.Add(obj);
+        return true;
+    }
+
     public void FillResult(SurveyResultBuilder builder)
     {
         builder.WithObjects(objects);

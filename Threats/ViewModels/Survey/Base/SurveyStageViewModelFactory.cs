@@ -10,6 +10,7 @@ public static class SurveyStageViewModelFactory
         {
             NegativesStage negatives => new NegativesStageViewModel(negatives),
             ObjectsStage objects => new ObjectsStageViewModel(objects),
+            ObjectsAppendStage objectsAppend => new ObjectsAppendStageViewModel(objectsAppend),
             IntrudersStage intruders => new IntrudersStageViewModel(intruders),
 
             _ => throw new System.ArgumentException("Invalid stage type"),

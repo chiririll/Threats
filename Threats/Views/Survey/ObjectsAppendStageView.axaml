@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Threats.ViewModels.Survey"
+             x:Class="Threats.Views.Survey.ObjectsAppendStageView"
+             x:DataType="vm:ObjectsAppendStageViewModel">
+  <DockPanel>
+
+    <TextBlock DockPanel.Dock="Top"
+               TextWrapping="Wrap"
+               Text="По результатам... Обекты:"/>
+
+    <StackPanel DockPanel.Dock="Bottom">
+      
+      <TextBlock TextWrapping="Wrap" Text="Уточните если хотите:"/>
+
+      <WrapPanel>
+        <ComboBox ItemsSource="{Binding AvailableObjects}"
+                  Width="500" Height="30"
+                  SelectedItem="{Binding SelectedItem}">
+          <ComboBox.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel MaxWidth="500"/>
+            </ItemsPanelTemplate>
+          </ComboBox.ItemsPanel>
+
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock TextWrapping="Wrap" Text="{Binding Name}"/>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Button Margin="10,0,0,0"
+                Content="Add"
+                Command="{Binding AddObjectCommand}"/>
+
+      </WrapPanel>
+    </StackPanel>
+
+    <DataGrid Margin="20" ItemsSource="{Binding SelectedObjects}"
+              IsReadOnly="True"
+              CanUserSortColumns="True"
+              GridLinesVisibility="All"
+              BorderThickness="1" BorderBrush="Gray">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Объект" Binding="{Binding Name}" Width="*"/>
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>
