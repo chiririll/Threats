@@ -18,8 +18,15 @@ public class ObjectsParser
 
         foreach (var objectString in objectsString.Split(separator))
         {
+            if (string.IsNullOrWhiteSpace(objectString))
+            {
+                continue;
+            }
+
             var name = objectString.Trim();
             var lowered = name.ToLowerInvariant();
+
+            name = char.ToUpper(name[0]) + name[1..];
 
             var obj = data.objects.Find(o => o.Name.ToLowerInvariant().Equals(lowered));
             if (obj == null)
