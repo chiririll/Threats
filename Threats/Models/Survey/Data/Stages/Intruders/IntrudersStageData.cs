@@ -11,46 +11,19 @@ public class IntrudersStageData : StageData, IIntrudersStageData
     [JsonProperty("types")] private readonly List<string> types = new();
     [JsonProperty("type_descriptions")] private readonly List<string> typeDescriptions = new();
 
-    public IntrudersStageData(
-        string title,
-        string nameFormat,
-        string potentialFormat,
-        string includedQuestionLabel,
-        string typeQuestionLabel,
-        string yesOption,
-        string noOption,
-        string goalsText,
-        string question1,
-        string question2) : base(title)
-    {
-        NameFormat = nameFormat;
-        PotentialFormat = potentialFormat;
+    [JsonProperty("name_format")] public string NameFormat { get; private set; } = string.Empty;
+    [JsonProperty("potential_format")] public string PotentialFormat { get; private set; } = string.Empty;
 
-        IncludedQuestionLabel = includedQuestionLabel;
-        TypeQuestionLabel = typeQuestionLabel;
+    [JsonProperty("included_question")] public string IncludedQuestionLabel { get; private set; } = string.Empty;
+    [JsonProperty("type_question")] public string TypeQuestionLabel { get; private set; } = string.Empty;
 
-        Question1 = question1;
-        Question2 = question2;
+    [JsonProperty("question_1")] public string Question1 { get; private set; } = string.Empty;
+    [JsonProperty("question_2")] public string Question2 { get; private set; } = string.Empty;
 
-        YesOption = yesOption;
-        NoOption = noOption;
+    [JsonProperty("yes")] public string YesOption { get; private set; } = string.Empty;
+    [JsonProperty("no")] public string NoOption { get; private set; } = string.Empty;
 
-        GoalsText = goalsText;
-    }
-
-    [JsonProperty("name_format")] public string NameFormat { get; }
-    [JsonProperty("potential_format")] public string PotentialFormat { get; }
-
-    [JsonProperty("included_question")] public string IncludedQuestionLabel { get; }
-    [JsonProperty("type_question")] public string TypeQuestionLabel { get; }
-
-    [JsonProperty("question_1")] public string Question1 { get; }
-    [JsonProperty("question_2")] public string Question2 { get; }
-
-    [JsonProperty("yes")] public string YesOption { get; }
-    [JsonProperty("no")] public string NoOption { get; }
-
-    [JsonProperty("goals")] public string GoalsText { get; }
+    [JsonProperty("goals")] public string GoalsText { get; private set; } = string.Empty;
 
     public string GetIntruderTypeName(IntruderType type) => GetItem((int)type, types);
     public string GetIntruderTypeDescription(IntruderType type) => GetItem((int)type, typeDescriptions);

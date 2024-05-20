@@ -4,10 +4,5 @@ namespace Threats.Models.Survey.Data.Base;
 
 public abstract class StageData : IStageData
 {
-    public StageData(string title)
-    {
-        Title = title;
-    }
-
-    [JsonProperty("title")] public string Title { get; }
+    [JsonProperty("title")] public string Title { get; private set; } = string.Empty;
 }
