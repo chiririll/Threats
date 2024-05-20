@@ -15,6 +15,9 @@
     <TextBlock Text="{Binding Intruder.Potential}"
                TextWrapping="Wrap"/> 
 
+    <TextBlock Text="{Binding Data.GoalsText}"
+               TextWrapping="Wrap"/> 
+
     <ItemsControl ItemsSource="{Binding Intruder.Goals}" Margin="0,10">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
@@ -26,8 +29,34 @@
       </ItemsControl.ItemTemplate>
     </ItemsControl>
 
-    <questions:RadioQuestion DataContext="{Binding Intruder.IncludedQuestion}" Margin="0,10"/>
-    <questions:RadioQuestion DataContext="{Binding Intruder.TypeQuestion}" Margin="0,10"/>
+    <Grid ColumnDefinitions="*,50,50" RowDefinitions="Auto,Auto,Auto" Margin="4">
+      <TextBlock Text="{Binding Data.YesOption}"
+                 Grid.Row="0" Grid.Column="1"/>
+      <TextBlock Text="{Binding Data.NoOption}"
+                 Grid.Row="0" Grid.Column="2"/>
+
+      <TextBlock Text="{Binding Data.Question1}" 
+                 TextWrapping="Wrap"
+                 Grid.Row="1" Grid.Column="0"/>
+
+      <RadioButton GroupName="q1" Selected="{Binding Question1Yes}"
+                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
+                   Grid.Row="1" Grid.Column="1"/>
+      <RadioButton GroupName="q1"
+                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
+                   Grid.Row="1" Grid.Column="2"/>
+
+      <TextBlock Text="{Binding Data.Question2}" 
+                 TextWrapping="Wrap"
+                 Grid.Row="2" Grid.Column="0"/>
+
+      <RadioButton GroupName="q2"
+                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
+                   Grid.Row="2" Grid.Column="1"/>
+      <RadioButton GroupName="q2"
+                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
+                   Grid.Row="2" Grid.Column="2"/>
+    </Grid>
 
   </StackPanel>
 </UserControl>

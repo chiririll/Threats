@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Reactive.Disposables;
 using ReactiveUI;
-using Threats.Models.Questions;
 using Threats.Models.Survey;
-using Threats.ViewModels.Questions;
+using Threats.Models.Survey.Data;
 
 namespace Threats.ViewModels.Survey;
 
@@ -17,15 +16,9 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
 
     public IntrudersStageViewModel(IntrudersStage stage) : base(stage)
     {
+        OptionUpdated = ReactiveCommand.Create(() => updated.OnNext(default));
+
         intruder = CreateIntruder();
-
-        intruder.TypeQuestion.Updated
-            .Subscribe(_ => updated.OnNext(default))
-            .AddTo(questionsSub);
-
-        intruder.IncludedQuestion.Updated
-            .Subscribe(_ => updated.OnNext(default))
-            .AddTo(questionsSub);
     }
 
     public IntruderViewModel Intruder
@@ -34,18 +27,17 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
         set => this.RaiseAndSetIfChanged(ref intruder, value);
     }
 
+    public IIntrudersStageData Data => stage.Data;
+
+    public ReactiveCommand<Unit, Unit> OptionUpdated { get; }
+
+    public QuestionVM Question1 { get; } = new();
+    public QuestionVM Question2 { get; } = new();
+
     public override void Refresh()
     {
         questionsSub.Clear();
         intruder = CreateIntruder();
-
-        intruder.TypeQuestion.Updated
-            .Subscribe(_ => updated.OnNext(default))
-            .AddTo(questionsSub);
-
-        intruder.IncludedQuestion.Updated
-            .Subscribe(_ => updated.OnNext(default))
-            .AddTo(questionsSub);
     }
 
     private IntruderViewModel CreateIntruder()
@@ -54,9 +46,7 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
         return new(
             string.Format(stage.Data.NameFormat, current.Title),
             string.Format(stage.Data.PotentialFormat, stage.Data.GetPotentialName(current.Potential)),
-            current.Goals,
-            stage.IntruderIncluded,
-            stage.IntruderType);
+            current.Goals);
     }
 
     public class IntruderViewModel
@@ -64,23 +54,21 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
         public IntruderViewModel(
             string title,
             string potential,
-            IEnumerable<string> goals,
-            Question includedQuestion,
-            Question typeQuestion)
+            IEnumerable<string> goals)
         {
             Title = title;
             Potential = potential;
             Goals = new(goals);
-
-            IncludedQuestion = new(includedQuestion);
-            TypeQuestion = new(typeQuestion);
         }
 
         public string Title { get; private set; }
         public string Potential { get; private set; }
         public ObservableCollection<string> Goals { get; private set; }
+    }
 
-        public QuestionViewModel IncludedQuestion { get; private set; }
-        public QuestionViewModel TypeQuestion { get; private set; }
+    public class QuestionVM
+    {
+        public bool Yes { get; set; }
+        public bool No { get; set; }
     }
 }

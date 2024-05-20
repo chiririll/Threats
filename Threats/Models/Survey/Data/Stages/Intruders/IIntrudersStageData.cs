@@ -10,8 +10,13 @@ public interface IIntrudersStageData : IStageData
     public string IncludedQuestionLabel { get; }
     public string TypeQuestionLabel { get; }
 
+    public string Question1 { get; }
+    public string Question2 { get; }
+
     public string YesOption { get; }
     public string NoOption { get; }
+
+    public string GoalsText { get; }
 
     public string GetIntruderTypeName(IntruderType type);
     public string GetIntruderTypeDescription(IntruderType type);

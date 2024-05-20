@@ -26,9 +26,9 @@ public class SurveyManager
 
         stages = new()
         {
-            new NegativesStage(state, data.NegativesStageData, entities),
-            new ObjectsStage(state, data.ObjectsStageData, entities, questions),
-            new ObjectsAppendStage(state,data.ObjectsStageData, entities),
+            // new NegativesStage(state, data.NegativesStageData, entities),
+            // new ObjectsStage(state, data.ObjectsStageData, entities, questions),
+            // new ObjectsAppendStage(state,data.ObjectsStageData, entities),
             new IntrudersStage(state, data.IntrudersStageData, entities),
         };
     }
