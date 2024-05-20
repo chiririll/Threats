@@ -39,11 +39,9 @@
                  TextWrapping="Wrap"
                  Grid.Row="1" Grid.Column="0"/>
 
-      <RadioButton GroupName="q1" Selected="{Binding Question1Yes}"
-                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
+      <RadioButton GroupName="q1"
                    Grid.Row="1" Grid.Column="1"/>
       <RadioButton GroupName="q1"
-                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
                    Grid.Row="1" Grid.Column="2"/>
 
       <TextBlock Text="{Binding Data.Question2}" 
@@ -51,10 +49,8 @@
                  Grid.Row="2" Grid.Column="0"/>
 
       <RadioButton GroupName="q2"
-                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
                    Grid.Row="2" Grid.Column="1"/>
       <RadioButton GroupName="q2"
-                   Command="{Binding $parent[views:IntrudersStageView].((vm:IntrudersStageViewModel)DataContext).OptionUpdated}"
                    Grid.Row="2" Grid.Column="2"/>
     </Grid>
 
