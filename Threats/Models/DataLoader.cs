@@ -11,6 +11,7 @@ internal static class DataLoader
     private const string entitiesResource = "entities.json";
     private const string questionsResource = "questions.json";
     private const string surveyDataResource = "stages.json";
+    private const string exportExcelTemplateResource = "threats_template.xlsx";
 
     private static readonly Assembly assembly;
     private static readonly string assemblyName;
@@ -41,6 +42,8 @@ internal static class DataLoader
 
         return JsonConvert.DeserializeObject<SurveyData>(json)!;
     }
+
+    public static Stream GetExportExcelTemplate() => GetResource(exportExcelTemplateResource);
 
     private static Stream GetResource(string name) => assembly.GetManifestResourceStream($"{assemblyName}.{name}")!;
 
