@@ -7,13 +7,7 @@
              x:Class="Threats.Views.Questions.LabelWithHelpButton"
              x:DataType="vm:LabelWithHelpButtonViewModel">
 
-  <Grid ColumnDefinitions="*, 20">
-
-    <TextBlock Grid.Column="0"
-            TextAlignment="Left"
-            TextWrapping="Wrap"
-            Padding="0,0,5,0"
-            Text="{Binding Label}" />
+  <Grid ColumnDefinitions="Auto, 20">
 
     <Button Grid.Column="1"
             Content="?"
@@ -33,6 +27,12 @@
         </Flyout>
       </Button.Flyout>
     </Button>
+
+    <TextBlock Grid.Column="0"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            Padding="0,0,5,0"
+            Text="{Binding Label}" />
 
   </Grid>
 

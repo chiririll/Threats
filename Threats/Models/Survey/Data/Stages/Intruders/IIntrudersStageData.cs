@@ -22,4 +22,5 @@ public interface IIntrudersStageData : IStageData
     public string GetIntruderTypeDescription(IntruderType type);
 
     public string GetPotentialName(IntruderPotential potential);
+    public string GetPotentialDescription(IntruderPotential potential);
 }

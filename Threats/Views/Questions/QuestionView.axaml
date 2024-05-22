@@ -9,7 +9,7 @@
              x:DataType="vm:QuestionViewModel">
   <StackPanel>
 
-    <views:LabelWithLeftHelpButton DataContext="{Binding Label}"/>
+    <views:LabelWithHelpButton DataContext="{Binding Label}"/>
 
     <ItemsControl ItemsSource="{Binding Options}">
       <ItemsControl.ItemTemplate>

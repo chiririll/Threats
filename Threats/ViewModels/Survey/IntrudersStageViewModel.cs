@@ -3,8 +3,10 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Disposables;
 using ReactiveUI;
+using Threats.Models.Questions;
 using Threats.Models.Survey;
 using Threats.Models.Survey.Data;
+using Threats.ViewModels.Questions;
 
 namespace Threats.ViewModels.Survey;
 
@@ -48,7 +50,7 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
         var current = stage.CurrentIntruder!;
         return new(
             string.Format(stage.Data.NameFormat, current.Title),
-            string.Format(stage.Data.PotentialFormat, stage.Data.GetPotentialName(current.Potential)),
+            stage.Potential,
             current.Goals);
     }
 
@@ -56,16 +58,16 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
     {
         public IntruderViewModel(
             string title,
-            string potential,
+            LabelWithDescription potential,
             IEnumerable<string> goals)
         {
             Title = title;
-            Potential = potential;
+            Potential = new(potential);
             Goals = new(goals);
         }
 
         public string Title { get; private set; }
-        public string Potential { get; private set; }
+        public LabelWithHelpButtonViewModel Potential { get; private set; }
         public ObservableCollection<string> Goals { get; private set; }
     }
 

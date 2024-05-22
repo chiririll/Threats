@@ -12,12 +12,15 @@
     
     <TextBlock Text="{Binding Intruder.Title}"
                TextWrapping="Wrap"/>
-    <TextBlock Text="{Binding Intruder.Potential}"
-               TextWrapping="Wrap"/> 
+
+    <StackPanel Orientation="Horizontal">
+      <TextBlock Text="{Binding Data.PotentialFormat}"/>
+      <questions:LabelWithHelpButton DataContext="{Binding Intruder.Potential}"/>
+    </StackPanel>
 
     <TextBlock Text="{Binding Data.GoalsText}"
-               TextWrapping="Wrap"/> 
-
+              TextWrapping="Wrap"/> 
+    
     <ItemsControl ItemsSource="{Binding Intruder.Goals}" Margin="0,10">
       <ItemsControl.ItemTemplate>
         <DataTemplate>

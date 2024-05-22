@@ -8,6 +8,7 @@ namespace Threats.Models.Survey.Data;
 public class IntrudersStageData : StageData, IIntrudersStageData
 {
     [JsonProperty("potentials")] private readonly List<string> potentials = new();
+    [JsonProperty("potential_descriptions")] private readonly List<string> potentialDescriptions = new();
     [JsonProperty("types")] private readonly List<string> types = new();
     [JsonProperty("type_descriptions")] private readonly List<string> typeDescriptions = new();
 
@@ -29,6 +30,7 @@ public class IntrudersStageData : StageData, IIntrudersStageData
     public string GetIntruderTypeDescription(IntruderType type) => GetItem((int)type, typeDescriptions);
 
     public string GetPotentialName(IntruderPotential potential) => GetItem((int)potential, potentials);
+    public string GetPotentialDescription(IntruderPotential potential) => GetItem((int)potential, potentialDescriptions);
 
     private static string GetItem(int index, IReadOnlyList<string> strings)
         => index >= 0 && index < strings.Count ? strings[index] : string.Empty;
