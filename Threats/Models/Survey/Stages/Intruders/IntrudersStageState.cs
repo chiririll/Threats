@@ -1,21 +1,29 @@
 using System.Collections.Generic;
 using Threats.Data.Entities;
+using Threats.Models.Survey.Stages.Intruders;
 
 namespace Threats.Models.Survey;
 
 public class IntrudersStageState : IStageState
 {
-    private readonly HashSet<int> selectedIntruders = new();
+    private readonly HashSet<IntruderBuilder> selectedIntruders = new();
     private readonly HashSet<Intruder> intruders = new();
 
-    public void SelectIntruder(int id)
+    public IReadOnlySet<IntruderBuilder> SelectedIntruders => selectedIntruders;
+
+    public void SelectIntruder(IntruderData data)
     {
-        selectedIntruders.Add(id);
+        selectedIntruders.Add(new(data));
     }
 
-    public void AddIntruder(Intruder intruder)
+    public void BuildIntruders()
     {
-        intruders.Add(intruder);
+        foreach (var builder in selectedIntruders)
+        {
+            intruders.Add(builder.Build());
+        }
+
+        selectedIntruders.Clear();
     }
 
     public void FillResult(SurveyResultBuilder builder)

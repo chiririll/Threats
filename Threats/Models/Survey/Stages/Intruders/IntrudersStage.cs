@@ -30,7 +30,7 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
             return;
         }
 
-        state.SelectIntruder(CurrentIntruder!.Id);
+        state.SelectIntruder(CurrentIntruder!);
     }
 
     public override bool CanMoveNext() => Question1 != null && Question2 != null;

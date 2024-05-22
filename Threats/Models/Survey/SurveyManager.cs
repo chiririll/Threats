@@ -30,6 +30,7 @@ public class SurveyManager
             new ObjectsStage(state, data.ObjectsStageData, entities, questions),
             new ObjectsAppendStage(state,data.ObjectsStageData, entities),
             new IntrudersStage(state, data.IntrudersStageData, entities),
+            new IntrudersTypeStage(state,data.IntrudersStageData, entities),
         };
     }
 
