@@ -14,7 +14,7 @@ public class NegativesStage : SurveyStage<NegativesStageState, INegativesStageDa
     public NegativesStage(SurveyState state, INegativesStageData data, IEntitiesData entities)
         : base(state.NegativesStage, data, entities)
     {
-        typesQuestion = new(data.TypesQuestionLabel, entities.NegativeTypes.Select(t => new Option(t.Id, t.Name)), "Подсказка");
+        typesQuestion = new(data.TypesQuestionLabel, entities.NegativeTypes.Select(t => new Option(t.Id, t.Name)));
         negativesQuestion = null;
 
         CurrentQuestion = typesQuestion;

@@ -8,21 +8,23 @@
              x:Class="Threats.Views.Survey.ObjectsStageView"
              x:DataType="vm:ObjectsStageViewModel">
   
-  <StackPanel>
+  <ScrollViewer>
+    <StackPanel>
 
-    <TextBlock TextWrapping="Wrap"
-              Text="{Binding Header}"/>
+      <TextBlock TextWrapping="Wrap"
+                Text="{Binding Header}"/>
 
-    <questions:RadioQuestion DataContext="{Binding PrimaryQuestion}" />
+      <questions:RadioQuestion DataContext="{Binding PrimaryQuestion}" />
 
-    <ItemsControl ItemsSource="{Binding Questions}">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <questions:RadioQuestion Padding="0,10"/>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
+      <ItemsControl ItemsSource="{Binding Questions}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <questions:RadioQuestion Padding="0,10"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
 
-  </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
 
 </UserControl>

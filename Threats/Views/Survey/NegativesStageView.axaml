@@ -8,6 +8,8 @@
              x:Class="Threats.Views.Survey.NegativesStageView"
              x:DataType="vm:NegativesStageViewModel">
 
-  <questions:QuestionView DataContext="{Binding Question}" />
+  <ScrollViewer>
+    <questions:QuestionView DataContext="{Binding Question}" />
+  </ScrollViewer>
 
 </UserControl>

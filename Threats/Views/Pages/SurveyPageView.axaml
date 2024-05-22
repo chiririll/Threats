@@ -16,15 +16,14 @@
         Next
     </Button>
 
-    <Label DockPanel.Dock="Top"
-           HorizontalContentAlignment="Center"
-           Content="{Binding Title}" 
-           FontSize="21"/>
+    <TextBlock DockPanel.Dock="Top"
+           HorizontalAlignment="Center"
+           Text="{Binding Title}" 
+           FontSize="21"
+           Margin="4"/>
 
-    <ScrollViewer>
-      <views:StageView DataContext="{Binding StageContainer}" 
-                       Padding="0,0,20,0" />
-    </ScrollViewer>
+    <views:StageView DataContext="{Binding StageContainer}" 
+                     Padding="0,0,20,0" />
 
   </DockPanel>
 </UserControl>
