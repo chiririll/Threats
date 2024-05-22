@@ -19,6 +19,9 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
         OptionUpdated = ReactiveCommand.Create(() => updated.OnNext(default));
 
         intruder = CreateIntruder();
+
+        Question1 = new(() => stage.Question1, v => stage.Question1 = v);
+        Question2 = new(() => stage.Question2, v => stage.Question2 = v);
     }
 
     public IntruderViewModel Intruder
@@ -31,8 +34,8 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
 
     public ReactiveCommand<Unit, Unit> OptionUpdated { get; }
 
-    public QuestionVM Question1 { get; } = new();
-    public QuestionVM Question2 { get; } = new();
+    public QuestionVM Question1 { get; }
+    public QuestionVM Question2 { get; }
 
     public override void Refresh()
     {
@@ -68,7 +71,25 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
 
     public class QuestionVM
     {
-        public bool Yes { get; set; }
-        public bool No { get; set; }
+        private readonly System.Func<bool?> getter;
+        private readonly System.Action<bool> setter;
+
+        public QuestionVM(System.Func<bool?> getter, System.Action<bool> setter)
+        {
+            this.getter = getter;
+            this.setter = setter;
+        }
+
+        public bool Yes
+        {
+            get => getter.Invoke() ?? false;
+            set => setter.Invoke(value);
+        }
+
+        public bool No
+        {
+            get => !getter.Invoke() ?? false;
+            set => setter.Invoke(!value);
+        }
     }
 }

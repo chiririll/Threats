@@ -39,18 +39,22 @@
                  TextWrapping="Wrap"
                  Grid.Row="1" Grid.Column="0"/>
 
-      <RadioButton GroupName="q1"
+      <RadioButton GroupName="q1" IsChecked="{Binding Question1.Yes}"
+                   Command="{Binding OptionUpdated}"
                    Grid.Row="1" Grid.Column="1"/>
-      <RadioButton GroupName="q1"
+      <RadioButton GroupName="q1" IsChecked="{Binding Question1.No}"
+                   Command="{Binding OptionUpdated}"
                    Grid.Row="1" Grid.Column="2"/>
 
       <TextBlock Text="{Binding Data.Question2}" 
                  TextWrapping="Wrap"
                  Grid.Row="2" Grid.Column="0"/>
 
-      <RadioButton GroupName="q2"
+      <RadioButton GroupName="q2" IsChecked="{Binding Question2.Yes}"
+                   Command="{Binding OptionUpdated}"
                    Grid.Row="2" Grid.Column="1"/>
-      <RadioButton GroupName="q2"
+      <RadioButton GroupName="q2" IsChecked="{Binding Question2.No}"
+                   Command="{Binding OptionUpdated}"
                    Grid.Row="2" Grid.Column="2"/>
     </Grid>
 

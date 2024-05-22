@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using Threats.Data;
 using Threats.Data.Entities;
-using Threats.Models.Questions;
 using Threats.Models.Survey.Data;
 using Threats.Models.Survey.State;
 
@@ -17,47 +14,26 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
         IIntrudersStageData data,
         IEntitiesData entities) : base(state.IntrudersStage, data, entities)
     {
-        IntruderIncluded = CreateIncludedQuestion();
-        IntruderType = CreateTypeQuestion();
     }
 
     public IntruderData? CurrentIntruder => currentIndex >= 0 && currentIndex < entities.Intruders.Count
         ? entities.Intruders[currentIndex]
         : null;
 
-    public Question IntruderIncluded { get; private set; }
-    public Question IntruderType { get; private set; }
+    public bool? Question1 { get; set; }
+    public bool? Question2 { get; set; }
 
     public override void Save()
     {
-        if (IntruderIncluded.SelectedOne == null || IntruderIncluded.SelectedOne.Id != OptionId.Yes)
+        if (!Question1.HasValue || !Question2.HasValue || !Question1.Value || !Question2.Value)
         {
             return;
         }
 
-        if (IntruderType.SelectedOne?.Payload is not IntruderTypePayload payload)
-        {
-            return;
-        }
-
-        state.AddIntruder(new(payload.Type, CurrentIntruder!.Potential));
+        state.SelectIntruder(CurrentIntruder!.Id);
     }
 
-    public override bool CanMoveNext()
-    {
-        var selected = IntruderIncluded.SelectedOne;
-        if (selected == null)
-        {
-            return false;
-        }
-
-        if (selected.Id == OptionId.No)
-        {
-            return true;
-        }
-
-        return IntruderType.SelectedOne != null;
-    }
+    public override bool CanMoveNext() => Question1 != null && Question2 != null;
 
     public override bool MoveNext()
     {
@@ -67,36 +43,9 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
             return false;
         }
 
-        IntruderIncluded = CreateIncludedQuestion();
-        IntruderType = CreateTypeQuestion();
+        Question1 = null;
+        Question2 = null;
 
         return true;
-    }
-
-    private Question CreateIncludedQuestion() => new(data.IncludedQuestionLabel, new List<Option>
-    {
-        new(OptionId.Yes, data.YesOption, OptionId.IncludedGroup),
-        new(OptionId.No, data.NoOption, OptionId.IncludedGroup),
-    });
-
-    private Question CreateTypeQuestion() => new(
-        data.TypeQuestionLabel,
-        System.Enum.GetValues(typeof(IntruderType))
-            .Cast<IntruderType>()
-            .Skip(1)
-            .Select((t, i) => new Option(
-                i + 1,
-                data.GetIntruderTypeName(t),
-                OptionId.TypeGroup,
-                data.GetIntruderTypeDescription(t),
-                new IntruderTypePayload(t))));
-
-    private static class OptionId
-    {
-        public const int Yes = 1;
-        public const int No = 2;
-
-        public const string IncludedGroup = "inc";
-        public const string TypeGroup = "type";
     }
 }
