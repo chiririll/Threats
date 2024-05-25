@@ -1,6 +1,8 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using Threats.ViewModels;
 using Threats.Views;
 
@@ -11,6 +13,8 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+
+        InitStrings();
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -24,5 +28,16 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void InitStrings()
+    {
+        if (!Current!.TryGetResource("strings", ThemeVariant.Default, out var stringsResource)
+            || stringsResource is not IResourceProvider strings)
+        {
+            return;
+        }
+
+        Current.Resources.MergedDictionaries.Add(strings);
     }
 }

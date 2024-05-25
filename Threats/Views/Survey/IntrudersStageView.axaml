@@ -9,16 +9,16 @@
              x:DataType="vm:IntrudersStageViewModel">
   
   <StackPanel>
-    
+
     <TextBlock Text="{Binding Intruder.Title}"
                TextWrapping="Wrap"/>
 
     <StackPanel Orientation="Horizontal">
-      <TextBlock Text="{Binding Data.PotentialFormat}"/>
+      <TextBlock Text="{StaticResource stages.intruders.intruder.potential}"/>
       <questions:LabelWithHelpButton DataContext="{Binding Intruder.Potential}"/>
     </StackPanel>
 
-    <TextBlock Text="{Binding Data.GoalsText}"
+    <TextBlock Text="{StaticResource stages.intruders.intruder.goals}"
               TextWrapping="Wrap"/> 
     
     <ItemsControl ItemsSource="{Binding Intruder.Goals}" Margin="0,10">
@@ -33,12 +33,12 @@
     </ItemsControl>
 
     <Grid ColumnDefinitions="*,50,50" RowDefinitions="Auto,Auto,Auto" Margin="4">
-      <TextBlock Text="{Binding Data.YesOption}"
+      <TextBlock Text="{StaticResource stages.intruders.question.yes}"
                  Grid.Row="0" Grid.Column="1"/>
-      <TextBlock Text="{Binding Data.NoOption}"
+      <TextBlock Text="{StaticResource stages.intruders.question.no}"
                  Grid.Row="0" Grid.Column="2"/>
 
-      <TextBlock Text="{Binding Data.Question1}" 
+      <TextBlock Text="{StaticResource stages.intruders.question.include1}" 
                  TextWrapping="Wrap"
                  Grid.Row="1" Grid.Column="0"/>
 
@@ -49,7 +49,7 @@
                    Command="{Binding OptionUpdated}"
                    Grid.Row="1" Grid.Column="2"/>
 
-      <TextBlock Text="{Binding Data.Question2}" 
+      <TextBlock Text="{StaticResource stages.intruders.question.include2}" 
                  TextWrapping="Wrap"
                  Grid.Row="2" Grid.Column="0"/>
 

@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <system:String x:Key="stages.title">Этап №</system:String>
+
+  <system:String x:Key="stages.negatives.title">Определение негативных последствий</system:String>
+  <system:String x:Key="stages.negatives.question.types">Выберите актуальные виды рисков (ущерба), которые могут наступить от нарушения или прекращения основных процессов в системе:</system:String>
+  <system:String x:Key="stages.negatives.question.negatives">Выберите негативные последствия, которые могут наступить в результате реализации (возникновения) угроз безопасности информации и привести к выбранным ранее видам рисков (ущерба):</system:String>
+
+  <system:String x:Key="stages.objects.title">Определение объектов воздействия</system:String>
+  <system:String x:Key="stages.objects.header">Ответьте на вопросы ниже, характеризующие архитектуру и состав вашей системы:</system:String>
+  <system:String x:Key="stages.objects.result.header">По результатам опроса определены возможные объекты воздействия угроз безопасности информации:</system:String>
+  <system:String x:Key="stages.objects.result.add">При необходимости уточнения перечня объектов воздействия выберите дополнительные компоненты системы, которые непосредственно участвуют в обработке и хранении защищаемой информации или обеспечивают реализацию основных процессов:</system:String>
+  <system:String x:Key="stages.objects.result.addButton">Добавить</system:String>
+
+  <system:String x:Key="stages.intruders.title">Определение источников угроз безопасности информации</system:String>
+  <system:String x:Key="stages.intruders.intruder.name">Нарушитель:</system:String>
+  <system:String x:Key="stages.intruders.intruder.potential">Уровень возможностей:</system:String>
+  <system:String x:Key="stages.intruders.intruder.goals">Цели:</system:String>
+
+  <system:String x:Key="stages.intruders.header">Ознакомьтесь с каждым видом нарушителя и оцените его актуальность для системы:</system:String>
+  <system:String x:Key="stages.intruders.question.include1">Может ли информация, обрабатываемая в системе, представлять интерес для данного вида нарушителя?</system:String>
+  <system:String x:Key="stages.intruders.question.include2">Могут ли цели данного нарушителя привести к выбранным ранее негативным последствиям и соответствующим рискам (видам ущерба)?</system:String>
+  <system:String x:Key="stages.intruders.question.type">Определите категорию для каждого вида актуального нарушителя (в зависимости от имеющихся прав и условий по доступу к системе):</system:String>
+  <system:String x:Key="stages.intruders.question.yes">&lt;Bold&gt;Да&lt;/Bold&gt;</system:String>
+  <system:String x:Key="stages.intruders.question.no">Нет</system:String>
+
+  <system:String x:Key="intruder.potentials.1.name">Базовый (Н1)</system:String>
+  <system:String x:Key="intruder.potentials.1.desc">Базовый (Н1)</system:String>
+  <system:String x:Key="intruder.potentials.2.name">Базовый повышенный (Н2)</system:String>
+  <system:String x:Key="intruder.potentials.2.desc">Базовый повышенный (Н2)</system:String>
+  <system:String x:Key="intruder.potentials.3.name">Средний (Н3)</system:String>
+  <system:String x:Key="intruder.potentials.3.desc">Средний (Н3)</system:String>
+  <system:String x:Key="intruder.potentials.4.name">Высокий (Н4)</system:String>
+  <system:String x:Key="intruder.potentials.4.desc">Высокий (Н4)</system:String>
+
+  <system:String x:Key="intruder.type.1.name">Внутренние</system:String>
+  <system:String x:Key="intruder.type.1.desc">Внешние</system:String>
+  <system:String x:Key="intruder.type.2.name">Нарушители, имеющие права доступа в контролируемую (охраняемую) зону (территорию) и (или) полномочия по автоматизированному доступу к информационным ресурсам и компонентам систем и сетей.</system:String>
+  <system:String x:Key="intruder.type.2.desc">Нарушители, не имеющие прав доступа в контролируемую (охраняемую) зону (территорию) и (или) полномочий по доступу к информационным ресурсам и компонентам систем и сетей, требующим авторизации.</system:String>
+</ResourceDictionary>
