@@ -13,25 +13,37 @@
       <TextBlock TextWrapping="Wrap"
                 Text="{Binding TypeQuestionLabel}"/>
 
-      <Grid ColumnDefinitions="*,120,120" Margin="4, 2">
-        <questions:LabelWithLeftHelpButton DataContext="{Binding InternalLabel}" Grid.Column="1"/>
-        <questions:LabelWithLeftHelpButton DataContext="{Binding ExternalLabel}" Grid.Column="2"/>
+      <Grid ColumnDefinitions="*,120,120" Margin="0,2,20,2">
+        <questions:LabelWithLeftHelpButton Grid.Column="1"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           DataContext="{Binding InternalLabel}"/>
+        <questions:LabelWithLeftHelpButton Grid.Column="2"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           DataContext="{Binding ExternalLabel}"/>
       </Grid>
 
-      <ItemsControl ItemsSource="{Binding Intruders}" Margin="20,10">
+      <ItemsControl ItemsSource="{Binding Intruders}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <Grid ColumnDefinitions="*,80,80" Margin="4, 2">
-              <Rectangle Fill="{Binding Color}" Margin="-4,-4,-160,-4"/>
-              
-              <questions:LabelWithLeftHelpButton DataContext="{Binding Label}"/>
+            <Grid ColumnDefinitions="*,120,120" Margin="0,2,20,2">
+              <Rectangle Fill="{Binding Color}" Margin="0,0,-240,0"/>
+
+              <questions:LabelWithLeftHelpButton Margin="10,2,0,2"
+                                                 VerticalAlignment="Center"
+                                                 DataContext="{Binding Label}"/>
 
               <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option1}"
-                          Command="{Binding OptionUpdated}"
-                          Grid.Column="1"/>
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Command="{Binding OptionUpdated}"
+                           Grid.Column="1"/>
               <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option2}"
-                          Command="{Binding OptionUpdated}"
-                          Grid.Column="2"/>
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Command="{Binding OptionUpdated}"
+                           Grid.Column="2"/>
             </Grid>
           </DataTemplate>
         </ItemsControl.ItemTemplate>

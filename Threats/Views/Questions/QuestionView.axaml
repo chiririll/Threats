@@ -9,13 +9,14 @@
              x:DataType="vm:QuestionViewModel">
   <StackPanel>
 
-    <views:LabelWithLeftHelpButton DataContext="{Binding Label}" Margin="0,4"/>
+    <views:LabelWithHelpButton DataContext="{Binding Label}" Margin="0,4"/>
 
     <ItemsControl ItemsSource="{Binding Options}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <Grid ColumnDefinitions="*,50" Margin="0,2">
+          <Grid ColumnDefinitions="*,50">
             <views:LabelWithHelpButton DataContext="{Binding Label}"
+                                       Margin="0,2"
                                        Grid.Column="0"/>
             <CheckBox Click="Updated"
                       VerticalAlignment="Center"

@@ -11,38 +11,42 @@
     <StackPanel>
       <questions:RadioQuestion DataContext="{Binding PrimaryQuestion}" />
 
-      <Grid ColumnDefinitions="*,50,50" Margin="0,8,14,8">
-        <!-- <Rectangle Fill="Blue" Margin="0,-4,-114,-4"/> -->
+      <Grid ColumnDefinitions="*,50,50" Margin="0,8,20,8">
         <TextBlock Grid.Column="0" 
                    TextWrapping="Wrap" 
-                   HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
-                   Text="{Binding Header}"/>
+                   Margin="10,0,0,0">
+          Ответьте на вопросы ниже, характеризующие архитектуру и состав вашей системы:
+        </TextBlock>
         <TextBlock Grid.Column="1" 
                    TextWrapping="Wrap" 
                    HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
+                   VerticalAlignment="Bottom" 
                    Text="Да"/>
         <TextBlock Grid.Column="2" 
                    TextWrapping="Wrap" 
                    HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
+                   VerticalAlignment="Bottom" 
                    Text="Нет"/>
       </Grid>
 
       <ItemsControl ItemsSource="{Binding Questions}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <Grid ColumnDefinitions="*,50,50" Margin="0,4">
+            <Grid ColumnDefinitions="*,50,50" Margin="0,4,20,4">
               <Rectangle Fill="{Binding Color}" Margin="-4,-4,-100,-4"/>
-              
-              <questions:LabelWithLeftHelpButton VerticalAlignment="Center" DataContext="{Binding Label}"/>
+
+              <questions:LabelWithLeftHelpButton Margin="10,0,0,0" 
+                                                 VerticalAlignment="Center" 
+                                                 DataContext="{Binding Label}"/>
 
               <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option1}"
+                           HorizontalAlignment="Center" 
                            Command="{Binding OptionUpdated}"
                            VerticalAlignment="Center"
                            Grid.Column="1"/>
               <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option2}"
+                           HorizontalAlignment="Center" 
                            Command="{Binding OptionUpdated}"
                            VerticalAlignment="Center"
                            Grid.Column="2"/>

@@ -49,8 +49,8 @@ public class IntrudersStageViewModel : SurveyStageViewModel<IntrudersStage>
     {
         var current = stage.CurrentIntruder!;
         return new(
-            string.Format(stage.Data.NameFormat, current.Title),
-            stage.Potential,
+            current.Title,
+            stage.Potential!,
             current.Goals);
     }
 
