@@ -1,8 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive;
-using ReactiveUI;
 using Threats.Data.Entities;
 using Threats.Models.Survey;
 using Threats.Models.Survey.Stages.Intruders;
@@ -16,8 +14,15 @@ public class IntrudersTypeStageViewModel : SurveyStageViewModel<IntrudersTypeSta
     {
         Intruders = new(stage.Intruders.Select((b, i) =>
         {
-            var vm = new IntruderVM(i, b);
+            var vm = new YesNoOptionContainer<IntruderBuilder>(
+                i, b,
+                (intruder, @internal, @external) => intruder.SetType(@internal && !@external
+                    ? IntruderType.Internal
+                    : !@internal && external ? IntruderType.External : IntruderType.None),
+                $"{i + 1}. {b.Data.Title}");
+
             vm.OptionUpdated.Subscribe(_ => updated.OnNext(default));
+
             return vm;
         }));
 
@@ -30,7 +35,7 @@ public class IntrudersTypeStageViewModel : SurveyStageViewModel<IntrudersTypeSta
             stage.Data.GetIntruderTypeDescription(IntruderType.External)));
     }
 
-    public ObservableCollection<IntruderVM> Intruders { get; }
+    public ObservableCollection<YesNoOptionContainer<IntruderBuilder>> Intruders { get; }
     public string TypeQuestionLabel => stage.Data.TypeQuestionLabel;
 
     public LabelWithHelpButtonViewModel InternalLabel { get; }
@@ -38,60 +43,5 @@ public class IntrudersTypeStageViewModel : SurveyStageViewModel<IntrudersTypeSta
 
     public override void Refresh()
     {
-    }
-
-    public class IntruderVM
-    {
-        private readonly IntruderBuilder builder;
-
-        private bool @internal = false;
-        private bool @external = false;
-
-        public IntruderVM(int index, IntruderBuilder builder)
-        {
-            this.builder = builder;
-
-            Index = index + 1;
-            Name = $"{Index}. {builder.Data.Title}";
-            Group = $"q{Index}";
-
-            OptionUpdated = ReactiveCommand.Create(() => { });
-        }
-
-        public int Index { get; }
-        public string Group { get; }
-        public string Name { get; }
-
-        public ReactiveCommand<Unit, Unit> OptionUpdated { get; }
-
-        public bool Internal
-        {
-            get => @internal;
-            set
-            {
-                @internal = value;
-                UpdateType();
-            }
-        }
-
-        public bool External
-        {
-            get => @external;
-            set
-            {
-                @external = value;
-                UpdateType();
-            }
-        }
-
-        private void UpdateType()
-        {
-            var type = Internal && !External
-                ? IntruderType.Internal
-                : !Internal && External
-                    ? IntruderType.External
-                    : IntruderType.None;
-            builder.SetType(type);
-        }
     }
 }

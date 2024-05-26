@@ -9,16 +9,16 @@
              x:DataType="vm:QuestionViewModel">
   <StackPanel>
 
-    <views:LabelWithLeftHelpButton DataContext="{Binding Label}"/>
+    <views:LabelWithLeftHelpButton DataContext="{Binding Label}" Margin="0,4"/>
 
     <ItemsControl ItemsSource="{Binding Options}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <Grid ColumnDefinitions="*,50">
+          <Grid ColumnDefinitions="*,50" Margin="0,2">
             <views:LabelWithHelpButton DataContext="{Binding Label}"
                                        Grid.Column="0"/>
-            <CheckBox Margin="4"
-                      Click="Updated"
+            <CheckBox Click="Updated"
+                      VerticalAlignment="Center"
                       IsChecked="{Binding Selected}"
                       Grid.Column="1"/>
           </Grid>

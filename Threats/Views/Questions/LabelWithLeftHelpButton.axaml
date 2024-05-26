@@ -15,6 +15,7 @@
             Padding="2"
             CornerRadius="10"
             HorizontalContentAlignment="Center"
+            VerticalAlignment="Top"
             Grid.Column="0"
             FontSize="10"
             FontWeight="Bold"

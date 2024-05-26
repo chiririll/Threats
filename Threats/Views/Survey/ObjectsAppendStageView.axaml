@@ -9,20 +9,34 @@
   <DockPanel>
 
     <TextBlock DockPanel.Dock="Top"
-               TextWrapping="Wrap"
-               Text="{Binding Data.ObjectResultsHeader}"/>
+               TextWrapping="Wrap">
+      По результатам опроса определены возможные объекты воздействия угроз безопасности информации:
+    </TextBlock>
 
     <StackPanel DockPanel.Dock="Bottom">
       
-      <TextBlock TextWrapping="Wrap" Text="{Binding Data.AddObjectHeader}"/>
+      <TextBlock TextWrapping="Wrap">
+        При необходимости уточнения перечня объектов воздействия выберите дополнительные компоненты системы, 
+        которые непосредственно участвуют в обработке и хранении защищаемой информации или обеспечивают 
+        реализацию основных процессов:
+      </TextBlock>
 
-      <WrapPanel>
-        <ComboBox ItemsSource="{Binding AvailableObjects}"
-                  Width="500" Height="30"
+      <Grid ColumnDefinitions="*,120" Margin="0,10">
+        <Button Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Margin="10,0,0,0"
+                Command="{Binding AddObjectCommand}">
+          Добавить
+        </Button>
+
+        <ComboBox Grid.Column="0"
+                  ItemsSource="{Binding AvailableObjects}"
+                  HorizontalAlignment="Stretch"
                   SelectedItem="{Binding SelectedItem}">
           <ComboBox.ItemsPanel>
             <ItemsPanelTemplate>
-              <StackPanel MaxWidth="500"/>
+              <StackPanel Width="500"/>
             </ItemsPanelTemplate>
           </ComboBox.ItemsPanel>
 
@@ -33,14 +47,10 @@
           </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Button Margin="10,0,0,0"
-                Content="{Binding Data.AddObjectButton}"
-                Command="{Binding AddObjectCommand}"/>
-
-      </WrapPanel>
+      </Grid>
     </StackPanel>
 
-    <DataGrid Margin="20" ItemsSource="{Binding SelectedObjects}"
+    <DataGrid Margin="0, 10" ItemsSource="{Binding SelectedObjects}"
               IsReadOnly="True"
               CanUserSortColumns="True"
               GridLinesVisibility="All"

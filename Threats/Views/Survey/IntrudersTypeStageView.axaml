@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Threats.ViewModels.Survey"
-             xmlns:views="using:Threats.Views.Questions"
+             xmlns:questions="using:Threats.Views.Questions"
              x:Class="Threats.Views.Survey.IntrudersTypeStageView"
              x:DataType="vm:IntrudersTypeStageViewModel">
 
@@ -14,22 +14,22 @@
                 Text="{Binding TypeQuestionLabel}"/>
 
       <Grid ColumnDefinitions="*,120,120" Margin="4, 2">
-        <views:LabelWithLeftHelpButton DataContext="{Binding InternalLabel}" Grid.Column="1"/>
-        <views:LabelWithLeftHelpButton DataContext="{Binding ExternalLabel}" Grid.Column="2"/>
+        <questions:LabelWithLeftHelpButton DataContext="{Binding InternalLabel}" Grid.Column="1"/>
+        <questions:LabelWithLeftHelpButton DataContext="{Binding ExternalLabel}" Grid.Column="2"/>
       </Grid>
 
       <ItemsControl ItemsSource="{Binding Intruders}" Margin="20,10">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <Grid ColumnDefinitions="*,80,80" Margin="4, 2">
-              <TextBlock Text="{Binding Name}" 
-                    TextWrapping="Wrap"
-                    Grid.Column="0"/>
+              <Rectangle Fill="{Binding Color}" Margin="-4,-4,-160,-4"/>
+              
+              <questions:LabelWithLeftHelpButton DataContext="{Binding Label}"/>
 
-              <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Internal}"
+              <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option1}"
                           Command="{Binding OptionUpdated}"
                           Grid.Column="1"/>
-              <RadioButton GroupName="{Binding Group}" IsChecked="{Binding External}"
+              <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option2}"
                           Command="{Binding OptionUpdated}"
                           Grid.Column="2"/>
             </Grid>

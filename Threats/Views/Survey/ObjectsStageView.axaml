@@ -7,19 +7,46 @@
              xmlns:vm="using:Threats.ViewModels.Survey"
              x:Class="Threats.Views.Survey.ObjectsStageView"
              x:DataType="vm:ObjectsStageViewModel">
-  
   <ScrollViewer>
     <StackPanel>
-
-      <TextBlock TextWrapping="Wrap"
-                Text="{Binding Header}"/>
-
       <questions:RadioQuestion DataContext="{Binding PrimaryQuestion}" />
+
+      <Grid ColumnDefinitions="*,50,50" Margin="0,8,14,8">
+        <!-- <Rectangle Fill="Blue" Margin="0,-4,-114,-4"/> -->
+        <TextBlock Grid.Column="0" 
+                   TextWrapping="Wrap" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Text="{Binding Header}"/>
+        <TextBlock Grid.Column="1" 
+                   TextWrapping="Wrap" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Text="Да"/>
+        <TextBlock Grid.Column="2" 
+                   TextWrapping="Wrap" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Text="Нет"/>
+      </Grid>
 
       <ItemsControl ItemsSource="{Binding Questions}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <questions:RadioQuestion Padding="0,10"/>
+            <Grid ColumnDefinitions="*,50,50" Margin="0,4">
+              <Rectangle Fill="{Binding Color}" Margin="-4,-4,-100,-4"/>
+              
+              <questions:LabelWithLeftHelpButton VerticalAlignment="Center" DataContext="{Binding Label}"/>
+
+              <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option1}"
+                           Command="{Binding OptionUpdated}"
+                           VerticalAlignment="Center"
+                           Grid.Column="1"/>
+              <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option2}"
+                           Command="{Binding OptionUpdated}"
+                           VerticalAlignment="Center"
+                           Grid.Column="2"/>
+            </Grid>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
