@@ -7,23 +7,54 @@
              mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="450"
              x:Class="Threats.Views.Pages.SurveyPageView"
              x:DataType="vm:SurveyPageViewModel">
-  <DockPanel>
 
-    <Button DockPanel.Dock="Bottom"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"
-            Command="{Binding Submit}">
-        Next
-    </Button>
+  <Grid Margin="10" MaxWidth="1100">
+    <Grid Margin="0, 10, 0, 40">
 
-    <TextBlock DockPanel.Dock="Top"
-           HorizontalAlignment="Center"
-           Text="{Binding Title}" 
-           FontSize="21"
-           Margin="4"/>
+      <Rectangle StrokeDashArray="1, 3"
+                 Margin="0,5,0,0"
+                 Stroke="Black" 
+                 StrokeThickness="1" 
+                 RadiusX="7" RadiusY="7"/>
+      
+      <Rectangle Fill="White" Height="8" VerticalAlignment="Top" Margin="16,2"/>
 
-    <views:StageView DataContext="{Binding StageContainer}" 
-                     Padding="0,0,20,0" />
+      <DockPanel Margin="10">
 
-  </DockPanel>
+        <TextBlock DockPanel.Dock="Top"
+              HorizontalAlignment="Center"
+              TextWrapping="Wrap"
+              Text="{Binding Title}"
+              FontSize="21"
+              Margin="0,-18,0,0"/>
+
+        <views:StageView DataContext="{Binding StageContainer}" 
+                        Padding="0,10,20,0" /> 
+      </DockPanel>
+    </Grid>
+  
+    <Grid VerticalAlignment="Bottom"
+          Margin="0,-5"
+          Height="40">
+
+      <Button DockPanel.Dock="Right"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Right"
+              HorizontalContentAlignment="Center"
+              Width="150"
+              Command="{Binding Submit}">
+          Далее
+      </Button>
+
+      <Button DockPanel.Dock="Left"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Left"
+              HorizontalContentAlignment="Center"
+              Width="150"
+              Command="{Binding GoBack}"
+              IsVisible="{Binding CanMoveBack}">
+          Назад
+      </Button>
+    </Grid>
+  </Grid>
 </UserControl>

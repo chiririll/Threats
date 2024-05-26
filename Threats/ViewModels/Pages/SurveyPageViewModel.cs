@@ -22,11 +22,16 @@ public class SurveyPageViewModel : ViewModelBase
         StageContainer.Updated.Subscribe(_ => UpdateMoveNextButtonState());
 
         Submit = ReactiveCommand.Create(MoveToNextStage, canMoveNext);
+        GoBack = ReactiveCommand.Create(MoveToPrevStage);
+
         UpdateMoveNextButtonState();
     }
 
     public IObservable<SurveyResult> OnComplete => onComplete;
     public IObservable<Unit> Submit { get; }
+    public IObservable<Unit> GoBack { get; }
+
+    public bool CanMoveBack => true;
 
     public string Title => survey.Title;
     public StageViewModel StageContainer { get; } = new();
@@ -48,5 +53,9 @@ public class SurveyPageViewModel : ViewModelBase
         this.RaisePropertyChanged(nameof(Title));
 
         UpdateMoveNextButtonState();
+    }
+
+    private void MoveToPrevStage()
+    {
     }
 }
