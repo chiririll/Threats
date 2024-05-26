@@ -23,7 +23,6 @@ public partial class QuestionView : UserControl
 
     private void Updated(object sender, RoutedEventArgs args)
     {
-        Console.WriteLine("Updated");
         viewModel?.Updated();
     }
 }

@@ -9,14 +9,14 @@
              x:DataType="vm:QuestionViewModel">
   
   <StackPanel>
-    <views:LabelWithHelpButton DataContext="{Binding Label}"/>
+    <views:LabelWithLeftHelpButton DataContext="{Binding Label}"/>
 
     <ItemsControl ItemsSource="{Binding Options}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <RadioButton Margin="4"
                     GroupName="{Binding Group}"
-                    Command="{Binding $parent[views:RadioQuestion].((vm:QuestionViewModel)DataContext).Updated}"
+                    Click="Updated"
                     IsChecked="{Binding Selected}">
             <views:LabelWithHelpButton DataContext="{Binding Label}"/>
           </RadioButton>
