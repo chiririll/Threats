@@ -26,14 +26,12 @@ public class MainWindowViewModel : ViewModelBase
         entities = DataLoader.LoadEntitiesData();
         questions = DataLoader.LoadQuestionsData();
 
-        var startPage = new StartPageViewModel();
+        ShowStart();
 
-        startPage
-            .StartSurvey
-            .Subscribe(_ => StartSurvey())
-            .AddTo(pageSub);
-
-        content = startPage;
+        if (content == null)
+        {
+            throw new NullReferenceException();
+        }
     }
 
     public ViewModelBase Content
@@ -49,6 +47,16 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    public void ShowStart()
+    {
+        var startPage = new StartPageViewModel();
+        Content = startPage;
+
+        startPage.StartSurvey
+            .Subscribe(_ => StartSurvey())
+            .AddTo(pageSub);
+    }
+
     public void StartSurvey()
     {
         survey = new(surveyData, entities, questions);
@@ -56,14 +64,18 @@ public class MainWindowViewModel : ViewModelBase
         var surveyPage = new SurveyPageViewModel(survey);
         Content = surveyPage;
 
-        surveyPage
-            .OnComplete
+        surveyPage.OnComplete
             .Subscribe(ShowResult)
             .AddTo(pageSub);
     }
 
     public void ShowResult(SurveyResult result)
     {
-        Content = new ResultPageViewModel(result);
+        var resultPage = new ResultPageViewModel(result);
+        Content = resultPage;
+
+        resultPage.OnRestartRequested
+            .Subscribe(_ => ShowStart())
+            .AddTo(pageSub);
     }
 }

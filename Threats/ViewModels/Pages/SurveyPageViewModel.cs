@@ -31,7 +31,7 @@ public class SurveyPageViewModel : ViewModelBase
     public IObservable<Unit> Submit { get; }
     public IObservable<Unit> GoBack { get; }
 
-    public bool CanMoveBack => true;
+    public bool CanMoveBack => false;
 
     public string Title => survey.Title;
     public StageViewModel StageContainer { get; } = new();

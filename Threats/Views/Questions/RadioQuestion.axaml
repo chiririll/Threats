@@ -7,7 +7,7 @@
              xmlns:views="using:Threats.Views.Questions"
              x:Class="Threats.Views.Questions.RadioQuestion"
              x:DataType="vm:QuestionViewModel">
-  
+
   <StackPanel>
     <views:LabelWithHelpButton DataContext="{Binding Label}"/>
 
