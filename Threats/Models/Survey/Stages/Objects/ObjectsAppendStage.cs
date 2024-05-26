@@ -18,6 +18,10 @@ public class ObjectsAppendStage : SurveyStage<ObjectsStageState, IObjectsStageDa
 
     public IReadOnlyList<Object> Objects => state.Objects;
 
+    public override void Init()
+    {
+    }
+
     public bool AddObject(Object obj) => state.AddObject(obj);
 
     public List<Object> GetAvailableObjects()

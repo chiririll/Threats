@@ -9,6 +9,7 @@ public static class SurveyStageViewModelFactory
         return stage switch
         {
             NegativesStage negatives => new NegativesStageViewModel(negatives),
+            NegativeTypesStage negatives => new NegativeTypesStageViewModel(negatives),
             ObjectsStage objects => new ObjectsStageViewModel(objects),
             ObjectsAppendStage objectsAppend => new ObjectsAppendStageViewModel(objectsAppend),
             IntrudersStage intruders => new IntrudersStageViewModel(intruders),

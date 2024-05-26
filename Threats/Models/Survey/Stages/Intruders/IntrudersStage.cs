@@ -15,7 +15,7 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
         IIntrudersStageData data,
         IEntitiesData entities) : base(state.IntrudersStage, data, entities)
     {
-        UpdatePotentialString();
+        Potential = GetPotentialString();
     }
 
     public IntruderData? CurrentIntruder => currentIndex >= 0 && currentIndex < entities.Intruders.Count
@@ -25,6 +25,10 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
     public LabelWithDescription Potential { get; private set; }
     public bool? Question1 { get; set; }
     public bool? Question2 { get; set; }
+
+    public override void Init()
+    {
+    }
 
     public override void Save()
     {
@@ -46,16 +50,16 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
             return false;
         }
 
-        UpdatePotentialString();
+        Potential = GetPotentialString();
         Question1 = null;
         Question2 = null;
 
         return true;
     }
 
-    private void UpdatePotentialString()
+    private LabelWithDescription GetPotentialString()
     {
         var potential = CurrentIntruder!.Potential;
-        Potential = new(data.GetPotentialName(potential), data.GetPotentialDescription(potential));
+        return new(data.GetPotentialName(potential), data.GetPotentialDescription(potential));
     }
 }

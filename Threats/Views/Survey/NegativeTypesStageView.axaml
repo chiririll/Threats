@@ -3,16 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:questions="clr-namespace:Threats.Views.Questions"
              xmlns:vm="using:Threats.ViewModels.Survey"
-             xmlns:questions="using:Threats.Views.Questions"
-             x:Class="Threats.Views.Survey.NegativesStageView"
-             x:DataType="vm:NegativesStageViewModel">
+             x:Class="Threats.Views.Survey.NegativeTypesStageView"
+             x:DataType="vm:NegativeTypesStageViewModel">
   <ScrollViewer>
     <StackPanel>
 
       <TextBlock TextWrapping="Wrap">
-        Выберите <Bold>негативные последствия</Bold>, которые могут наступить в результате реализации (возникновения) 
-        угроз безопасности информации и привести к выбранным ранее видам рисков (ущерба):
+        Выберите <Bold>актуальные виды рисков (ущерба)</Bold>, которые могут наступить от нарушения
+        или прекращения основных процессов в системе:
       </TextBlock>
 
       <questions:QuestionView DataContext="{Binding Question}" />

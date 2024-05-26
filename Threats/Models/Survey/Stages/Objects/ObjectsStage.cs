@@ -24,6 +24,10 @@ public class ObjectsStage : SurveyStage<ObjectsStageState, IObjectsStageData>
 
     public IReadOnlyList<Question> Questions => questions;
 
+    public override void Init()
+    {
+    }
+
     public override void Save()
     {
         var selectedOptions = questions.SelectMany(q => q.Selected.Select(o => o.Payload).OfType<ObjectsOptionPayload>());

@@ -31,6 +31,8 @@ public abstract class SurveyStage
 
     public abstract string Title { get; }
 
+    public abstract void Init();
+
     public abstract void Save();
 
     /// <summary>

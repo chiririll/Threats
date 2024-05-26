@@ -26,12 +26,15 @@ public class SurveyManager
 
         stages = new()
         {
+            new NegativeTypesStage(state, data.NegativesStageData, entities),
             new NegativesStage(state, data.NegativesStageData, entities),
             new ObjectsStage(state, data.ObjectsStageData, entities, questions),
             new ObjectsAppendStage(state,data.ObjectsStageData, entities),
             new IntrudersStage(state, data.IntrudersStageData, entities),
             new IntrudersTypeStage(state,data.IntrudersStageData, entities),
         };
+
+        stages[0].Init();
     }
 
     public string Title => CurrentStage != null
@@ -62,7 +65,13 @@ public class SurveyManager
 
         currentStage++;
 
-        return CurrentStage != null;
+        if (CurrentStage == null)
+        {
+            return false;
+        }
+
+        CurrentStage.Init();
+        return true;
     }
 
     public SurveyResult GetResult() => state.GetResult(entities);

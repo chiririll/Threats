@@ -5,9 +5,9 @@ using Threats.ViewModels.Questions;
 
 namespace Threats.ViewModels.Survey;
 
-public class NegativesStageViewModel : SurveyStageViewModel<NegativesStage>
+public class NegativeTypesStageViewModel : SurveyStageViewModel<NegativeTypesStage>
 {
-    public NegativesStageViewModel(NegativesStage stage) : base(stage)
+    public NegativeTypesStageViewModel(NegativeTypesStage stage) : base(stage)
     {
         Question = new(stage.Question!);
 
