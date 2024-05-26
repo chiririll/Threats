@@ -1,0 +1,607 @@
+﻿{
+  "objects": [
+    {
+      "id": 1,
+      "title": "Чем является объект защиты, для которого определяются актуальные угрозы? ",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_1",
+          "label": "Информационная система",
+          "help_text": "К «Информационная система»:",
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              2,
+              4,
+              6,
+              8,
+              11,
+              15,
+              23,
+              35,
+              55,
+              59,
+              54,
+              75,
+              78,
+              81,
+              82
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_1",
+          "label": "Автоматизированная система управления",
+          "help_text": "К «Автоматизированная система управления»:",
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              2,
+              4,
+              6,
+              8,
+              11,
+              15,
+              23,
+              35,
+              55,
+              59,
+              54,
+              75,
+              78,
+              81,
+              82,
+              62,
+              73
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 3,
+          "group": "obj_1",
+          "label": "Информационно-телекоммуникационная сеть (ЛВС или ее часть )",
+          "help_text": "К «Информационно-телекоммуникационные сети»:",
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              2,
+              7,
+              10,
+              11,
+              13,
+              19,
+              23,
+              48,
+              49,
+              52,
+              55,
+              56,
+              80
+            ],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Есть ли в составе системы физическое оборудование?",
+      "help_text": "К «физическое оборудование»:",
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_2",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              5,
+              10,
+              19,
+              20,
+              61,
+              65,
+              74
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_2",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Входит ли в состав системы база данных?",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_3",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              33
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_3",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Используются ли технологии виртуализации?",
+      "help_text": "К «виртуализации»:",
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_4",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              9,
+              16,
+              37,
+              39,
+              42,
+              7,
+              20,
+              26,
+              45
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_4",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Функционирует ли система на базе облачной инфраструктуры?",
+      "help_text": "К «облачной инфраструктуры»:",
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_5",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              18,
+              25,
+              29,
+              30,
+              32,
+              53
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_5",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Используются ли АРМы пользователей в составе системы/сети или учитываются ли они при ? Входят ли АРМ пользователей в состав системы/сети и необходимо ли учитывать их при моделировании",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_6",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              21,
+              4,
+              6,
+              11,
+              15,
+              17,
+              5,
+              10,
+              19,
+              23,
+              68,
+              67
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_6",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Используется ли браузер для работы пользователей системы?",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_7",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              71
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_7",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Является ли система замкнутой изолированной средой?",
+      "help_text": "К «замкнутой изолированной средой»:",
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_8",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": [
+              2
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_8",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              2
+            ],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Используются в составе системы операционные системы семейства ОС Windows?",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_9",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              17,
+              43
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_9",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Используются ли съемные носители информации?",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_10",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              14,
+              34
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_10",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Используются ли мобильные устройства в составе системы или для доступа к ней?",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_11",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              63,
+              66,
+              69,
+              70,
+              72
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_11",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Используются ли технологии беспроводного доступа?",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_12",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              46,
+              13
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_12",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Используются ли технологии грид-систем?",
+      "help_text": "К «грид-систем»:",
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_13",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              1,
+              27,
+              40
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_13",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Используются ли хранилища больших данных?",
+      "help_text": "К «хранилища больших данных»:",
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_14",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              28,
+              47,
+              51,
+              31
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_14",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Входят ли в состав системы суперкомпьютеры?",
+      "help_text": "К «суперкомпьютеры»:",
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_15",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              22,
+              41,
+              44,
+              50
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_15",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Реализуются ли в системе технологии искусственного интеллекта или машинного обучения?",
+      "help_text": null,
+      "options": [
+        {
+          "id": 1,
+          "group": "obj_16",
+          "label": "Да",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [
+              83,
+              84,
+              85,
+              86
+            ],
+            "exclude": []
+          }
+        },
+        {
+          "id": 2,
+          "group": "obj_16",
+          "label": "Нет",
+          "help_text": null,
+          "payload": {
+            "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
+            "add": [],
+            "exclude": []
+          }
+        }
+      ]
+    }
+  ]
+}
