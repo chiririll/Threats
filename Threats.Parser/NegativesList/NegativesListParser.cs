@@ -26,7 +26,7 @@ public class NegativesListParser : IParser
 
             if (!hasType)
             {
-                var type = new NegativeType(data!.negativeTypes.Count + 1, name);
+                var type = new NegativeType(data!.negativeTypes.Count + 1, name, string.Empty);
                 data.negativeTypes.Add(type);
 
                 hasType = true;

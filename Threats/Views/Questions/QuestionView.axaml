@@ -15,7 +15,7 @@
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <CheckBox Margin="4"
-                    Command="{Binding $parent[views:QuestionView].((vm:QuestionViewModel)DataContext).Updated}"
+                    Click="Updated"
                     IsChecked="{Binding Selected}">
             <views:LabelWithHelpButton DataContext="{Binding Label}"/>
           </CheckBox>

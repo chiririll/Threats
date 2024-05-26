@@ -19,8 +19,7 @@ public class NegativeTypesStage : SurveyStage<NegativesStageState, INegativesSta
 
     public override void Init()
     {
-        Question = new(data.TypesQuestionLabel,
-            entities.NegativeTypes.Select(t => new Option(t.Id, t.Name)));
+        Question = new(string.Empty, entities.NegativeTypes.Select(t => new Option(t.Id, t.Name, null, t.Description)));
     }
 
     public override void Save()

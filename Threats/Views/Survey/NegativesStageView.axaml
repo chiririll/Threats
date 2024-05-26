@@ -15,7 +15,13 @@
         угроз безопасности информации и привести к выбранным ранее видам рисков (ущерба):
       </TextBlock>
 
-      <questions:QuestionView DataContext="{Binding Question}" />
+      <ItemsControl ItemsSource="{Binding Questions}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <questions:QuestionView DataContext="{Binding}" Margin="0,5" />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
 
     </StackPanel>
   </ScrollViewer>

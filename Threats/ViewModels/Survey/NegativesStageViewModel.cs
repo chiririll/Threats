@@ -1,4 +1,6 @@
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive.Linq;
 using Threats.Models.Survey;
 using Threats.ViewModels.Questions;
@@ -9,13 +11,17 @@ public class NegativesStageViewModel : SurveyStageViewModel<NegativesStage>
 {
     public NegativesStageViewModel(NegativesStage stage) : base(stage)
     {
-        Question = new(stage.Question!);
+        var questions = stage.Questions.Select(q => new QuestionViewModel(q));
 
-        Question.Updated
-            .Subscribe(_ => updated.OnNext(default));
+        Questions = new(questions);
+
+        foreach (var question in Questions)
+        {
+            question.OnUpdate.Subscribe(_ => updated.OnNext(default));
+        }
     }
 
-    public QuestionViewModel Question { get; }
+    public ObservableCollection<QuestionViewModel> Questions { get; }
 
     public override void Refresh()
     {

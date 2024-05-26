@@ -11,7 +11,7 @@ public class NegativeTypesStageViewModel : SurveyStageViewModel<NegativeTypesSta
     {
         Question = new(stage.Question!);
 
-        Question.Updated
+        Question.OnUpdate
             .Subscribe(_ => updated.OnNext(default));
     }
 

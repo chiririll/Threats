@@ -17,13 +17,13 @@ public class ObjectsStageViewModel : SurveyStageViewModel<ObjectsStage>
         PrimaryQuestion = new(stage.Questions[0]);
         Questions = new(stage.Questions.Skip(1).Select(q => new QuestionViewModel(q)));
 
-        PrimaryQuestion.Updated
+        PrimaryQuestion.OnUpdate
             .Subscribe(OnQuestionUpdated)
             .AddTo(questionsSub);
 
         foreach (var question in Questions)
         {
-            question.Updated
+            question.OnUpdate
                 .Subscribe(OnQuestionUpdated)
                 .AddTo(questionsSub);
         }
