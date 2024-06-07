@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Threats.Data.Entities;
 
 namespace Threats.Parser.ThreatsList;
@@ -31,6 +32,8 @@ public class ObjectsParser
             var obj = data.objects.Find(o => o.Name.ToLowerInvariant().Equals(lowered));
             if (obj == null)
             {
+                Trace.TraceError($"Unknown object '{name}'");
+
                 obj = new Object(data.objects.Count + 1, name);
                 data.objects.Add(obj);
             }
