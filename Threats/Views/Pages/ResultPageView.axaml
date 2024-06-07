@@ -30,14 +30,20 @@
 
         <DataGrid Margin="20" ItemsSource="{Binding Result.Threats}"
                   IsReadOnly="True"
-                  CanUserReorderColumns="True"
-                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="False"
                   CanUserSortColumns="False"
                   GridLinesVisibility="All"
                   BorderThickness="1" BorderBrush="Gray">
+          <DataGrid.Styles>
+            <Style Selector="TextBlock">
+              <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+            </Style>
+          </DataGrid.Styles>
+
           <DataGrid.Columns>
-            <DataGridTextColumn Header="УБИ" Binding="{Binding Id}"/>
-            <DataGridTextColumn Header="Наименование УБИ" Binding="{Binding Name}" />
+            <DataGridTextColumn Header="УБИ" Binding="{Binding Id}" Width="70"/>
+            <DataGridTextColumn Header="Наименование УБИ" Binding="{Binding Name}" Width="*"/>
           </DataGrid.Columns>
         </DataGrid>
 
