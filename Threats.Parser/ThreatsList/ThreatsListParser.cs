@@ -14,6 +14,7 @@ public class ThreatsListParser : IParser
 
     private readonly IntrudersParser intrudersParser = new();
     private readonly ObjectsParser objectsParser = new();
+    private readonly ScriptsParser scriptsParser = new();
 
     public void Parse(Options options, ParsedData data)
     {
@@ -53,8 +54,9 @@ public class ThreatsListParser : IParser
             var name = row.Field<string>(Columns.Name)!;
             var description = row.Field<string>(Columns.Description)!.Replace("\r", "");
 
-            var intruders = intrudersParser!.Parse(row.Field<string>(Columns.Intruders));
-            var objects = objectsParser!.Parse(row.Field<string>(Columns.Objects), data).Select(o => o.Id).ToList();
+            var intruders = intrudersParser.Parse(row.Field<string>(Columns.Intruders));
+            var objects = objectsParser.Parse(row.Field<string>(Columns.Objects), data).Select(o => o.Id).ToList();
+            var scripts = scriptsParser.Parse(row.Field<string>(Columns.Scripts), data).Select(s => s.Id).ToList();
 
             var violations = SafetyViolations.None;
             violations |= Convert.ToBoolean(row[Columns.Violations.Privacy]) ? SafetyViolations.Privacy : SafetyViolations.None;
@@ -72,7 +74,8 @@ public class ThreatsListParser : IParser
                 description,
                 violations,
                 intruders,
-                objects
+                objects,
+                scripts
 #if THREATS_DATE
                 , addDate,
                 updateDate
@@ -96,6 +99,7 @@ public class ThreatsListParser : IParser
 
         public const int Intruders = 3;
         public const int Objects = 4;
+        public const int Scripts = 8;
 
         public const int AddDate = 8;
         public const int UpdateDate = 9;

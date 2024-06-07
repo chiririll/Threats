@@ -9,6 +9,7 @@ public class ParsedData
 {
     internal readonly List<Threat> threats = new();
     internal readonly List<Object> objects = new();
+    internal readonly List<Script> scripts = new();
 
     internal readonly List<NegativeType> negativeTypes = new();
     internal readonly List<Negative> negatives = new();
@@ -17,6 +18,6 @@ public class ParsedData
 
     internal readonly List<IntruderData> intruders = new();
 
-    public EntitiesData ToEntitiesData() => new(threats, objects, negativeTypes, negatives, intruders);
+    public EntitiesData ToEntitiesData() => new(threats, objects, scripts, negativeTypes, negatives, intruders);
     public QuestionsData ToQuestionsData() => new(objectsQuestion);
 }

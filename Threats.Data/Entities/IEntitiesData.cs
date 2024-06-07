@@ -7,6 +7,7 @@ public interface IEntitiesData
 {
     public IReadOnlyList<Threat> Threats { get; }
     public IReadOnlyList<Object> Objects { get; }
+    public IReadOnlyList<Script> Scripts { get; }
 
     public IReadOnlyList<NegativeType> NegativeTypes { get; }
     public IReadOnlyList<Negative> Negatives { get; }
@@ -14,4 +15,5 @@ public interface IEntitiesData
     public IReadOnlyList<IntruderData> Intruders { get; }
 
     public Object? GetObjectById(int id);
+    public Script? GetScriptById(int id);
 }
