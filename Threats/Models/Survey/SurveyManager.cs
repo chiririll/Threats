@@ -32,6 +32,7 @@ public class SurveyManager
             new ObjectsAppendStage(state,data.ObjectsStageData, entities),
             new IntrudersStage(state, data.IntrudersStageData, entities),
             new IntrudersTypeStage(state,data.IntrudersStageData, entities),
+            new ThreatsStage(state, data.ThreatsStageData, entities),
         };
 
         stages[0].Init();
@@ -74,5 +75,5 @@ public class SurveyManager
         return true;
     }
 
-    public SurveyResult GetResult() => state.GetResult(entities);
+    public SurveyResult GetResult() => state.GetResult();
 }

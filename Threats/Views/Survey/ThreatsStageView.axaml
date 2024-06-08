@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Threats.ViewModels.Survey"
+             x:Class="Threats.Views.Survey.ThreatsStageView"
+             x:DataType="vm:ThreatsStageViewModel">
+
+  <DockPanel>
+
+    <TextBlock DockPanel.Dock="Top"
+               TextWrapping="Wrap">
+      Для каждой угрозы из полученного перечня возможных угроз оцените применимость предложенного сценария реализации 
+      УБИ (расшифровка тактик и техник содержится в разделе Справка):
+    </TextBlock>
+
+    <DataGrid Margin="20" ItemsSource="{Binding Selectors}"
+              IsReadOnly="True"
+              CanUserReorderColumns="False"
+              CanUserResizeColumns="True"
+              CanUserSortColumns="False"
+              GridLinesVisibility="All"
+              BorderThickness="1" BorderBrush="Gray">
+
+      <DataGrid.Styles>
+        <Style Selector="TextBlock">
+          <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        </Style>
+      </DataGrid.Styles>
+
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="УБИ" Binding="{Binding Threat.Id}" Width="70"/>
+        <DataGridTextColumn Header="Наименование УБИ" Binding="{Binding Threat.Name}" Width="*"/>
+        <DataGridTextColumn Header="Возможные сценарии" Binding="{Binding Scripts}" Width="*"/>
+
+        <DataGridTemplateColumn Width="50">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <CheckBox IsChecked="{Binding Selected}" 
+                        HorizontalAlignment="Center"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+
+      </DataGrid.Columns>
+    </DataGrid>
+  
+  </DockPanel>
+</UserControl>

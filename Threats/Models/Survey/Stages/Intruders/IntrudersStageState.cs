@@ -10,6 +10,7 @@ public class IntrudersStageState : IStageState
     private readonly HashSet<Intruder> intruders = new();
 
     public IReadOnlySet<IntruderBuilder> SelectedIntruders => selectedIntruders;
+    public IReadOnlySet<Intruder> Intruders => intruders;
 
     public void SelectIntruder(IntruderData data)
     {
