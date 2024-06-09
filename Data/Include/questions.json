@@ -56,7 +56,7 @@
               69,
               70,
               54,
-              90
+              85
             ],
             "exclude": []
           }
@@ -516,7 +516,7 @@
               26,
               43,
               47,
-              78
+              75
             ],
             "exclude": []
           }
@@ -581,8 +581,7 @@
           "payload": {
             "$type": "Threats.Data.Questions.ObjectsOptionPayload, Threats.Data",
             "add": [
-              93,
-              94,
+              71,
               72,
               73
             ],

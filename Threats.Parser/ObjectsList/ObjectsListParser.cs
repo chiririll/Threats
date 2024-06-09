@@ -75,51 +75,35 @@ public class ObjectsListParser : IParser
             return;
         }
 
-        foreach (var obj in objectString.Split(';'))
-        {
-            if (!TryParseObject(data, obj, out int id, out bool exclude))
-                continue;
-
-            if (exclude)
-            {
-                removeObjects.Add(id);
-            }
-            else
-            {
-                addObjects.Add(id);
-            }
-        }
-    }
-
-    private bool TryParseObject(ParsedData data, string objectString, out int id, out bool exclude)
-    {
-        id = default;
-        exclude = default;
-
-        objectString = objectString.Trim();
+        var exclude = objectString[0] == '!';
+        objectString = exclude ? objectString[1..] : objectString;
         if (objectString.Length < 1)
         {
-            return false;
+            return;
         }
-
-        exclude = objectString[0] == '!';
-        objectString = exclude ? objectString[1..] : objectString;
 
         var lowered = objectString.ToLower();
-        if (lowered.Length < 1 || lowered.Equals(EmptyObjectsString))
+        if (lowered.Equals(EmptyObjectsString))
         {
-            return false;
+            return;
         }
 
-        var obj = data!.objects.Find(o => o.Name.ToLower().Equals(lowered));
+        var obj = data.objects.Find(o => o.Name.ToLower().Equals(lowered));
         if (obj == null)
         {
             Trace.TraceError($"Object \"{objectString}\" not found!");
-            return false;
+            return;
         }
 
-        id = obj.Id;
-        return true;
+        var id = obj.Id;
+        if (exclude)
+        {
+            removeObjects.Add(id);
+        }
+        else
+        {
+            addObjects.Add(id);
+        }
     }
 
     private static class Columns
