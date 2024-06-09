@@ -1,7 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Threats.ViewModels.Alerts;
 using Threats.ViewModels.Pages;
+using Threats.Views.Alerts;
 
 namespace Threats.Views.Pages;
 
@@ -37,12 +39,33 @@ public partial class ResultPageView : UserControl
             ShowOverwritePrompt = true,
         });
 
-        if (file != null && viewModel.Export(file.Path.AbsolutePath))
+        if (file == null)
         {
-            // Success
             return;
         }
 
-        // TODO: Show Error alert
+        var path = file.Path.AbsolutePath;
+        if (viewModel.Export(path))
+        {
+            ShowResultAlert(new(path));
+            return;
+        }
+
+        ShowResultAlert(new());
+    }
+
+    private async void ShowResultAlert(ExportResultViewModel result)
+    {
+        if (TopLevel.GetTopLevel(this) is not Window window)
+        {
+            return;
+        }
+
+        var alert = new ExportResultAlert
+        {
+            DataContext = result
+        };
+
+        await alert.ShowDialog(window);
     }
 }
