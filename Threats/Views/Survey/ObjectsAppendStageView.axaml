@@ -55,6 +55,13 @@
               CanUserSortColumns="True"
               GridLinesVisibility="All"
               BorderThickness="1" BorderBrush="Gray">
+      
+      <DataGrid.Styles>
+        <Style Selector="TextBlock">
+          <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        </Style>
+      </DataGrid.Styles>
+
       <DataGrid.Columns>
         <DataGridTextColumn Header="Объект" Binding="{Binding Name}" Width="*"/>
       </DataGrid.Columns>
