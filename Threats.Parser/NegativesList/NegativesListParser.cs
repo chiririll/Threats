@@ -12,29 +12,55 @@ public class NegativesListParser : IParser
             return;
         }
 
-        var hasType = false;
+        var emptyCount = 0;
+        var currentType = new NegativeTypeBuilder(data.negativeTypes.Count + 1);
 
         foreach (var line in File.ReadLines(options.NegativesPath, System.Text.Encoding.UTF8))
         {
             if (string.IsNullOrWhiteSpace(line))
             {
-                hasType = false;
+                emptyCount++;
                 continue;
             }
+
+            if (emptyCount > 1)
+            {
+                data.negativeTypes.Add(currentType.Build());
+                currentType = new NegativeTypeBuilder(data.negativeTypes.Count + 1);
+            }
+            emptyCount = 0;
 
             var name = line.Trim();
 
-            if (!hasType)
+            if (string.IsNullOrEmpty(currentType.Name))
             {
-                var type = new NegativeType(data!.negativeTypes.Count + 1, name, string.Empty);
-                data.negativeTypes.Add(type);
-
-                hasType = true;
+                currentType.Name = name;
+                continue;
+            }
+            if (string.IsNullOrEmpty(currentType.Description))
+            {
+                currentType.Description = name;
                 continue;
             }
 
-            var negative = new Negative(data!.negatives.Count + 1, name, data.negativeTypes.Count);
+            var negative = new Negative(data.negatives.Count + 1, name, currentType.Id);
             data.negatives.Add(negative);
         }
+
+        data.negativeTypes.Add(currentType.Build());
+    }
+
+    private class NegativeTypeBuilder
+    {
+        public NegativeTypeBuilder(int id)
+        {
+            Id = id;
+        }
+
+        public int Id { get; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+
+        public NegativeType Build() => new(Id, Name!, Description!);
     }
 }
