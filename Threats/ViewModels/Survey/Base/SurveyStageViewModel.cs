@@ -22,6 +22,8 @@ public abstract class SurveyStageViewModel : ViewModelBase, IDisposable
 
     public IObservable<Unit> Updated => updated;
 
+    public void InvokeUpdate() => updated.OnNext(default);
+
     public abstract void Refresh();
 
     public virtual void Dispose()

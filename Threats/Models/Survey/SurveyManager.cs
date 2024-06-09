@@ -46,10 +46,16 @@ public class SurveyManager
         ? stages[currentStage]
         : null;
 
+    public bool CanMoveBack() => currentStage > 0 || (CurrentStage?.CanMoveBack() ?? false);
     public bool CanMoveNext() => CurrentStage?.CanMoveNext() ?? false;
 
     public bool MoveToNextStage()
     {
+        if (!CanMoveNext())
+        {
+            return false;
+        }
+
         var current = CurrentStage;
         if (current == null)
         {
@@ -72,6 +78,33 @@ public class SurveyManager
         }
 
         CurrentStage.Init();
+        return true;
+    }
+
+    public bool MoveToPreviousStage()
+    {
+        if (!CanMoveBack())
+        {
+            return false;
+        }
+
+        var current = CurrentStage;
+        if (current == null)
+        {
+            return false;
+        }
+
+        current.Save();
+
+        // Переход внутри этапа
+        if (current.MoveBack())
+        {
+            return true;
+        }
+
+        currentStage--;
+
+        CurrentStage!.Init();
         return true;
     }
 

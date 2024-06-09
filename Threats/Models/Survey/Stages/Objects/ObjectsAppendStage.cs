@@ -38,4 +38,7 @@ public class ObjectsAppendStage : SurveyStage<ObjectsStageState, IObjectsStageDa
 
     public override bool CanMoveNext() => true;
     public override bool MoveNext() => false;
+
+    public override bool CanMoveBack() => false;
+    public override bool MoveBack() => false;
 }

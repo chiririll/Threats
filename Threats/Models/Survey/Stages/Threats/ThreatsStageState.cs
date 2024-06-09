@@ -17,7 +17,7 @@ public class ThreatsStageState : IStageState
     {
         var threats = entities.Threats
             .Where(t => t.ObjectIds.Any(id => state.ObjectsStage.Objects.Any(o => o.Id == id))
-            && t.Intruders.Any(i => state.IntrudersStage.Intruders.Any(si => si.Equals(i))));
+            && t.Intruders.Any(i => state.IntrudersStage.GetIntruders().Any(si => si.Equals(i))));
 
         selectors.Clear();
         selectors.AddRange(threats.Select(t => new ThreatSelector(t, entities)));

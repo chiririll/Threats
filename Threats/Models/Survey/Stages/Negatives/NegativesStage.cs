@@ -27,7 +27,11 @@ public class NegativesStage : SurveyStage<NegativesStageState, INegativesStageDa
         foreach (var type in state.Types)
         {
             var negatives = entities.Negatives.Where(n => n.TypeId == type.Id);
-            var question = new Question(type.Name, negatives.Select(n => new Option(n.Id, n.Name)), type.Description);
+            var question = new Question(type.Name, negatives.Select(
+                n => new Option(n.Id, n.Name)
+                {
+                    Selected = state.Negatives.Contains(n)
+                }), type.Description);
             questions.Add(question);
         }
     }
@@ -40,4 +44,7 @@ public class NegativesStage : SurveyStage<NegativesStageState, INegativesStageDa
 
     public override bool CanMoveNext() => questions.Any(q => q.Selected.Count > 0);
     public override bool MoveNext() => false;
+
+    public override bool CanMoveBack() => false;
+    public override bool MoveBack() => false;
 }

@@ -16,7 +16,7 @@ public class IntrudersTypeStage : SurveyStage<IntrudersStageState, IIntrudersSta
     {
     }
 
-    public IReadOnlySet<IntruderBuilder> Intruders => state.SelectedIntruders;
+    public IEnumerable<IntruderBuilder> Intruders => state.SelectedIntruders.Values;
 
     public override StageType Type => StageType.Intruders;
 
@@ -26,9 +26,11 @@ public class IntrudersTypeStage : SurveyStage<IntrudersStageState, IIntrudersSta
 
     public override void Save()
     {
-        state.BuildIntruders();
     }
 
-    public override bool CanMoveNext() => !state.SelectedIntruders.Any(i => i.Type == Threats.Data.Entities.IntruderType.None);
+    public override bool CanMoveNext() => !state.SelectedIntruders.Values.Any(i => i.Type.Equals(Threats.Data.Entities.IntruderType.None));
     public override bool MoveNext() => false;
+
+    public override bool CanMoveBack() => false;
+    public override bool MoveBack() => false;
 }

@@ -31,7 +31,7 @@ public class SurveyPageViewModel : ViewModelBase
     public IObservable<Unit> Submit { get; }
     public IObservable<Unit> GoBack { get; }
 
-    public bool CanMoveBack => false;
+    public bool CanMoveBack => survey.CanMoveBack();
 
     public string Title => survey.Title;
     public StageViewModel StageContainer { get; } = new();
@@ -39,6 +39,15 @@ public class SurveyPageViewModel : ViewModelBase
     private void UpdateMoveNextButtonState()
     {
         canMoveNext.OnNext(survey.CanMoveNext());
+    }
+
+    private void Refresh()
+    {
+        StageContainer.SetStage(survey.CurrentStage!);
+        this.RaisePropertyChanged(nameof(Title));
+        this.RaisePropertyChanged(nameof(CanMoveBack));
+
+        UpdateMoveNextButtonState();
     }
 
     private void MoveToNextStage()
@@ -49,13 +58,16 @@ public class SurveyPageViewModel : ViewModelBase
             return;
         }
 
-        StageContainer.SetStage(survey.CurrentStage!);
-        this.RaisePropertyChanged(nameof(Title));
-
-        UpdateMoveNextButtonState();
+        Refresh();
     }
 
     private void MoveToPrevStage()
     {
+        if (!survey.MoveToPreviousStage())
+        {
+            return;
+        }
+
+        Refresh();
     }
 }

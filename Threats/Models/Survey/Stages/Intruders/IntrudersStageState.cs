@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Threats.Data.Entities;
 using Threats.Models.Survey.Stages.Intruders;
 
@@ -6,29 +7,39 @@ namespace Threats.Models.Survey;
 
 public class IntrudersStageState : IStageState
 {
-    private readonly HashSet<IntruderBuilder> selectedIntruders = new();
-    private readonly HashSet<Intruder> intruders = new();
+    private readonly Dictionary<int, IntruderBuilder> selectedIntruders = new();
 
-    public IReadOnlySet<IntruderBuilder> SelectedIntruders => selectedIntruders;
-    public IReadOnlySet<Intruder> Intruders => intruders;
+    private List<Intruder>? intruders;
+    private bool altered = false;
 
-    public void SelectIntruder(IntruderData data)
+    public IReadOnlyDictionary<int, IntruderBuilder> SelectedIntruders => selectedIntruders;
+
+    public void SelectIntruder(IntruderData data, bool selected)
     {
-        selectedIntruders.Add(new(data));
+        altered = true;
+        if (selected)
+        {
+            selectedIntruders[data.Id] = new(data);
+        }
+        else
+        {
+            selectedIntruders.Remove(data.Id);
+        }
     }
 
-    public void BuildIntruders()
+    public IReadOnlyList<Intruder> GetIntruders()
     {
-        foreach (var builder in selectedIntruders)
+        if (intruders == null || altered)
         {
-            intruders.Add(builder.Build());
+            intruders = selectedIntruders.Values.Select(i => i.Build()).ToList();
+            altered = false;
         }
 
-        selectedIntruders.Clear();
+        return intruders;
     }
 
     public void FillResult(SurveyResultBuilder builder)
     {
-        builder.WithIntruders(intruders);
+        builder.WithIntruders(GetIntruders());
     }
 }

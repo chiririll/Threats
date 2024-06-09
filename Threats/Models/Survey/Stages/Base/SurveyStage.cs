@@ -42,8 +42,19 @@ public abstract class SurveyStage
     public abstract bool CanMoveNext();
 
     /// <summary>
+    /// Проверка текущего состояния этапа на возможность перехода к предыдущему состоянию или этапу
+    /// </summary>
+    public abstract bool CanMoveBack();
+
+    /// <summary>
     /// Совершить попытку перевода этапа в следующее состояние
     /// </summary>
     /// <returns>true - Переход обработан внутри этапа; false - Состояний больше нет, необходим переход к следующему этапу</returns>
     public abstract bool MoveNext();
+
+    /// <summary>
+    /// Совершить попытку перевода этапа в предыдущее состояние
+    /// </summary>
+    /// <returns>true - Переход обработан внутри этапа; false - Состояния нет, необходим переход к предыдущему этапу</returns>
+    public abstract bool MoveBack();
 }

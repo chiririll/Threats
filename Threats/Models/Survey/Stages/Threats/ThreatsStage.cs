@@ -30,5 +30,8 @@ public class ThreatsStage : SurveyStage<ThreatsStageState, IThreatsStageData>
     }
 
     public override bool CanMoveNext() => true;
+    public override bool CanMoveBack() => true;
+
     public override bool MoveNext() => false;
+    public override bool MoveBack() => false;
 }

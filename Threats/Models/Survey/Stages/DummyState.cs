@@ -41,7 +41,7 @@ public class DummyState
     {
         var state = new IntrudersStageState();
 
-        foreach (var intruder in entities.Intruders)
+        /* foreach (var intruder in entities.Intruders)
         {
             state.SelectIntruder(intruder);
         }
@@ -50,7 +50,7 @@ public class DummyState
             intruder.SetType(IntruderType.Internal);
         }
 
-        state.BuildIntruders();
+        state.BuildIntruders(); */
 
         return state;
     }
