@@ -39,7 +39,7 @@ public class SurveyManager
     }
 
     public string Title => CurrentStage != null
-        ? string.Format(data.TitleFormat, currentStage + 1, CurrentStage.Title)
+        ? string.Format(data.TitleFormat, (int)CurrentStage.Type, CurrentStage.Title)
         : string.Empty;
 
     public SurveyStage? CurrentStage => currentStage >= 0 && currentStage < stages.Count

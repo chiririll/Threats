@@ -30,6 +30,7 @@ public abstract class SurveyStage
     }
 
     public abstract string Title { get; }
+    public abstract StageType Type { get; }
 
     public abstract void Init();
 

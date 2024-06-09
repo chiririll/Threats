@@ -26,6 +26,8 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
     public bool? Question1 { get; set; }
     public bool? Question2 { get; set; }
 
+    public override StageType Type => StageType.Intruders;
+
     public override void Init()
     {
     }

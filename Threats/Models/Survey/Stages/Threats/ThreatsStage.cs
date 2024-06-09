@@ -17,6 +17,8 @@ public class ThreatsStage : SurveyStage<ThreatsStageState, IThreatsStageData>
 
     public IReadOnlyList<ThreatSelector> Selectors => state.Selectors;
 
+    public override StageType Type => StageType.Threats;
+
     public override void Init()
     {
         state.Init(surveyState, entities);

@@ -18,6 +18,8 @@ public class IntrudersTypeStage : SurveyStage<IntrudersStageState, IIntrudersSta
 
     public IReadOnlySet<IntruderBuilder> Intruders => state.SelectedIntruders;
 
+    public override StageType Type => StageType.Intruders;
+
     public override void Init()
     {
     }

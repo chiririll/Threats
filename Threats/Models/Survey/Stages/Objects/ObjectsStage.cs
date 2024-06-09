@@ -24,6 +24,8 @@ public class ObjectsStage : SurveyStage<ObjectsStageState, IObjectsStageData>
 
     public IReadOnlyList<Question> Questions => questions;
 
+    public override StageType Type => StageType.Objects;
+
     public override void Init()
     {
     }

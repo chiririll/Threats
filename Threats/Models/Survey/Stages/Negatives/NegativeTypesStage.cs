@@ -17,6 +17,7 @@ public class NegativeTypesStage : SurveyStage<NegativesStageState, INegativesSta
 
     public Question? Question { get; private set; }
 
+    public override StageType Type => StageType.Negatives;
     public override void Init()
     {
         Question = new(string.Empty, entities.NegativeTypes.Select(t => new Option(t.Id, t.Name, null, t.Description)));

@@ -18,6 +18,8 @@ public class ObjectsAppendStage : SurveyStage<ObjectsStageState, IObjectsStageDa
 
     public IReadOnlyList<Object> Objects => state.Objects;
 
+    public override StageType Type => StageType.Objects;
+
     public override void Init()
     {
     }

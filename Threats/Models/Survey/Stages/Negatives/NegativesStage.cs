@@ -18,6 +18,8 @@ public class NegativesStage : SurveyStage<NegativesStageState, INegativesStageDa
 
     public IReadOnlyList<Question> Questions => questions;
 
+    public override StageType Type => StageType.Negatives;
+
     public override void Init()
     {
         questions.Clear();
