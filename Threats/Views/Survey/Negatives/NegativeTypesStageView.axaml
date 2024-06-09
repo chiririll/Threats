@@ -10,8 +10,8 @@
   <ScrollViewer>
     <StackPanel>
 
-      <TextBlock TextWrapping="Wrap">
-        Выберите <Bold>актуальные виды рисков (ущерба)</Bold>, которые могут наступить от нарушения
+      <TextBlock Classes="h1">
+        Выберите <Bold Classes="h1sel">актуальные виды рисков (ущерба)</Bold>, которые могут наступить от нарушения
         или прекращения основных процессов в системе:
       </TextBlock>
 

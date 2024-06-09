@@ -8,8 +8,7 @@
              x:DataType="vm:ObjectsAppendStageViewModel">
   <DockPanel>
 
-    <TextBlock DockPanel.Dock="Top"
-               TextWrapping="Wrap">
+    <TextBlock DockPanel.Dock="Top" Classes="h1">
       По результатам опроса определены возможные объекты воздействия угроз безопасности информации:
     </TextBlock>
 

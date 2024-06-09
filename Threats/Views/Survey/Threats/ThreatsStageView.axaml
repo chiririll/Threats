@@ -9,8 +9,7 @@
 
   <DockPanel>
 
-    <TextBlock DockPanel.Dock="Top"
-               TextWrapping="Wrap">
+    <TextBlock DockPanel.Dock="Top" Classes="h1">
       Для каждой угрозы из полученного перечня возможных угроз оцените применимость предложенного сценария реализации 
       УБИ (расшифровка тактик и техник содержится в разделе Справка):
     </TextBlock>

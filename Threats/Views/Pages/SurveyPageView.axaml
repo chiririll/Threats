@@ -17,7 +17,7 @@
                  StrokeThickness="1" 
                  RadiusX="7" RadiusY="7"/>
       
-      <Rectangle Fill="White" Height="8" VerticalAlignment="Top" Margin="16,2"/>
+      <Rectangle Classes="bg" Height="8" VerticalAlignment="Top" Margin="16,2"/>
 
       <DockPanel Margin="10">
 

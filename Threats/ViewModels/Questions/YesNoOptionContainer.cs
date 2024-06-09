@@ -65,7 +65,8 @@ public class YesNoOptionContainer<TPayload>
         }
     }
 
-    public string Color => Index % 2 != 0 ? "#eeeeee" : "dddddd";
+    public bool IsEven => Index % 2 == 0;
+    public bool IsOdd => Index % 2 != 0;
 
     private void Convert() => converter.Invoke(payload, option1, option2);
 }

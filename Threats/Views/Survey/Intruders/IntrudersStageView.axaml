@@ -8,82 +8,85 @@
              x:Class="Threats.Views.Survey.IntrudersStageView"
              x:DataType="vm:IntrudersStageViewModel">
   <ScrollViewer>
-    <StackPanel>
+    <DockPanel>
+      <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,10">
 
-      <TextBlock TextWrapping="Wrap" Margin="0,5" FontSize="16">
-        Ознакомьтесь с каждым видом нарушителя и оцените его актуальность для системы:
-      </TextBlock>
+        <Grid ColumnDefinitions="*,50,50" Margin="0,4,20,4">
+          <TextBlock Text="Да"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Grid.Row="0" Grid.Column="1"/>
+          <TextBlock Text="Нет"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Grid.Row="0" Grid.Column="2"/>
+        </Grid>
 
-      <TextBlock TextWrapping="Wrap">
-        <Bold>Нарушитель</Bold>: <Run Text="{Binding Intruder.Title}"/>
-      </TextBlock>
+        <Grid ColumnDefinitions="*,50,50"  Margin="0,4,20,4">
+          <Rectangle Classes="yesnoeven" Margin="-4,-4,-120,-4"/>
+          <TextBlock Text="{Binding Data.Question1}"
+                    Margin="10,0,0,0"
+                    TextWrapping="Wrap"
+                    Grid.Row="1" Grid.Column="0"/>
 
-      <StackPanel Orientation="Horizontal">
-        <TextBlock Margin="0,0,5,0"><Bold>Уровень возможностей</Bold>:</TextBlock>
-        <questions:LabelWithHelpButton DataContext="{Binding Intruder.Potential}"/>
+          <RadioButton GroupName="q1" IsChecked="{Binding Question1.Yes}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Command="{Binding OptionUpdated}"
+                      Grid.Row="1" Grid.Column="1"/>
+          <RadioButton GroupName="q1" IsChecked="{Binding Question1.No}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Command="{Binding OptionUpdated}"
+                      Grid.Row="1" Grid.Column="2"/>
+        </Grid>
+
+        <Grid ColumnDefinitions="*,50,50" Margin="0,4,20,4">
+          <Rectangle Classes="yesnoodd" Margin="-4,-4,-120,-4"/>
+          <TextBlock Text="{Binding Data.Question2}"
+                    Margin="10,0,0,0"
+                    TextWrapping="Wrap"
+                    Grid.Row="2" Grid.Column="0"/>
+
+          <RadioButton GroupName="q2" IsChecked="{Binding Question2.Yes}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Command="{Binding OptionUpdated}"
+                      Grid.Row="2" Grid.Column="1"/>
+          <RadioButton GroupName="q2" IsChecked="{Binding Question2.No}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Command="{Binding OptionUpdated}"
+                      Grid.Row="2" Grid.Column="2"/>
+        </Grid>
       </StackPanel>
 
-      <TextBlock Margin="0,5,0,0"><Bold>Цели</Bold>:</TextBlock>
+      <StackPanel>
+        <TextBlock Classes="h1">
+          Ознакомьтесь с каждым видом нарушителя и оцените его актуальность для системы:
+        </TextBlock>
 
-      <ItemsControl ItemsSource="{Binding Intruder.Goals}" Margin="0,0,0,10">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <TextBlock TextWrapping="Wrap">
-              • <Run Text="{Binding}"/>
-            </TextBlock>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+          <Bold>Нарушитель</Bold>: <Run Text="{Binding Intruder.Title}"/>
+        </TextBlock>
 
-      <Grid ColumnDefinitions="*,50,50" Margin="0,4,20,4">
-        <TextBlock Text="Да"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Center"
-                   Grid.Row="0" Grid.Column="1"/>
-        <TextBlock Text="Нет"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Center"
-                   Grid.Row="0" Grid.Column="2"/>
-      </Grid>
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+          <TextBlock Margin="0,0,5,0"><Bold>Уровень возможностей</Bold>:</TextBlock>
+          <questions:LabelWithHelpButton DataContext="{Binding Intruder.Potential}"/>
+        </StackPanel>
 
-      <Grid ColumnDefinitions="*,50,50"  Margin="0,4,20,4">
-        <Rectangle Fill="#eeeeee" Margin="-4,-4,-120,-4"/>
-        <TextBlock Text="{Binding Data.Question1}"
-                   Margin="10,0,0,0"
-                   TextWrapping="Wrap"
-                   Grid.Row="1" Grid.Column="0"/>
+        <TextBlock Margin="0,5,0,5"><Bold>Цели</Bold>:</TextBlock>
 
-        <RadioButton GroupName="q1" IsChecked="{Binding Question1.Yes}"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     Command="{Binding OptionUpdated}"
-                     Grid.Row="1" Grid.Column="1"/>
-        <RadioButton GroupName="q1" IsChecked="{Binding Question1.No}"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     Command="{Binding OptionUpdated}"
-                     Grid.Row="1" Grid.Column="2"/>
-      </Grid>
-
-      <Grid ColumnDefinitions="*,50,50" Margin="0,4,20,4">
-        <Rectangle Fill="#ffffff" Margin="-4,-4,-120,-4"/>
-        <TextBlock Text="{Binding Data.Question2}"
-                   Margin="10,0,0,0"
-                   TextWrapping="Wrap"
-                   Grid.Row="2" Grid.Column="0"/>
-
-        <RadioButton GroupName="q2" IsChecked="{Binding Question2.Yes}"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     Command="{Binding OptionUpdated}"
-                     Grid.Row="2" Grid.Column="1"/>
-        <RadioButton GroupName="q2" IsChecked="{Binding Question2.No}"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     Command="{Binding OptionUpdated}"
-                     Grid.Row="2" Grid.Column="2"/>
-      </Grid>
-
-    </StackPanel>
+        <ItemsControl ItemsSource="{Binding Intruder.Goals}" Margin="0,0,0,12">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                • <Run Text="{Binding}"/>
+              </TextBlock>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </DockPanel>
   </ScrollViewer>
 </UserControl>

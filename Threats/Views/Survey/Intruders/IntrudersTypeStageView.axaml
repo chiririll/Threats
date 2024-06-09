@@ -10,8 +10,10 @@
 
   <ScrollViewer>
     <StackPanel>
-      <TextBlock TextWrapping="Wrap"
-                Text="{Binding TypeQuestionLabel}"/>
+      <TextBlock Classes="h1">
+        Определите категорию для каждого вида актуального нарушителя 
+        (в зависимости от имеющихся прав и условий по доступу к системе):
+      </TextBlock>
 
       <Grid ColumnDefinitions="*,120,120" Margin="0,2,20,2">
         <questions:LabelWithLeftHelpButton Grid.Column="1"
@@ -28,7 +30,9 @@
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <Grid ColumnDefinitions="*,120,120" Margin="0,2,20,2">
-              <Rectangle Fill="{Binding Color}" Margin="0,0,-240,0"/>
+              <Rectangle Margin="0,0,-240,0"
+                         Classes.yesnoeven="{Binding IsEven}"
+                         Classes.yesnoodd="{Binding IsOdd}"/>
 
               <questions:LabelWithLeftHelpButton Margin="10,2,0,2"
                                                  VerticalAlignment="Center"
