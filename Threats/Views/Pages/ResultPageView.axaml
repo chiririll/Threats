@@ -25,7 +25,7 @@
               TextWrapping="Wrap"
               FontSize="21"
               Margin="10,-18,10,0">
-          Результат
+          Актуальные угрозы безопасности информации
         </TextBlock>
 
         <DataGrid Margin="20" ItemsSource="{Binding Result.Threats}"

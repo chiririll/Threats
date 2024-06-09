@@ -7,6 +7,6 @@ public interface IResultExporter
 {
     public FilePickerFileType OutputType { get; }
 
-    public bool CanExport(string path);
+    public bool CanHandlePath(string path);
     public bool Export(SurveyResult result, string path);
 }

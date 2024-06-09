@@ -9,13 +9,20 @@ namespace Threats.Models.Exporters.Excel;
 
 public class ExcelExporter : IResultExporter
 {
+    private readonly IEntitiesData entities;
+
+    public ExcelExporter(IEntitiesData entities)
+    {
+        this.entities = entities;
+    }
+
     public FilePickerFileType OutputType => new("Excel file")
     {
         Patterns = new[] { "*.xlsx" },
         MimeTypes = new[] { "application/vnd.ms-excel" }
     };
 
-    public bool CanExport(string path) => OutputType.Patterns!.Any(p => path.EndsWith(p[1..]));
+    public bool CanHandlePath(string path) => OutputType.Patterns!.Any(p => path.EndsWith(p[1..]));
 
     public bool Export(SurveyResult result, string path)
     {
@@ -23,7 +30,7 @@ public class ExcelExporter : IResultExporter
         var workbook = new XSSFWorkbook(templateStream);
         templateStream.Close();
 
-        var threats = new ThreatsSheetCreator(workbook);
+        var threats = new ThreatsSheetCreator(workbook, entities);
         threats.Create(result);
 
         try

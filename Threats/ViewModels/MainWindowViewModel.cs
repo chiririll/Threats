@@ -71,7 +71,7 @@ public class MainWindowViewModel : ViewModelBase
 
     public void ShowResult(SurveyResult result)
     {
-        var resultPage = new ResultPageViewModel(result);
+        var resultPage = new ResultPageViewModel(result, entities);
         Content = resultPage;
 
         resultPage.OnRestartRequested

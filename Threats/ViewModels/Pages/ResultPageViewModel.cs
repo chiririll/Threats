@@ -5,6 +5,7 @@ using System.Reactive;
 using System.Reactive.Subjects;
 using Avalonia.Platform.Storage;
 using ReactiveUI;
+using Threats.Data;
 using Threats.Models.Exporters;
 using Threats.Models.Exporters.Excel;
 using Threats.Models.Survey;
@@ -15,42 +16,29 @@ public class ResultPageViewModel : ViewModelBase
 {
     private readonly Subject<Unit> onRestartRequested = new();
 
-    private readonly List<IResultExporter> exporters;
+    private readonly IResultExporter exporter;
 
-    public ResultPageViewModel(SurveyResult result)
+    public ResultPageViewModel(SurveyResult result, IEntitiesData entities)
     {
         Result = result;
 
-        exporters = new()
-        {
-            new ExcelExporter(),
-        };
+        exporter = new ExcelExporter(entities);
 
-        ExportResultCommand = ReactiveCommand.Create(() => ExportResult());
         RestartCommand = ReactiveCommand.Create(() => onRestartRequested.OnNext(default));
 
-        ExportTypes = exporters.Select(e => e.OutputType).ToList();
+        ExportTypes = new List<FilePickerFileType>() { exporter.OutputType };
     }
 
     public SurveyResult Result { get; }
 
-    public IObservable<Unit> ExportResultCommand { get; }
     public IObservable<Unit> RestartCommand { get; }
 
     public IObservable<Unit> OnRestartRequested => onRestartRequested;
 
     public IReadOnlyList<FilePickerFileType> ExportTypes { get; }
 
-    private void ExportResult()
-    {
-        var exporter = new ExcelExporter();
-
-        exporter.Export(Result, "export.xlsx");
-    }
-
     public bool Export(string path)
     {
-        var exporter = exporters.FirstOrDefault(e => e.CanExport(path));
-        return exporter != null && exporter.Export(Result, path);
+        return exporter.Export(Result, path);
     }
 }

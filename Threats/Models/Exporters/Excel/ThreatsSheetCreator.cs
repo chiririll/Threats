@@ -1,5 +1,6 @@
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using Threats.Data;
 using Threats.Models.Survey;
 
 namespace Threats.Models.Exporters.Excel;
@@ -10,12 +11,14 @@ public class ThreatsSheetCreator
     private const int StartRow = 2;
 
     private readonly XSSFWorkbook workbook;
+    private readonly IEntitiesData entities;
 
     private readonly ICellStyle cellStyle;
 
-    public ThreatsSheetCreator(XSSFWorkbook workbook)
+    public ThreatsSheetCreator(XSSFWorkbook workbook, IEntitiesData entities)
     {
         this.workbook = workbook;
+        this.entities = entities;
 
         cellStyle = workbook.CreateCellStyle();
         cellStyle.WrapText = true;
