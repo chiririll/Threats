@@ -38,5 +38,7 @@ public partial class ExportResultAlert : Window
         catch (System.Exception)
         {
         }
+
+        Close();
     }
 }

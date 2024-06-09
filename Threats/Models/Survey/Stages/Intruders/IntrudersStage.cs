@@ -39,7 +39,8 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
 
     public override void Save()
     {
-        var selected = !Question1.HasValue || !Question2.HasValue || !Question1.Value || !Question2.Value;
+        var selected = Question1.HasValue && Question1.Value
+            && Question2.HasValue && Question2.Value;
 
         state.SelectIntruder(CurrentIntruder!, selected);
     }
