@@ -26,7 +26,7 @@ public class MainWindowViewModel : ViewModelBase
         entities = DataLoader.LoadEntitiesData();
         questions = DataLoader.LoadQuestionsData();
 
-        ShowStart();
+        StartSurvey();
 
         if (content == null)
         {
