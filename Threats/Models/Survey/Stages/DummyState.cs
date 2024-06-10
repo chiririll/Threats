@@ -41,16 +41,11 @@ public class DummyState
     {
         var state = new IntrudersStageState();
 
-        /* foreach (var intruder in entities.Intruders)
+        foreach (var intruder in entities.Intruders)
         {
-            state.SelectIntruder(intruder);
+            state.SelectIntruder(intruder, true);
+            state.SelectedIntruders[intruder.Id].SetType(IntruderType.Internal);
         }
-        foreach (var intruder in state.SelectedIntruders)
-        {
-            intruder.SetType(IntruderType.Internal);
-        }
-
-        state.BuildIntruders(); */
 
         return state;
     }
