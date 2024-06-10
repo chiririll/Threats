@@ -13,7 +13,7 @@
 
         SystemDecorations="BorderOnly"
         ShowInTaskbar="False">
-  <DockPanel>
+  <DockPanel Margin="10">
     <StackPanel Orientation="Horizontal"
                 DockPanel.Dock="Bottom">
       
