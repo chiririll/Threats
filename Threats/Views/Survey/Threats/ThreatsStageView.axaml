@@ -2,8 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Threats.ViewModels.Survey"
+             xmlns:views="using:Threats.Views.Survey"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Threats.Views.Survey.ThreatsStageView"
              x:DataType="vm:ThreatsStageViewModel">
 
@@ -14,36 +15,43 @@
       УБИ (расшифровка тактик и техник содержится в разделе Справка):
     </TextBlock>
 
-    <DataGrid Margin="20" ItemsSource="{Binding Selectors}"
-              IsReadOnly="True"
-              CanUserReorderColumns="False"
-              CanUserResizeColumns="True"
-              CanUserSortColumns="False"
-              GridLinesVisibility="All"
-              BorderThickness="1" BorderBrush="Gray">
+    <Grid ColumnDefinitions="1*, 1*">
 
-      <DataGrid.Styles>
-        <Style Selector="TextBlock">
-          <Setter Property="TextWrapping" Value="WrapWithOverflow" />
-        </Style>
-      </DataGrid.Styles>
+      <DataGrid Margin="20" ItemsSource="{Binding Selectors}"
+                Grid.Column="0"
+                SelectedIndex="{Binding SelectedThreatIndex}"
+                IsReadOnly="True"
+                CanUserReorderColumns="False"
+                CanUserResizeColumns="True"
+                CanUserSortColumns="False"
+                GridLinesVisibility="All"
+                BorderThickness="1" BorderBrush="Gray">
 
-      <DataGrid.Columns>
-        <DataGridTextColumn Header="УБИ" Binding="{Binding Threat.Id}" Width="70"/>
-        <DataGridTextColumn Header="Наименование УБИ" Binding="{Binding Threat.Name}" Width="*"/>
-        <DataGridTextColumn Header="Возможные сценарии" Binding="{Binding Scripts}" Width="*"/>
+        <DataGrid.Styles>
+          <Style Selector="TextBlock">
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+          </Style>
+        </DataGrid.Styles>
 
-        <DataGridTemplateColumn Width="50">
-          <DataGridTemplateColumn.CellTemplate>
-            <DataTemplate>
-              <CheckBox IsChecked="{Binding Selected}" 
-                        HorizontalAlignment="Center"/>
-            </DataTemplate>
-          </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="УБИ" Binding="{Binding Threat.Id}" Width="70"/>
+          <DataGridTextColumn Header="Наименование УБИ" Binding="{Binding Threat.Name}" Width="*"/>
 
-      </DataGrid.Columns>
-    </DataGrid>
+          <DataGridTemplateColumn Width="50">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <CheckBox IsChecked="{Binding Selected}" 
+                          HorizontalAlignment="Center"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <views:FocusedThreatView Grid.Column="1"
+                                DataContext="{Binding FocusedThreat}"/>
+    </Grid>
   
   </DockPanel>
 </UserControl>

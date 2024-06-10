@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Threats.ViewModels.Survey"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Threats.Views.Survey.FocusedThreatView"
+             x:DataType="vm:FocusedThreatViewModel">
+
+  <ScrollViewer>
+    <StackPanel>
+      <TextBlock TextWrapping="Wrap">
+        <Bold>УБИ <Run Text="{Binding Threat.Id}"/></Bold>: <Run Text="{Binding Threat.Name}"/>
+      </TextBlock>
+    </StackPanel>
+  </ScrollViewer>
+
+</UserControl>
