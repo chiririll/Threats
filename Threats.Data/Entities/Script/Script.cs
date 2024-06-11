@@ -3,16 +3,15 @@ using Newtonsoft.Json;
 
 namespace Threats.Data.Entities;
 
-public class Script : Entity
+public class Script
 {
     [JsonProperty("examples")] private readonly List<string> examples = new();
 
-    public Script(int type, int id) : base(id)
+    public Script(ScriptId id)
     {
-        Type = type;
     }
 
-    [JsonProperty("t")] public int Type { get; }
+    [JsonProperty("id")] public ScriptId Id { get; }
     [JsonProperty("desc")] public string Description { get; }
     [JsonProperty("note")] public string? Note { get; }
 

@@ -14,7 +14,7 @@ public class ThreatsListParser : IParser
 
     private readonly IntrudersParser intrudersParser = new();
     private readonly ObjectsParser objectsParser = new();
-    private readonly ScriptsParser scriptsParser = new();
+    private readonly ScriptIdsParser scriptsParser = new();
 
     public void Parse(Options options, ParsedData data)
     {
@@ -56,7 +56,7 @@ public class ThreatsListParser : IParser
 
             var intruders = intrudersParser.Parse(row.Field<string>(Columns.Intruders));
             var objects = objectsParser.Parse(row.Field<string>(Columns.Objects), data).Select(o => o.Id).ToList();
-            var scripts = scriptsParser.Parse(row.Field<string>(Columns.Scripts), data).Select(s => s.Id).ToList();
+            var scripts = scriptsParser.Parse(row.Field<string>(Columns.Scripts), data);
 
             var violations = SafetyViolations.None;
             violations |= Convert.ToBoolean(row[Columns.Violations.Privacy]) ? SafetyViolations.Privacy : SafetyViolations.None;

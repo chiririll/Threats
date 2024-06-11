@@ -12,7 +12,7 @@ public class Threat : Entity
         SafetyViolations violations,
         IReadOnlyList<Intruder> intruders,
         IReadOnlyList<int> objectIds,
-        IReadOnlyList<int> scriptIds
+        IReadOnlyList<ScriptId> scriptIds
 #if THREATS_DATE
         , System.DateOnly addDate,
         System.DateOnly updateDate
@@ -37,7 +37,7 @@ public class Threat : Entity
 
     [JsonProperty("intruders")] public IReadOnlyList<Intruder> Intruders { get; }
     [JsonProperty("objects")] public IReadOnlyList<int> ObjectIds { get; }
-    [JsonProperty("scripts")] public IReadOnlyList<int> ScriptIds { get; }
+    [JsonProperty("scripts")] public IReadOnlyList<ScriptId> ScriptIds { get; }
 
 #if THREATS_DATE
     [JsonProperty("added")] public DateOnly AddDate { get; }
