@@ -7,8 +7,11 @@ namespace Threats.Models.Survey.State;
 
 public class DummyState
 {
-    public static SurveyState Generate(IEntitiesData entities, IQuestionsData questions)
+    public static SurveyState Generate()
     {
+        var entities = DataLoader.LoadEntitiesData();
+        var questions = DataLoader.LoadQuestionsData();
+
         return new(
             Negatives(),
             Objects(entities, questions),

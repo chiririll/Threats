@@ -22,6 +22,7 @@
                 "-e", "${workspaceFolder}/Data/Include/entities.json",
                 "-q", "${workspaceFolder}/Data/Include/questions.json",
                 "--all-objects", "${workspaceFolder}/Data/Input/objects.txt",
+                "--scripts", "${workspaceFolder}/Data/Input/scripts.xlsx",
                 "--threats", "${workspaceFolder}/Data/Input/thrlist.xlsx",
                 "--negatives", "${workspaceFolder}/Data/Input/negatives.txt",
                 "--objects", "${workspaceFolder}/Data/Input/objects.xlsx",

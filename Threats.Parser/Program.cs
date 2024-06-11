@@ -17,6 +17,7 @@ internal sealed class Program
         parsers = new()
         {
             new AllObjectsList.AllObjectsListParser(),
+            new ScriptsList.ScriptsListParser(),
             new ThreatsList.ThreatsListParser(),
             new NegativesList.NegativesListParser(),
             new ObjectsList.ObjectsListParser(),

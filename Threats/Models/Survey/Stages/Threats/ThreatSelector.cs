@@ -13,7 +13,7 @@ public class ThreatSelector
         var scripts = threat.ScriptIds
             .Select(id => entities.GetScriptById(id))
             .Where(s => s != null)
-            .Select(s => s!.Identifier);
+            .Select(s => $"Т{s!.Type}.{s!.Id}");
 
         Scripts = string.Join("; ", scripts);
     }
