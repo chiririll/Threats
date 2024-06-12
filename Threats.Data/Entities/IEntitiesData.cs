@@ -15,5 +15,7 @@ public interface IEntitiesData
     public IReadOnlyList<IntruderData> Intruders { get; }
 
     public Object? GetObjectById(int id);
-    public Script? GetScriptById(int id);
+
+    public ScriptType? GetScriptTypeById(int id);
+    public Script? GetScriptById(ScriptId id);
 }

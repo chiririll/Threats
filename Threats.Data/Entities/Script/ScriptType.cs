@@ -1,12 +1,17 @@
+using Newtonsoft.Json;
+
 namespace Threats.Data.Entities;
 
 public class ScriptType : Entity
 {
-    public ScriptType(int id) : base(id)
+    public ScriptType(int id, string name, string task, string? note) : base(id)
     {
+        Name = name;
+        Task = task;
+        Note = note;
     }
 
-    public string Name { get; }
-    public string Task { get; }
-    public string? Note { get; }
+    [JsonProperty("name")] public string Name { get; }
+    [JsonProperty("task")] public string Task { get; }
+    [JsonProperty("note")] public string? Note { get; }
 }

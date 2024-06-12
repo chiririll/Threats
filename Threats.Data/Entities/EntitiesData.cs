@@ -8,6 +8,8 @@ public class EntitiesData : IEntitiesData
 {
     [JsonProperty("threats")] private readonly List<Threat> threats = new();
     [JsonProperty("objects")] private readonly List<Object> objects = new();
+
+    [JsonProperty("script_types")] private readonly List<ScriptType> scriptTypes = new();
     [JsonProperty("scripts")] private readonly List<Script> scripts = new();
 
     [JsonProperty("negative_types")] private readonly List<NegativeType> negativeTypes = new();
@@ -18,6 +20,7 @@ public class EntitiesData : IEntitiesData
     public EntitiesData(
         IEnumerable<Threat> threats,
         IEnumerable<Object> objects,
+        IEnumerable<ScriptType> scriptTypes,
         IEnumerable<Script> scripts,
         IEnumerable<NegativeType> negativeTypes,
         IEnumerable<Negative> negatives,
@@ -25,6 +28,8 @@ public class EntitiesData : IEntitiesData
     {
         this.threats.AddRange(threats);
         this.objects.AddRange(objects);
+
+        this.scriptTypes.AddRange(scriptTypes);
         this.scripts.AddRange(scripts);
 
         this.negativeTypes.AddRange(negativeTypes);
@@ -35,6 +40,8 @@ public class EntitiesData : IEntitiesData
 
     [JsonIgnore] public IReadOnlyList<Threat> Threats => threats;
     [JsonIgnore] public IReadOnlyList<Object> Objects => objects;
+
+    [JsonIgnore] public IReadOnlyList<ScriptType> ScriptTypes => scriptTypes;
     [JsonIgnore] public IReadOnlyList<Script> Scripts => scripts;
 
     [JsonIgnore] public IReadOnlyList<NegativeType> NegativeTypes => negativeTypes;
@@ -42,16 +49,11 @@ public class EntitiesData : IEntitiesData
 
     [JsonIgnore] public IReadOnlyList<IntruderData> Intruders => intruders;
 
-    public static EntitiesData FromJson(string json)
-    {
-        return JsonConvert.DeserializeObject<EntitiesData>(json)!;
-    }
+    public static EntitiesData FromJson(string json) => JsonConvert.DeserializeObject<EntitiesData>(json)!;
+    public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
-    public string ToJson()
-    {
-        return JsonConvert.SerializeObject(this, Formatting.Indented);
-    }
+    public Object? GetObjectById(int id) => objects.Find(o => o.Id.Equals(id));
 
-    public Object? GetObjectById(int id) => objects?.Find(o => o.Id.Equals(id));
-    public Script? GetScriptById(int id) => scripts?.Find(s => s.Id.Equals(id));
+    public ScriptType? GetScriptTypeById(int id) => scriptTypes.Find(t => t.Id.Equals(id));
+    public Script? GetScriptById(ScriptId id) => scripts.Find(s => s.Id.Equals(id));
 }

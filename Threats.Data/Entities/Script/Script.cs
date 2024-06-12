@@ -5,15 +5,20 @@ namespace Threats.Data.Entities;
 
 public class Script
 {
-    [JsonProperty("examples")] private readonly List<string> examples = new();
+    [JsonProperty("examples")] private readonly List<string> examples;
 
-    public Script(ScriptId id)
+    public Script(ScriptId id, string description, string? note, IEnumerable<string> examples)
     {
+        Id = id;
+        Description = description;
+        Note = note;
+
+        this.examples = new(examples);
     }
 
-    [JsonProperty("id")] public ScriptId Id { get; }
+    [JsonProperty("id", Order = -100)] public ScriptId Id { get; }
     [JsonProperty("desc")] public string Description { get; }
     [JsonProperty("note")] public string? Note { get; }
 
-    public IReadOnlyList<string> Examples => examples;
+    [JsonIgnore] public IReadOnlyList<string> Examples => examples;
 }
