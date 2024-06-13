@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using Threats.Data;
+using Threats.Data.Entities;
 using Threats.Models.Survey;
 
 namespace Threats.Models.Exporters.Excel;
@@ -41,6 +45,9 @@ public class ThreatsSheetCreator
             CreateCell(row, Columns.Id, threat.Id.ToString());
             CreateCell(row, Columns.Name, threat.Name);
             CreateCell(row, Columns.Description, threat.Description);
+            CreateCell(row, Columns.Intruders, GetIntrudersString(threat.Intruders));
+            CreateCell(row, Columns.Objects, GetObjectsString(threat.ObjectIds));
+            CreateCell(row, Columns.Scripts, string.Join("; ", threat.ScriptIds));
         }
     }
 
@@ -51,6 +58,40 @@ public class ThreatsSheetCreator
         cell.CellStyle = cellStyle;
     }
 
+    private string GetIntrudersString(IReadOnlyList<Intruder> intruders)
+    {
+        var sb = new StringBuilder();
+
+        foreach (var intruder in intruders)
+        {
+            var type = intruder.Type switch
+            {
+                IntruderType.Internal => "Внутренний",
+                IntruderType.External => "Внешний",
+                _ => throw new System.NotImplementedException(),
+            };
+            var potential = intruder.Potential switch
+            {
+                IntruderPotential.Base => "c базовым",
+                IntruderPotential.Advanced => "с базовым повышенным",
+                IntruderPotential.Medium => "со средним",
+                IntruderPotential.High => "с высоким",
+                _ => throw new System.NotImplementedException(),
+            };
+
+            sb.Append($"{type} нарушитель {potential} потенциалом; ");
+        }
+
+        sb.Remove(sb.Length - 2, 2);
+        return sb.ToString();
+    }
+
+    private string GetObjectsString(IReadOnlyList<int> objects)
+    {
+        var strings = objects.Select(id => entities.GetObjectById(id)).Where(o => o != null).Select(o => o!.Name);
+        return string.Join("; ", strings);
+    }
+
     private class Columns
     {
         public const int Id = 0;
@@ -58,5 +99,6 @@ public class ThreatsSheetCreator
         public const int Description = 2;
         public const int Intruders = 3;
         public const int Objects = 4;
+        public const int Scripts = 5;
     }
 }
