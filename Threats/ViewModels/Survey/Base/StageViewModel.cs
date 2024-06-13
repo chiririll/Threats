@@ -25,6 +25,7 @@ public sealed class StageViewModel : ViewModelBase, IDisposable
     }
 
     public IObservable<Unit> Updated => updated;
+    public int? MaxWidth => stage?.MaxWidth;
 
     public void SetStage(SurveyStage stage) => SetStage(SurveyStageViewModelFactory.Create(stage));
     public void SetStage(SurveyStageViewModel stage)

@@ -6,7 +6,7 @@
         Icon="/Assets/avalonia-logo.ico"
         x:Class="Threats.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        MinWidth="450" MinHeight="250"
+        MinWidth="450" MinHeight="350"
         Width="750" Height="550"
         Title="Threats"
         Content="{Binding Content}">

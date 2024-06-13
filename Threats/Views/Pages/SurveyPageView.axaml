@@ -8,7 +8,7 @@
              x:Class="Threats.Views.Pages.SurveyPageView"
              x:DataType="vm:SurveyPageViewModel">
 
-  <Grid Margin="10" MaxWidth="1100">
+  <Grid Margin="10" MaxWidth="{Binding MaxWidth}">
     <Grid Margin="0, 10, 0, 40">
 
       <Rectangle StrokeDashArray="1, 3"

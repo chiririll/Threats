@@ -9,6 +9,8 @@ namespace Threats.ViewModels.Pages;
 
 public class SurveyPageViewModel : ViewModelBase
 {
+    private const int DefaultMaxWidth = 1100;
+
     private readonly Subject<bool> canMoveNext = new();
     private readonly Subject<SurveyResult> onComplete = new();
 
@@ -35,6 +37,7 @@ public class SurveyPageViewModel : ViewModelBase
 
     public string Title => survey.Title;
     public StageViewModel StageContainer { get; } = new();
+    public int MaxWidth => StageContainer.MaxWidth ?? DefaultMaxWidth;
 
     private void UpdateMoveNextButtonState()
     {
@@ -46,6 +49,7 @@ public class SurveyPageViewModel : ViewModelBase
         StageContainer.SetStage(survey.CurrentStage!);
         this.RaisePropertyChanged(nameof(Title));
         this.RaisePropertyChanged(nameof(CanMoveBack));
+        this.RaisePropertyChanged(nameof(MaxWidth));
 
         UpdateMoveNextButtonState();
     }

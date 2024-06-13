@@ -16,6 +16,7 @@ public class ThreatsStageViewModel : SurveyStageViewModel<ThreatsStage>
 
     public ObservableCollection<ThreatSelector> Selectors { get; }
     public FocusedThreatViewModel? FocusedThreat { get; private set; }
+    public override int? MaxWidth => 1920;
 
     public int SelectedThreatIndex
     {

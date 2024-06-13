@@ -21,6 +21,7 @@ public abstract class SurveyStageViewModel : ViewModelBase, IDisposable
     protected readonly Subject<Unit> updated = new();
 
     public IObservable<Unit> Updated => updated;
+    public virtual int? MaxWidth => null;
 
     public void InvokeUpdate() => updated.OnNext(default);
 
