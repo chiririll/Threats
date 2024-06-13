@@ -15,6 +15,7 @@ public class ThreatsStage : SurveyStage<ThreatsStageState, IThreatsStageData>
         this.surveyState = surveyState;
     }
 
+    public IEntitiesData Entities => entities;
     public IReadOnlyList<ThreatSelector> Selectors => state.Selectors;
 
     public override StageType Type => StageType.Threats;

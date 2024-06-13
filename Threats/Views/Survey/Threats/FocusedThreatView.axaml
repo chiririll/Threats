@@ -7,12 +7,84 @@
              x:Class="Threats.Views.Survey.FocusedThreatView"
              x:DataType="vm:FocusedThreatViewModel">
 
-  <ScrollViewer>
+  <ScrollViewer Margin="0,20,0,0">
     <StackPanel>
-      <TextBlock TextWrapping="Wrap">
-        <Bold>УБИ <Run Text="{Binding Threat.Id}"/></Bold>: <Run Text="{Binding Threat.Name}"/>
+
+      <TextBlock Classes="h1">
+        <Bold Classes="h1sel">УБИ <Run Text="{Binding Threat.Id}"/></Bold>: <Run Text="{Binding Threat.Name}"/>
       </TextBlock>
+
+      <!-- <TextBlock>Сценарии реализации УБИ</TextBlock> -->
+
+      <ItemsControl ItemsSource="{Binding ScriptTypes}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <StackPanel>
+              <TextBlock Margin="0,5"
+                          FontSize="16"
+                          Classes="blue-colored"
+                          TextWrapping="Wrap">
+                <Bold><Run Text="{Binding Id}"/></Bold>. <Run Text="{Binding ScriptType.Name}"/>
+              </TextBlock>
+
+              <TextBlock TextWrapping="Wrap">
+                <Bold>Тактическая задача</Bold>: <Run Text="{Binding ScriptType.Task}"/>
+              </TextBlock>
+
+              <TextBlock TextWrapping="Wrap"
+                        IsVisible="{Binding HasNote}"
+                        Margin="0,4">
+                <Bold>Примечание</Bold>: <Run Text="{Binding ScriptType.Note}"/>
+              </TextBlock>
+
+              <ItemsControl ItemsSource="{Binding Scripts}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Margin="10,0,0,0">
+
+                    <TextBlock TextWrapping="Wrap"
+                                Margin="0,5,0,0">
+                      - <Bold><Run Text="{Binding Id}"/></Bold>. <Run Text="{Binding Script.Description}"/>
+                    </TextBlock>
+
+                    <StackPanel Margin="10,0,0,0">
+
+                      <TextBlock TextWrapping="Wrap"
+                                IsVisible="{Binding HasExamples}"
+                                Margin="0,4,0,0">
+                        <Bold>Примеры</Bold>:
+                      </TextBlock>
+
+                      <ItemsControl ItemsSource="{Binding Script.Examples}"
+                                    IsVisible="{Binding HasExamples}"
+                                    Margin="10,0,0,0">
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <TextBlock TextWrapping="Wrap"
+                                    Margin="0,2">
+                              # <Run Text="{Binding}"/>
+                            </TextBlock>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+
+                      <TextBlock TextWrapping="Wrap"
+                                IsVisible="{Binding HasNote}"
+                                Margin="0,4,0,0">
+                        <Bold>Примечание</Bold>: <Run Text="{Binding Script.Note}"/>
+                      </TextBlock>
+
+                    </StackPanel>
+
+                    </StackPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </StackPanel>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
     </StackPanel>
   </ScrollViewer>
-
 </UserControl>

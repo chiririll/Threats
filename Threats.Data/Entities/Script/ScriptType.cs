@@ -14,4 +14,6 @@ public class ScriptType : Entity
     [JsonProperty("name")] public string Name { get; }
     [JsonProperty("task")] public string Task { get; }
     [JsonProperty("note")] public string? Note { get; }
+
+    public override string ToString() => $"Т{Id}";
 }

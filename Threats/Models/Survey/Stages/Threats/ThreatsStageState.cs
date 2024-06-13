@@ -21,7 +21,7 @@ public class ThreatsStageState : IStageState
             && t.Intruders.Any(i => intruders.Any(si => si.Equals(i))));
 
         selectors.Clear();
-        selectors.AddRange(threats.Select(t => new ThreatSelector(t, entities)));
+        selectors.AddRange(threats.Select(t => new ThreatSelector(t)));
     }
 
     public void BuildThreats()

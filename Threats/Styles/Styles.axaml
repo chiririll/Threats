@@ -8,6 +8,11 @@
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="Margin" Value="0,0,0,15"/>
   </Style>
+
+  <Style Selector="TextBlock.blue-colored">
+    <Setter Property="Foreground" Value="#0039a6"/>
+  </Style>
+
   <Style Selector="Bold.h1sel">
     <Setter Property="Foreground" Value="#6F00FF"/>
   </Style>

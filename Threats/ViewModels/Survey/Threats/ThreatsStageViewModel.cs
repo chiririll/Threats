@@ -27,7 +27,7 @@ public class ThreatsStageViewModel : SurveyStageViewModel<ThreatsStage>
 
             selectedIndex = value;
 
-            FocusedThreat = new(Selectors[selectedIndex]);
+            FocusedThreat = new(Selectors[selectedIndex], stage.Entities);
             this.RaisePropertyChanged(nameof(FocusedThreat));
         }
     }
