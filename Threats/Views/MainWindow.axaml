@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:Threats.ViewModels"
         Icon="/Assets/icon.ico"
+        FontFamily="NotoSans"
         x:Class="Threats.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         MinWidth="450" MinHeight="350"

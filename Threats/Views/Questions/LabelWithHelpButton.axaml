@@ -10,7 +10,7 @@
   <TextBlock TextAlignment="Left"
              TextWrapping="Wrap">
 
-    <Run Text="{Binding Label}"/>
+    <Run Text="{Binding Label}" FontWeight="{Binding FontWeight}"/>
 
     <Button Content="?"
             Width="16"

@@ -11,9 +11,9 @@ public class QuestionViewModel : ViewModelBase
 {
     private readonly Subject<Unit> updated = new();
 
-    public QuestionViewModel(Question question)
+    public QuestionViewModel(Question question, bool boldTitle = false)
     {
-        Label = new(question.Label);
+        Label = new(question.Label, boldTitle ? Avalonia.Media.FontWeight.SemiBold : Avalonia.Media.FontWeight.Normal);
 
         Options = new(question.Options.Select(o => new OptionViewModel(o)));
     }

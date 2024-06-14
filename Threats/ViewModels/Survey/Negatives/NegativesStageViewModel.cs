@@ -9,9 +9,9 @@ namespace Threats.ViewModels.Survey;
 
 public class NegativesStageViewModel : SurveyStageViewModel<NegativesStage>
 {
-    public NegativesStageViewModel(NegativesStage stage) : base(stage)
+    public NegativesStageViewModel(NegativesStage stage, bool isBold = false) : base(stage)
     {
-        var questions = stage.Questions.Select(q => new QuestionViewModel(q));
+        var questions = stage.Questions.Select(q => new QuestionViewModel(q, true));
 
         Questions = new(questions);
 

@@ -33,6 +33,7 @@
             HorizontalAlignment="Stretch"
             TextAlignment="Left"
             TextWrapping="Wrap"
+            FontWeight="{Binding FontWeight}"
             Text="{Binding Label}" />
 
   </Grid>

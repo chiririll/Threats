@@ -5,6 +5,7 @@
         xmlns:vm="using:Threats.ViewModels.Alerts"
         x:Class="Threats.Views.Alerts.ExportResultAlert"
         x:DataType="vm:ExportResultViewModel"
+        FontFamily="NotoSans"
 
         Width="200" Height="100"
         CanResize="False"
