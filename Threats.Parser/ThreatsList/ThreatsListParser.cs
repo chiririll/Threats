@@ -63,11 +63,6 @@ public class ThreatsListParser : IParser
             violations |= Convert.ToBoolean(row[Columns.Violations.Integrity]) ? SafetyViolations.Integrity : SafetyViolations.None;
             violations |= Convert.ToBoolean(row[Columns.Violations.Availability]) ? SafetyViolations.Availability : SafetyViolations.None;
 
-#if THREATS_DATE
-            var addDate = row.Field<DateOnly?>(Columns.AddDate, DataRowVersion.Current) ?? default;
-            var updateDate = row.Field<DateOnly?>(Columns.UpdateDate, DataRowVersion.Current) ?? default;
-#endif
-
             return new Threat(
                 id,
                 name,
@@ -76,10 +71,6 @@ public class ThreatsListParser : IParser
                 intruders,
                 objects,
                 scripts
-#if THREATS_DATE
-                , addDate,
-                updateDate
-#endif
             );
         }
         catch (Exception e)

@@ -27,11 +27,6 @@ internal sealed class Program
 
     public static void Main(string[] args)
     {
-        if (args.Length < 6)
-        {
-            return;
-        }
-
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
         var options = CommandLine.Parser.Default.ParseArguments<Options>(args).Value;

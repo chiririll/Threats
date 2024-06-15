@@ -35,8 +35,6 @@ public readonly struct ScriptId : IEquatable<ScriptId>
 
     public override string ToString() => $"Т{Type}.{Id}";
 
-    #region Equals
-
     public bool Equals(ScriptId other) => Type.Equals(other.Type) && Id.Equals(other.Id);
     public override bool Equals(object? obj) => obj != null && obj is ScriptId other && Equals(other);
 
@@ -45,6 +43,4 @@ public readonly struct ScriptId : IEquatable<ScriptId>
     public static bool operator ==(ScriptId left, ScriptId right) => left.Equals(right);
 
     public static bool operator !=(ScriptId left, ScriptId right) => !(left == right);
-
-    #endregion Equals
 }

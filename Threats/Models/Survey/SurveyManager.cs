@@ -64,7 +64,6 @@ public class SurveyManager
 
         current.Save();
 
-        // Переход внутри этапа
         if (current.MoveNext())
         {
             return true;
@@ -96,7 +95,6 @@ public class SurveyManager
 
         current.Save();
 
-        // Переход внутри этапа
         if (current.MoveBack())
         {
             return true;

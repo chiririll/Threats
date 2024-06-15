@@ -13,10 +13,6 @@ public class Threat : Entity
         IReadOnlyList<Intruder> intruders,
         IReadOnlyList<int> objectIds,
         IReadOnlyList<ScriptId> scriptIds
-#if THREATS_DATE
-        , System.DateOnly addDate,
-        System.DateOnly updateDate
-#endif
         ) : base(id)
     {
         Name = name;
@@ -25,10 +21,6 @@ public class Threat : Entity
         Intruders = intruders;
         ObjectIds = objectIds;
         ScriptIds = scriptIds;
-#if THREATS_DATE
-        AddDate = addDate;
-        UpdateDate = updateDate;
-#endif
     }
 
     [JsonProperty("name")] public string Name { get; }
@@ -38,9 +30,4 @@ public class Threat : Entity
     [JsonProperty("intruders")] public IReadOnlyList<Intruder> Intruders { get; }
     [JsonProperty("objects")] public IReadOnlyList<int> ObjectIds { get; }
     [JsonProperty("scripts")] public IReadOnlyList<ScriptId> ScriptIds { get; }
-
-#if THREATS_DATE
-    [JsonProperty("added")] public DateOnly AddDate { get; }
-    [JsonProperty("updated")] public DateOnly UpdateDate { get; }
-#endif
 }
