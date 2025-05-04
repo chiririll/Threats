@@ -7,22 +7,17 @@ using Threats.Models.Survey;
 
 namespace Threats.Models.Exporters.Excel;
 
-public class ExcelExporter : IResultExporter
+public class ExcelExporter(IEntitiesData entities) : IResultExporter
 {
-    private readonly IEntitiesData entities;
-
-    public ExcelExporter(IEntitiesData entities)
-    {
-        this.entities = entities;
-    }
+    private readonly IEntitiesData entities = entities;
 
     public FilePickerFileType OutputType => new("Excel file")
     {
-        Patterns = new[] { "*.xlsx" },
-        MimeTypes = new[] { "application/vnd.ms-excel" }
+        Patterns = ["*.xlsx"],
+        MimeTypes = ["application/vnd.ms-excel"]
     };
 
-    public bool CanHandlePath(string path) => OutputType.Patterns!.Any(p => path.EndsWith(p[1..]));
+    public bool CanHandlePath(string path) => OutputType.Patterns!.Any(p => path.EndsWith(p.Substring(1)));
 
     public bool Export(SurveyResult result, string path)
     {

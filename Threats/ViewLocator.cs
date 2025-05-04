@@ -7,13 +7,12 @@ namespace Threats;
 
 public class ViewLocator : IDataTemplate
 {
-
     public Control? Build(object? data)
     {
         if (data is null)
             return null;
-        
-        var name = data.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
+
+        var name = data.GetType().FullName!.Replace("ViewModel", "View");
         var type = Type.GetType(name);
 
         if (type != null)
@@ -22,7 +21,7 @@ public class ViewLocator : IDataTemplate
             control.DataContext = data;
             return control;
         }
-        
+
         return new TextBlock { Text = "Not Found: " + name };
     }
 

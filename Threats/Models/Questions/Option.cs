@@ -4,7 +4,6 @@ namespace Threats.Models.Questions;
 
 public class Option
 {
-
     public Option(OptionData data)
     {
         Id = data.Id;

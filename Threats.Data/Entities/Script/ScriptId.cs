@@ -17,14 +17,14 @@ public readonly struct ScriptId : IEquatable<ScriptId>
     public static bool TryParse(string identifier, out ScriptId scriptId)
     {
         scriptId = default;
-        var parts = identifier.Split('.', 2);
+        var parts = identifier.Split(['.'], 2);
 
         if (parts.Length < 2 || parts[0].Length < 2)
         {
             return false;
         }
 
-        if (!ushort.TryParse(parts[0][1..], out var type) || !ushort.TryParse(parts[1], out var id))
+        if (!ushort.TryParse(parts[0].Substring(1), out var type) || !ushort.TryParse(parts[1], out var id))
         {
             return false;
         }

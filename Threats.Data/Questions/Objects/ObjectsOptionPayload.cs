@@ -16,6 +16,6 @@ public class ObjectsOptionPayload : IOptionPayload
         this.objectsToExclude = new(objectsToExclude);
     }
 
-    [JsonIgnore] public IReadOnlySet<int> ObjectsToAdd => objectsToAdd;
-    [JsonIgnore] public IReadOnlySet<int> ObjectsToExclude => objectsToExclude;
+    [JsonIgnore] public IEnumerable<int> ObjectsToAdd => objectsToAdd;
+    [JsonIgnore] public IEnumerable<int> ObjectsToExclude => objectsToExclude;
 }
