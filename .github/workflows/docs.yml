@@ -1,0 +1,38 @@
+name: Build Docs
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+
+jobs:
+  build-docs:
+    name: Build Docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: List files
+        id: list_files
+        run: echo "files=$(printf '"%s" ' docs/*.md)" > $GITHUB_OUTPUT
+
+      - name: Pandoc build
+        uses: docker://pandoc/core:latest
+        with:
+          args: 
+            -s
+            --pdf-engine=xelatex
+            --reference-doc=docs/templates/reference.docx
+            --output=Threats.docx
+            --toc
+            ${{ steps.list_files.outputs.files }}
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: Threats
+          path: Threats.docx

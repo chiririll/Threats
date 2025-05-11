@@ -66,6 +66,8 @@
 *.pdf                   lfs
 *.xls                   lfs
 *.xlsx                  lfs
+*.doc                   lfs
+*.docx                  lfs
 
 # Databases
 *.db                    lfs
