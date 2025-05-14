@@ -1,4 +1,4 @@
-name: Build Threats
+name: Build Threats Release
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-artifacts:
-    name: Build Artifacts
+  build-release-artifacts:
+    name: Build Release Artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
