@@ -12,7 +12,8 @@
 
         WindowStartupLocation="CenterOwner"
 
-        SystemDecorations="BorderOnly"
+        Title=""
+        SystemDecorations="Full"
         ShowInTaskbar="False">
   <DockPanel Margin="10">
     <StackPanel Orientation="Horizontal"

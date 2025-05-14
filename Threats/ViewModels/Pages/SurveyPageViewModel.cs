@@ -1,6 +1,8 @@
 using System;
 using System.Reactive;
 using System.Reactive.Subjects;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using ReactiveUI;
 using Threats.Models.Survey;
 using Threats.ViewModels.Survey;
@@ -15,6 +17,8 @@ public class SurveyPageViewModel : ViewModelBase
     private readonly Subject<SurveyResult> onComplete = new();
 
     private readonly SurveyManager survey;
+
+    private bool completed = false;
 
     public SurveyPageViewModel(SurveyManager survey)
     {
@@ -58,11 +62,33 @@ public class SurveyPageViewModel : ViewModelBase
     {
         if (!survey.MoveToNextStage())
         {
-            onComplete.OnNext(survey.GetResult());
+            TryCompleteSurvey();
             return;
         }
 
         Refresh();
+    }
+
+    public async void TryCompleteSurvey()
+    {
+        if (completed)
+            return;
+        completed = true;
+
+        var completeAlert = MessageBoxManager
+           .GetMessageBoxStandard(
+                "Подтверждение",
+                "Вы готовы сформировать список актуальных угроз?",
+               ButtonEnum.YesNo);
+
+        var result = await completeAlert.ShowAsync();
+        if (result == ButtonResult.Yes)
+        {
+            onComplete.OnNext(survey.GetResult());
+            return;
+        }
+
+        completed = false;
     }
 
     private void MoveToPrevStage()
