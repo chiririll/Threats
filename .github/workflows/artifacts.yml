@@ -26,18 +26,34 @@ jobs:
       - name: Build
         run: dotnet build -c Release
 
-      - name: Publish Win64
-        run: dotnet publish Threats/Threats.csproj -c Release -o publish-win64 -r win-x64
-      - name: Upload Win64 Artifact
+      - name: Publish Windows x64 .NET 6.0
+        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net6.0 -o publish-win64-net6.0
+      - name: Upload Win64 .NET 6.0 Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Threats-win64
-          path: publish-win64
+          name: Threats Windows x64 .NET 6.0
+          path: publish-win64-net6.0
 
-      - name: Publish Linux64
-        run: dotnet publish Threats/Threats.csproj -c Release -o publish-linux64 -r linux-x64
-      - name: Upload Linux64 Artifact
+      - name: Publish Windows x64 .NET 4.7
+        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net4.7 -o publish-win64-net4.7
+      - name: Upload Win64 .NET 4.7 Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Threats-linux64
-          path: publish-linux64
+          name: Threats Windows x64 .NET 4.7
+          path: publish-win64-net4.7
+
+      - name: Publish Linux x64 .NET 6.0
+        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net6.0 -o publish-linux64-net6.0
+      - name: Upload .NET 6.0 Linux64 Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Threats Linux x64 .NET 6.0
+          path: publish-linux64-net6.0
+
+      - name: Publish Linux x64 .NET 4.7
+        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net4.7 -o publish-linux64-net4.7
+      - name: Upload Linux x64 .NET 4.7 Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Threats Linux x64 .NET 4.7
+          path: publish-linux64-net4.7

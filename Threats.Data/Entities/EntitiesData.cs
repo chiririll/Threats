@@ -50,7 +50,7 @@ public class EntitiesData : IEntitiesData
     [JsonIgnore] public IReadOnlyList<IntruderData> Intruders => intruders;
 
     public static EntitiesData FromJson(string json) => JsonConvert.DeserializeObject<EntitiesData>(json)!;
-    public string ToJson() => JsonConvert.SerializeObject(this, Formatting.Indented);
+    public string ToJson() => JsonConvert.SerializeObject(this, Formatting.None);
 
     public Object? GetObjectById(int id) => objects.Find(o => o.Id.Equals(id));
 

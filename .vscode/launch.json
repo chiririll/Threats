@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-threats",
-            "program": "${workspaceFolder}/Threats/bin/Debug/net6.0/Threats.dll",
+            "program": "${workspaceFolder}/Threats/bin/Debug/net4.7/Threats.exe",
             "args": [],
             "cwd": "${workspaceFolder}/Threats",
             "console": "internalConsole",
