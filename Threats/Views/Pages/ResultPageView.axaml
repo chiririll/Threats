@@ -58,6 +58,7 @@
               HorizontalAlignment="Left"
               HorizontalContentAlignment="Center"
               Width="150"
+              IsVisible="{Binding ResultExported}"
               Command="{Binding RestartCommand}">
           В начало
       </Button>

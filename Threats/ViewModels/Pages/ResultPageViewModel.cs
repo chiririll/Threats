@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
 using System.Reactive.Subjects;
 using Avalonia.Platform.Storage;
@@ -16,6 +15,8 @@ public class ResultPageViewModel : ViewModelBase
 {
     private readonly Subject<Unit> onRestartRequested = new();
 
+    private bool resultExported = false;
+
     private readonly IResultExporter exporter;
 
     public ResultPageViewModel(SurveyResult result, IEntitiesData entities)
@@ -29,6 +30,12 @@ public class ResultPageViewModel : ViewModelBase
         ExportTypes = new List<FilePickerFileType>() { exporter.OutputType };
     }
 
+    public bool ResultExported
+    {
+        get => resultExported;
+        private set => this.RaiseAndSetIfChanged(ref resultExported, value);
+    }
+
     public SurveyResult Result { get; }
 
     public IObservable<Unit> RestartCommand { get; }
@@ -39,6 +46,9 @@ public class ResultPageViewModel : ViewModelBase
 
     public bool Export(string path)
     {
-        return exporter.Export(Result, path);
+        var success = exporter.Export(Result, path);
+        ResultExported = ResultExported || success;
+
+        return success;
     }
 }
