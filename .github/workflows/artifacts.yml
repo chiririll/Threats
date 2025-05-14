@@ -17,7 +17,7 @@ jobs:
           lfs: true
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.x
 
       - name: Version Bump
         if: github.ref.type == 'tag'
@@ -26,34 +26,34 @@ jobs:
       - name: Build
         run: dotnet build -c Release
 
-      - name: Publish Windows x64 .NET 6.0
-        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net6.0 -o publish-win64-net6.0
-      - name: Upload Win64 .NET 6.0 Artifacts
+      - name: Publish Windows x64 .NET 9.0
+        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net9.0 -o publish-win64-net9.0
+      - name: Upload Win64 .NET 9.0 Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Threats Windows x64 .NET 6.0
-          path: publish-win64-net6.0
+          name: Threats Windows x64 .NET 9.0
+          path: publish-win64-net9.0
 
       - name: Publish Windows x64 .NET 4.7
-        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net4.7 -o publish-win64-net4.7
+        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net472 -o publish-win64-net472
       - name: Upload Win64 .NET 4.7 Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Threats Windows x64 .NET 4.7
-          path: publish-win64-net4.7
+          path: publish-win64-net472
 
-      - name: Publish Linux x64 .NET 6.0
-        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net6.0 -o publish-linux64-net6.0
-      - name: Upload .NET 6.0 Linux64 Artifacts
+      - name: Publish Linux x64 .NET 9.0
+        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net9.0 -o publish-linux64-net9.0
+      - name: Upload .NET 9.0 Linux64 Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Threats Linux x64 .NET 6.0
-          path: publish-linux64-net6.0
+          name: Threats Linux x64 .NET 9.0
+          path: publish-linux64-net9.0
 
-      - name: Publish Linux x64 .NET 4.7
-        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net4.7 -o publish-linux64-net4.7
-      - name: Upload Linux x64 .NET 4.7 Artifacts
+      - name: Publish Linux x64 .NET 9.0 Portable
+        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net9.0 --sc true -o publish-linux64-net9.0
+      - name: Upload .NET 9.0 Linux64 Portable Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Threats Linux x64 .NET 4.7
-          path: publish-linux64-net4.7
+          name: Threats Linux x64 .NET 9.0 Portable
+          path: publish-linux64-net9.0
