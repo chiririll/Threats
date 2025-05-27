@@ -25,7 +25,7 @@ jobs:
         with:
           args: 
             -s
-            --pdf-engine=xelatex
+            --resource-path=docs/
             --reference-doc=docs/templates/reference.docx
             --output=Threats.docx
             --toc
