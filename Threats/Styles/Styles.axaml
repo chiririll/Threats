@@ -18,18 +18,18 @@
   </Style>
 
   <Style Selector="Window">
-    <Setter Property="Background" Value="#EEEEEE"/>
+    <Setter Property="Background" Value="#F6F0F0"/>
   </Style>
 
   <Style Selector="Rectangle.bg">
-    <Setter Property="Fill" Value="#EEEEEE"/>
+    <Setter Property="Fill" Value="#F6F0F0"/>
   </Style>
 
   <Style Selector="Rectangle.yesnoeven">
-    <Setter Property="Fill" Value="#DDDDDD"/>
+    <Setter Property="Fill" Value="#F2E2B1"/>
   </Style>
 
   <Style Selector="Rectangle.yesnoodd">
-    <Setter Property="Fill" Value="#EEEEEE"/>
+    <Setter Property="Fill" Value="#F6F0F0"/>
   </Style>
 </Styles>

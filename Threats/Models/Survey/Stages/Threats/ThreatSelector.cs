@@ -14,5 +14,5 @@ public class ThreatSelector
     }
 
     public Threat Threat { get; }
-    public bool Selected { get; set; }
+    public bool Selected { get; set; } = true;
 }
