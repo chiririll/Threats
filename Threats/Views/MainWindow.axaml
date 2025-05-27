@@ -9,6 +9,6 @@
         x:DataType="vm:MainWindowViewModel"
         MinWidth="450" MinHeight="350"
         Width="750" Height="550"
-        Title="Threats"
+        Title="Выявление актуальных угроз ИБ"
         Content="{Binding Content}">
 </Window>

@@ -14,11 +14,9 @@
     <TextBlock Grid.Row="0"
                FontSize="28"
                TextAlignment="Center"
-               MaxWidth="400"
+               MaxWidth="500"
                TextWrapping="Wrap">
-      Моделирование 
-      угроз безопасности информации 
-      систем на этапе создания
+      Система выявления актуальных угроз информационной безопасности организации на основе сценарного подхода
     </TextBlock>
     
     <Button Grid.Row="1"    
@@ -29,7 +27,7 @@
       <TextBlock VerticalAlignment="Center" 
                  TextAlignment="Center"
                  FontSize="22" 
-                 Text="Начать"/>
+                 Text="Приступить"/>
     </Button>
 
   </Grid>
