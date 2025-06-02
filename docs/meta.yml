@@ -1,0 +1,11 @@
+lang: ru
+format: docx
+
+figureTitle: Рисунок
+tableTitle: Таблица
+
+titleDelim: "–"
+figureTemplate: "$$figureTitle$$ $$i$$ $$titleDelim$$ $$t$$"
+figPrefixTemplate: "$$i$$"
+tableTemplate: "$$tableTitle$$ $$i$$ $$titleDelim$$ $$t$$"
+tblPrefixTemplate: "$$i$$"
