@@ -28,7 +28,7 @@ jobs:
             -F pandoc-crossref
             --metadata-file docs/meta.yml
             --resource-path=docs/
-            --reference-doc=docs/templates/PZ.docx
+            --reference-doc=docs/templates/PZ-reference.docx
             --output=Threats.docx
             --toc
             ${{ steps.list_files.outputs.files }}
