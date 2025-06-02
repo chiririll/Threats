@@ -16,6 +16,12 @@ jobs:
           fetch-depth: 0
           lfs: true
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+
+      - name: Bake links
+        run: python3 docs/tools/process_links.py docs/
+
       - name: List files
         id: list_files
         run: echo "files=$(printf '"%s" ' docs/*.md)" > $GITHUB_OUTPUT
