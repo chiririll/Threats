@@ -26,7 +26,7 @@ jobs:
           args: 
             -s
             --resource-path=docs/
-            --reference-doc=docs/templates/reference.docx
+            --reference-doc=docs/templates/PZ.docx
             --output=Threats.docx
             --toc
             ${{ steps.list_files.outputs.files }}
