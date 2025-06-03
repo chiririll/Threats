@@ -32,7 +32,7 @@ jobs:
             --bibliography=docs/bibliography.bib
             --lua-filter=docs/filters/latin-italic.lua
             --toc
-            --reference-doc=docs/templates/PZ-reference.docx
+            --reference-doc=docs/templates/PZ.docx
             --output=Threats.docx
             ${{ steps.list_files.outputs.files }}
 
