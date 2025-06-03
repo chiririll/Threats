@@ -30,6 +30,7 @@ jobs:
             -F pandoc-crossref
             --citeproc --csl=docs/templates/gost.csl
             --bibliography=docs/bibliography.bib
+            --lua-filter=docs/filters/latin-italic.lua
             --toc
             --reference-doc=docs/templates/PZ-reference.docx
             --output=Threats.docx
