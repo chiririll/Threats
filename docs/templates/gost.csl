@@ -186,7 +186,7 @@
       <if type="webpage post-weblog" match="any">
         <choose>
           <if variable="URL">
-            <text variable="URL" prefix="URL: " />
+            <text variable="URL" prefix="Режим доступа: " />
             <group prefix=" (" suffix=")" delimiter=": ">
               <text term="accessed" />
               <!-- localized date is not used here, since we prefer the Russian date style for
