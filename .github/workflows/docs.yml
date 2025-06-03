@@ -25,12 +25,14 @@ jobs:
         with:
           args:
             -s
-            -F pandoc-crossref
             --metadata-file docs/meta.yml
             --resource-path=docs/
+            -F pandoc-crossref
+            --citeproc --csl=docs/templates/gost.csl
+            --bibliography=docs/bibliography.bib
+            --toc
             --reference-doc=docs/templates/PZ-reference.docx
             --output=Threats.docx
-            --toc
             ${{ steps.list_files.outputs.files }}
 
       - name: Upload
