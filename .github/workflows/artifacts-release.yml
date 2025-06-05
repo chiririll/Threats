@@ -20,7 +20,7 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Version Bump
-        if: github.ref.type == 'tag'
+        if: github.ref_type == 'tag'
         run: sed -Ei "s|<VersionPrefix>[0-9]*\.[0-9]*\.[0-9]*</VersionPrefix>|<VersionPrefix>${GITHUB_REF_NAME}</VersionPrefix>|g" Threats/Threats.csproj
 
       - name: Build
