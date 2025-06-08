@@ -1,0 +1,84 @@
+/* @theme presentation */
+
+@import 'default';
+
+.logo-header {
+    position: absolute;
+    margin: 40px;
+    top: 0px;
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 120px;
+}
+
+.header-text {
+    flex-grow: 1;
+    text-align: center;
+    font-size: .75rem;
+    max-width: 800px;
+}
+
+.title-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.top-right-info {
+    position: absolute;
+    right: 40px;
+    top: 190px;
+    font-size: .7rem;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+.bottom-right-info {
+    position: absolute;
+    right: 40px;
+    bottom: 80px;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+.title-slide h1 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.centered {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.bottom-center {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: #666;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.petri {
+    font-size: .6rem;
+    width: 500px;
+}

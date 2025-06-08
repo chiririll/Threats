@@ -5,5 +5,8 @@
         "XSSF",
         "Петри",
         "ФСТЭК"
+    ],
+    "markdown.marp.themes": [
+        "docs/presentation/theme.css"
     ]
 }

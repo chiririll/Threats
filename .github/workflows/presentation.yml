@@ -1,0 +1,45 @@
+name: Build Presentation
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+
+jobs:
+  build-docs:
+    name: Build Presentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Marp Build pdf
+        uses: docker://marpteam/marp-cli:latest
+        with:
+          args:
+            --allow-local-files
+            --input-dir docs/presentation/
+            --pdf
+        env:
+          MARP_USER: root:root
+
+      - name: Marp Build pptx
+        uses: docker://marpteam/marp-cli:latest
+        with:
+          args: 
+            --allow-local-files
+            --input-dir docs/presentation/
+            --pptx
+        env:
+          MARP_USER: root:root
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: Presentation
+          path: |
+            docs/presentation/Презентация.pdf
+            docs/presentation/Презентация.pptx
