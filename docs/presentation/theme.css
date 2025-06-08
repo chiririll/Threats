@@ -2,6 +2,11 @@
 
 @import 'default';
 
+section {
+    width: 1024px;
+    height: 768px;
+}
+
 .logo-header {
     position: absolute;
     margin: 40px;
@@ -73,12 +78,19 @@
 }
 
 .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
     gap: 1rem;
+}
+
+.columns>div {
+    flex: 1 1 0;
 }
 
 .petri {
     font-size: .6rem;
-    width: 500px;
+    width: 400px;
+}
+
+.tech-logo {
+    height: 140px;
 }
