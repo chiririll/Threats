@@ -8,7 +8,7 @@
             "args": [
                 "build",
                 "${workspaceFolder}/Threats/Threats.csproj",
-                "/property:Framework=net9.0",
+                "/property:TargetFrameworks=net9.0",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -21,7 +21,7 @@
             "args": [
                 "build",
                 "${workspaceFolder}/Threats.Parser/Threats.Parser.csproj",
-                "/property:Framework=net9.0",
+                "/property:TargetFrameworks=net9.0",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
