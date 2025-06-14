@@ -31,6 +31,7 @@ jobs:
             --citeproc --csl=docs/templates/gost.csl
             --bibliography=docs/bibliography.bib
             --lua-filter=docs/filters/latin-italic.lua
+            --lua-filter=docs/filters/bullet-lists.lua
             --toc
             --reference-doc=docs/templates/PZ.docx
             --output=Threats.docx
