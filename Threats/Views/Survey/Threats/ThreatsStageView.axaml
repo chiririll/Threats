@@ -39,7 +39,7 @@
           <DataGridTemplateColumn Width="50">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
-                <CheckBox IsChecked="{Binding Selected}" 
+                <CheckBox IsChecked="{Binding Selected}"
                           HorizontalAlignment="Center"/>
               </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
@@ -51,6 +51,6 @@
       <views:FocusedThreatView Grid.Column="1"
                                 DataContext="{Binding FocusedThreat}"/>
     </Grid>
-  
+
   </DockPanel>
 </UserControl>

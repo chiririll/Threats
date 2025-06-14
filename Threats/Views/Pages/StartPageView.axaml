@@ -10,7 +10,7 @@
         HorizontalAlignment="Center"
         RowDefinitions="*,80"
         ColumnDefinitions="*">
-    
+
     <TextBlock Grid.Row="0"
                FontSize="28"
                TextAlignment="Center"
@@ -18,15 +18,15 @@
                TextWrapping="Wrap">
       Система выявления актуальных угроз информационной безопасности организации на основе сценарного подхода
     </TextBlock>
-    
-    <Button Grid.Row="1"    
+
+    <Button Grid.Row="1"
             Command="{Binding StartSurvey}"
             HorizontalAlignment="Center"
             Width="200"
             Height="50">
-      <TextBlock VerticalAlignment="Center" 
+      <TextBlock VerticalAlignment="Center"
                  TextAlignment="Center"
-                 FontSize="22" 
+                 FontSize="22"
                  Text="Приступить"/>
     </Button>
 

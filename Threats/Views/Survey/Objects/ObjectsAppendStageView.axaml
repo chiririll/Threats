@@ -13,10 +13,10 @@
     </TextBlock>
 
     <StackPanel DockPanel.Dock="Bottom">
-      
+
       <TextBlock TextWrapping="Wrap">
-        При необходимости уточнения перечня объектов воздействия выберите дополнительные компоненты системы, 
-        которые непосредственно участвуют в обработке и хранении защищаемой информации или обеспечивают 
+        При необходимости уточнения перечня объектов воздействия выберите дополнительные компоненты системы,
+        которые непосредственно участвуют в обработке и хранении защищаемой информации или обеспечивают
         реализацию основных процессов:
       </TextBlock>
 
@@ -54,7 +54,7 @@
               CanUserSortColumns="True"
               GridLinesVisibility="All"
               BorderThickness="1" BorderBrush="Gray">
-      
+
       <DataGrid.Styles>
         <Style Selector="TextBlock">
           <Setter Property="TextWrapping" Value="WrapWithOverflow" />

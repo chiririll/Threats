@@ -14,8 +14,8 @@
         <Bold Classes="h1sel">УБИ <Run Text="{Binding Threat.Id}"/></Bold>: <Run Text="{Binding Threat.Name}"/>
       </TextBlock>
 
-      <TextBlock Margin="0,0,0,15" 
-                 TextWrapping="Wrap" 
+      <TextBlock Margin="0,0,0,15"
+                 TextWrapping="Wrap"
                  Text="{Binding Threat.Description}"/>
 
       <ItemsControl ItemsSource="{Binding ScriptTypes}">

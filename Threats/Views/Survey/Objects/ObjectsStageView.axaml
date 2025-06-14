@@ -16,15 +16,15 @@
       <questions:RadioQuestion DataContext="{Binding PrimaryQuestion}" />
 
       <Grid ColumnDefinitions="*,50,50" Margin="0,8,20,8">
-        <TextBlock Grid.Column="1" 
-                   TextWrapping="Wrap" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Bottom" 
+        <TextBlock Grid.Column="1"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
                    Text="Да"/>
-        <TextBlock Grid.Column="2" 
-                   TextWrapping="Wrap" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Bottom" 
+        <TextBlock Grid.Column="2"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
                    Text="Нет"/>
       </Grid>
 
@@ -36,17 +36,17 @@
                          Classes.yesnoeven="{Binding IsEven}"
                          Classes.yesnoodd="{Binding IsOdd}"/>
 
-              <questions:LabelWithLeftHelpButton Margin="10,0,0,0" 
-                                                 VerticalAlignment="Center" 
+              <questions:LabelWithLeftHelpButton Margin="10,0,0,0"
+                                                 VerticalAlignment="Center"
                                                  DataContext="{Binding Label}"/>
 
               <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option1}"
-                           HorizontalAlignment="Center" 
+                           HorizontalAlignment="Center"
                            Command="{Binding OptionUpdated}"
                            VerticalAlignment="Center"
                            Grid.Column="1"/>
               <RadioButton GroupName="{Binding Group}" IsChecked="{Binding Option2}"
-                           HorizontalAlignment="Center" 
+                           HorizontalAlignment="Center"
                            Command="{Binding OptionUpdated}"
                            VerticalAlignment="Center"
                            Grid.Column="2"/>
