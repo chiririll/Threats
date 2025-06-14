@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Reactive;
 using System.Reactive.Subjects;
 using Avalonia.Platform.Storage;
@@ -15,7 +17,8 @@ public class ResultPageViewModel : ViewModelBase
 {
     private readonly Subject<Unit> onRestartRequested = new();
 
-    private bool resultExported = false;
+    private bool resultExported;
+    private string? exportPath;
 
     private readonly IResultExporter exporter;
 
@@ -47,8 +50,34 @@ public class ResultPageViewModel : ViewModelBase
     public bool Export(string path)
     {
         var success = exporter.Export(Result, path);
-        ResultExported = ResultExported || success;
+
+        resultExported = resultExported || success;
+        exportPath = success ? path : null;
 
         return success;
+    }
+
+    public void ShowExportedResult()
+    {
+        if (string.IsNullOrEmpty(exportPath))
+            return;
+
+        try
+        {
+            var workDir = Directory.GetParent(exportPath)?.FullName ?? exportPath;
+
+            var processInfo = new ProcessStartInfo()
+            {
+                FileName = exportPath,
+                WorkingDirectory = workDir,
+                UseShellExecute = true,
+            };
+
+            Process.Start(processInfo);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 }

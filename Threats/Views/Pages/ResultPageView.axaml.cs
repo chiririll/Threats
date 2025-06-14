@@ -1,9 +1,10 @@
 using System;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Threats.ViewModels.Alerts;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
 using Threats.ViewModels.Pages;
-using Threats.Views.Alerts;
 
 namespace Threats.Views.Pages;
 
@@ -27,9 +28,7 @@ public partial class ResultPageView : UserControl
     {
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null || viewModel == null)
-        {
             return;
-        }
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new()
         {
@@ -40,32 +39,42 @@ public partial class ResultPageView : UserControl
         });
 
         if (file == null)
-        {
             return;
-        }
 
         var path = file.Path.AbsolutePath;
         if (viewModel.Export(path))
         {
-            ShowResultAlert(new(path));
-            return;
+            await ShowSuccessAlert(topLevel);
         }
-
-        ShowResultAlert(new());
+        else
+        {
+            await MessageBoxManager
+                .GetMessageBoxStandard("Ошибка", "Во время экспорта произошла ошибка!")
+                .ShowAsPopupAsync(topLevel);
+        }
     }
 
-    private async void ShowResultAlert(ExportResultViewModel result)
+    private async Task ShowSuccessAlert(ContentControl topLevel)
     {
-        if (TopLevel.GetTopLevel(this) is not Window window)
-        {
-            return;
-        }
+        const string showButtonName = "Посмотреть";
+        const string closButtonName = "Закрыть";
 
-        var alert = new ExportResultAlert
+        var messageBoxParams = new MessageBoxCustomParams()
         {
-            DataContext = result
+            ContentTitle = "Информация",
+            ContentMessage = "Результат успешно экспортирован!",
+
+            ButtonDefinitions = [
+                new() { Name = showButtonName, IsDefault = true },
+                new() { Name = closButtonName, IsCancel = true }
+            ],
         };
 
-        await alert.ShowDialog(window);
+        var result = await MessageBoxManager
+            .GetMessageBoxCustom(messageBoxParams)
+            .ShowAsPopupAsync(topLevel);
+
+        if (result == showButtonName)
+            viewModel?.ShowExportedResult();
     }
 }
