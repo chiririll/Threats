@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using ExcelDataReader;
+using Newtonsoft.Json;
 
 namespace Threats.Parser.IntrudersList;
 
@@ -23,11 +24,35 @@ public class IntrudersListParser : IParser
         var intrudersData = reader.AsDataSet();
 
         var intrudersTable = intrudersData.Tables[0];
-        var intruders = ParseIntruders(intrudersTable);
-        data!.intruders.AddRange(intruders.Select(i => i.Build()));
 
+        var intruders = ParseIntruders(intrudersTable);
         reader.Close();
         stream.Close();
+
+        AppendNegatives(intruders, options);
+
+        data!.intruders.AddRange(intruders.Select(i => i.Build()));
+    }
+
+    private void AppendNegatives(List<IntruderBuilder> intruders, Options options)
+    {
+        if (string.IsNullOrWhiteSpace(options.IntrudersNegativesPath))
+            return;
+
+        var content = File.ReadAllText(options.IntrudersNegativesPath);
+        var mapping = JsonConvert.DeserializeObject<List<Data.IntruderTypeContainer>>(content)
+            ?.ToDictionary(c => c.IntruderId, c => c.NegativeIds);
+
+        if (mapping == null)
+            return;
+
+        foreach (var intruder in intruders)
+        {
+            if (!mapping.TryGetValue(intruder.Id, out var negatives))
+                continue;
+
+            intruder.AddNegatives(negatives);
+        }
     }
 
     private List<IntruderBuilder> ParseIntruders(DataTable table)

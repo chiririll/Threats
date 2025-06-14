@@ -22,6 +22,6 @@ public class QuestionsData : IQuestionsData
 
     public string ToJson()
     {
-        return JsonConvert.SerializeObject(this, Formatting.Indented);
+        return JsonConvert.SerializeObject(this, Formatting.None);
     }
 }

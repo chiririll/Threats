@@ -11,11 +11,14 @@ public class IntruderBuilder
     private IntruderPotential potential = IntruderPotential.None;
 
     private readonly List<string> goals = new();
+    private readonly List<int> negatives = new();
 
     public IntruderBuilder(int id)
     {
         this.id = id;
     }
+
+    public int Id => id;
 
     public void AddTitle(string? title, string? separator = null)
     {
@@ -40,6 +43,12 @@ public class IntruderBuilder
         }
 
         potential = ParsePotential(potentialString);
+    }
+
+    public void AddNegatives(IEnumerable<int> negativeIds)
+    {
+        negatives.Clear();
+        negatives.AddRange(negativeIds);
     }
 
     private static IntruderPotential ParsePotential(string str)
@@ -72,5 +81,5 @@ public class IntruderBuilder
         id,
         title?.Trim() ?? string.Empty,
         potential,
-        goals);
+        goals, negatives);
 }

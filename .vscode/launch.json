@@ -17,7 +17,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-parser",
-            "program": "${workspaceFolder}/Threats.Parser/bin/Debug/net6.0/Threats.Parser.dll",
+            "program": "${workspaceFolder}/Threats.Parser/bin/Debug/net9.0/Threats.Parser.dll",
             "args": [
                 "-e", "${workspaceFolder}/Data/Include/entities.json",
                 "-q", "${workspaceFolder}/Data/Include/questions.json",
@@ -27,6 +27,7 @@
                 "--negatives", "${workspaceFolder}/Data/Input/negatives.txt",
                 "--objects", "${workspaceFolder}/Data/Input/objects.xlsx",
                 "--intruders", "${workspaceFolder}/Data/Input/intruders.xlsx",
+                "--intruders-negatives", "${workspaceFolder}/Data/Input/intruders-negatives.json",
             ],
             "cwd": "${workspaceFolder}/Threats",
             "console": "internalConsole",

@@ -1,3 +1,4 @@
+using System.Linq;
 using Threats.Data;
 using Threats.Data.Entities;
 using Threats.Models.Questions;
@@ -10,11 +11,14 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
 {
     private int currentIndex = 0;
 
+    private readonly NegativesStageState negativesState;
+
     public IntrudersStage(
         SurveyState state,
         IIntrudersStageData data,
         IEntitiesData entities) : base(state.IntrudersStage, data, entities)
     {
+        negativesState = state.NegativesStage;
     }
 
     public IntruderData? CurrentIntruder => currentIndex >= 0 && currentIndex < entities.Intruders.Count
@@ -32,9 +36,11 @@ public class IntrudersStage : SurveyStage<IntrudersStageState, IIntrudersStageDa
         Potential = GetPotentialString();
 
         var hasIntruder = CurrentIntruder != null && state.SelectedIntruders.ContainsKey(CurrentIntruder.Id);
+        var activeNegatives = !hasIntruder && CurrentIntruder != null
+            && CurrentIntruder.Negatives.Any(id => negativesState.Negatives.Any(selected => selected.Id == id));
 
         Question1 = hasIntruder ? true : null;
-        Question2 = hasIntruder ? true : null;
+        Question2 = hasIntruder || activeNegatives;
     }
 
     public override void Save()
