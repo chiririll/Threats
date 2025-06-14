@@ -32,6 +32,8 @@ public abstract class SurveyStage
     public abstract string Title { get; }
     public abstract StageType Type { get; }
 
+    public virtual string? ActionName => null;
+
     public abstract void Init();
 
     public abstract void Save();
@@ -57,4 +59,8 @@ public abstract class SurveyStage
     /// </summary>
     /// <returns>true - Переход обработан внутри этапа; false - Состояния нет, необходим переход к предыдущему этапу</returns>
     public abstract bool MoveBack();
+
+    public virtual void InvokeAction()
+    {
+    }
 }

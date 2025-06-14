@@ -13,10 +13,10 @@
 
       <Rectangle StrokeDashArray="1, 3"
                  Margin="0,5,0,0"
-                 Stroke="Black" 
-                 StrokeThickness="1" 
+                 Stroke="Black"
+                 StrokeThickness="1"
                  RadiusX="7" RadiusY="7"/>
-      
+
       <Rectangle Classes="bg" Height="8" VerticalAlignment="Top" Margin="16,2"/>
 
       <DockPanel Margin="10">
@@ -28,26 +28,16 @@
               FontSize="21"
               Margin="10,-18,10,0"/>
 
-        <views:StageView DataContext="{Binding StageContainer}" 
-                        Padding="0,10,0,0" /> 
+        <views:StageView DataContext="{Binding StageContainer}"
+                        Padding="0,10,0,0" />
       </DockPanel>
     </Grid>
-  
+
     <Grid VerticalAlignment="Bottom"
           Margin="0,-5"
           Height="40">
 
-      <Button DockPanel.Dock="Right"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Right"
-              HorizontalContentAlignment="Center"
-              Width="150"
-              Command="{Binding Submit}">
-          Далее
-      </Button>
-
-      <Button DockPanel.Dock="Left"
-              VerticalAlignment="Center"
+      <Button VerticalAlignment="Center"
               HorizontalAlignment="Left"
               HorizontalContentAlignment="Center"
               Width="150"
@@ -55,6 +45,25 @@
               IsVisible="{Binding CanMoveBack}">
           Назад
       </Button>
+
+      <StackPanel Orientation="Horizontal"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Spacing="10">
+
+        <Button Width="150"
+                HorizontalContentAlignment="Center"
+                Command="{Binding InvokeAction}"
+                IsVisible="{Binding HasAction}"
+                Content="{Binding ActionName}" />
+
+        <Button Width="150"
+                HorizontalContentAlignment="Center"
+                Command="{Binding Submit}">
+            Далее
+        </Button>
+      </StackPanel>
     </Grid>
+
   </Grid>
 </UserControl>

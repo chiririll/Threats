@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Reactive;
+using System.Reactive.Subjects;
 using Threats.Data;
 using Threats.Models.Survey.Data;
 using Threats.Models.Survey.State;
@@ -12,6 +15,8 @@ public class SurveyManager
 
     private readonly IEntitiesData entities;
     private readonly IQuestionsData questions;
+
+    private readonly Subject<Unit> onStageChanged = new();
 
     private readonly List<SurveyStage> stages;
     private int currentStage = 0;
@@ -28,7 +33,7 @@ public class SurveyManager
         {
             new NegativeTypesStage(state, data.NegativesStageData, entities),
             new NegativesStage(state, data.NegativesStageData, entities),
-            new ObjectsStage(state, data.ObjectsStageData, entities, questions),
+            new ObjectsStage(this, state, data.ObjectsStageData, entities, questions),
             new ObjectsAppendStage(state,data.ObjectsStageData, entities),
             new IntrudersStage(state, data.IntrudersStageData, entities),
             new IntrudersTypeStage(state,data.IntrudersStageData, entities),
@@ -38,6 +43,8 @@ public class SurveyManager
         stages[0].Init();
     }
 
+    public IObservable<Unit> OnStateChanged => onStageChanged;
+
     public string Title => CurrentStage != null
         ? string.Format(data.TitleFormat, (int)CurrentStage.Type, CurrentStage.Title)
         : string.Empty;
@@ -45,6 +52,8 @@ public class SurveyManager
     public SurveyStage? CurrentStage => currentStage >= 0 && currentStage < stages.Count
         ? stages[currentStage]
         : null;
+
+    public string? ActionName => CurrentStage?.ActionName;
 
     public bool CanMoveBack() => currentStage > 0 || (CurrentStage?.CanMoveBack() ?? false);
     public bool CanMoveNext() => CurrentStage?.CanMoveNext() ?? false;
@@ -67,6 +76,7 @@ public class SurveyManager
         // Переход внутри этапа
         if (current.MoveNext())
         {
+            onStageChanged.OnNext(default);
             return true;
         }
 
@@ -78,6 +88,8 @@ public class SurveyManager
         }
 
         CurrentStage.Init();
+
+        onStageChanged.OnNext(default);
         return true;
     }
 
@@ -99,14 +111,18 @@ public class SurveyManager
         // Переход внутри этапа
         if (current.MoveBack())
         {
+            onStageChanged.OnNext(default);
             return true;
         }
 
         currentStage--;
-
         CurrentStage!.Init();
+
+        onStageChanged.OnNext(default);
         return true;
     }
+
+    public void InvokeAction() => CurrentStage?.InvokeAction();
 
     public SurveyResult GetResult() => state.GetResult();
 }

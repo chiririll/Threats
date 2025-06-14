@@ -11,20 +11,25 @@ namespace Threats.Models.Survey;
 
 public class ObjectsStage : SurveyStage<ObjectsStageState, IObjectsStageData>
 {
+    private readonly SurveyManager surveyManager;
     private readonly List<Question> questions;
 
     public ObjectsStage(
+        SurveyManager surveyManager,
         SurveyState state,
         IObjectsStageData data,
         IEntitiesData entities,
         IQuestionsData questions) : base(state.ObjectsStage, data, entities)
     {
+        this.surveyManager = surveyManager;
         this.questions = questions.ObjectsQuestions.Select(q => new Question(q)).ToList();
     }
 
     public IReadOnlyList<Question> Questions => questions;
 
     public override StageType Type => StageType.Objects;
+
+    public override string? ActionName => "Импорт";
 
     public override void Init()
     {
@@ -54,4 +59,9 @@ public class ObjectsStage : SurveyStage<ObjectsStageState, IObjectsStageData>
 
     public override bool CanMoveBack() => false;
     public override bool MoveBack() => false;
+
+    public override void InvokeAction()
+    {
+        MoveNext();
+    }
 }

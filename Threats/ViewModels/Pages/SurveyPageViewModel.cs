@@ -1,5 +1,6 @@
 using System;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Subjects;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
@@ -9,12 +10,13 @@ using Threats.ViewModels.Survey;
 
 namespace Threats.ViewModels.Pages;
 
-public class SurveyPageViewModel : ViewModelBase
+public class SurveyPageViewModel : ViewModelBase, IDisposable
 {
     private const int DefaultMaxWidth = 1100;
 
     private readonly Subject<bool> canMoveNext = new();
     private readonly Subject<SurveyResult> onComplete = new();
+    private readonly CompositeDisposable disp = new();
 
     private readonly SurveyManager survey;
 
@@ -29,8 +31,13 @@ public class SurveyPageViewModel : ViewModelBase
 
         Submit = ReactiveCommand.Create(MoveToNextStage, canMoveNext);
         GoBack = ReactiveCommand.Create(MoveToPrevStage);
+        InvokeAction = ReactiveCommand.Create(survey.InvokeAction);
 
         UpdateMoveNextButtonState();
+
+        survey.OnStateChanged
+            .Subscribe(_ => Refresh())
+            .AddTo(disp);
     }
 
     public IObservable<SurveyResult> OnComplete => onComplete;
@@ -38,6 +45,10 @@ public class SurveyPageViewModel : ViewModelBase
     public IObservable<Unit> GoBack { get; }
 
     public bool CanMoveBack => survey.CanMoveBack();
+
+    public bool HasAction => !string.IsNullOrEmpty(survey.ActionName);
+    public string ActionName => survey.ActionName ?? string.Empty;
+    public IObservable<Unit> InvokeAction { get; }
 
     public string Title => survey.Title;
     public StageViewModel StageContainer { get; } = new();
@@ -51,22 +62,23 @@ public class SurveyPageViewModel : ViewModelBase
     private void Refresh()
     {
         StageContainer.SetStage(survey.CurrentStage!);
+
         this.RaisePropertyChanged(nameof(Title));
         this.RaisePropertyChanged(nameof(CanMoveBack));
         this.RaisePropertyChanged(nameof(MaxWidth));
+
+        this.RaisePropertyChanged(nameof(HasAction));
+        this.RaisePropertyChanged(nameof(ActionName));
 
         UpdateMoveNextButtonState();
     }
 
     private void MoveToNextStage()
     {
-        if (!survey.MoveToNextStage())
-        {
-            TryCompleteSurvey();
+        if (survey.MoveToNextStage())
             return;
-        }
 
-        Refresh();
+        TryCompleteSurvey();
     }
 
     public async void TryCompleteSurvey()
@@ -93,11 +105,11 @@ public class SurveyPageViewModel : ViewModelBase
 
     private void MoveToPrevStage()
     {
-        if (!survey.MoveToPreviousStage())
-        {
-            return;
-        }
+        survey.MoveToPreviousStage();
+    }
 
-        Refresh();
+    public void Dispose()
+    {
+        disp.Dispose();
     }
 }
