@@ -15,7 +15,7 @@ namespace Threats.Models.Objects.Importers
                 var lines = File.ReadAllLines(file);
                 foreach (var line in lines)
                 {
-                    var obj = entities.Objects.First(o => o.Name.Equals(line, System.StringComparison.InvariantCultureIgnoreCase));
+                    var obj = entities.Objects.FirstOrDefault(o => o.Name.Equals(line, System.StringComparison.InvariantCultureIgnoreCase));
                     if (obj == null)
                         continue;
 
