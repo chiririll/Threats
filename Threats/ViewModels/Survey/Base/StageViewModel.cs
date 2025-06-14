@@ -12,10 +12,13 @@ public sealed class StageViewModel : ViewModelBase, IDisposable
     private readonly Subject<Unit> updated = new();
     private readonly CompositeDisposable stageSub = new();
 
+    private readonly SurveyManager surveyManager;
+
     private SurveyStageViewModel? stage;
 
-    public StageViewModel()
+    public StageViewModel(SurveyManager surveyManager)
     {
+        this.surveyManager = surveyManager;
     }
 
     public SurveyStageViewModel Stage
@@ -27,7 +30,7 @@ public sealed class StageViewModel : ViewModelBase, IDisposable
     public IObservable<Unit> Updated => updated;
     public int? MaxWidth => stage?.MaxWidth;
 
-    public void SetStage(SurveyStage stage) => SetStage(SurveyStageViewModelFactory.Create(stage));
+    public void SetStage(SurveyStage stage) => SetStage(SurveyStageViewModelFactory.Create(surveyManager, stage));
     public void SetStage(SurveyStageViewModel stage)
     {
         stageSub.Clear();

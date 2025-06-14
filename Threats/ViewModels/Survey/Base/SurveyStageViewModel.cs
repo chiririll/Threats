@@ -23,7 +23,13 @@ public abstract class SurveyStageViewModel : ViewModelBase, IDisposable
     public IObservable<Unit> Updated => updated;
     public virtual int? MaxWidth => null;
 
+    public virtual string? ActionName => null;
+
     public void InvokeUpdate() => updated.OnNext(default);
+
+    public virtual void InvokeAction()
+    {
+    }
 
     public abstract void Refresh();
 

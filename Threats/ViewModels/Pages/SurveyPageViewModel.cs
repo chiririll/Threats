@@ -16,22 +16,22 @@ public class SurveyPageViewModel : ViewModelBase, IDisposable
 
     private readonly Subject<bool> canMoveNext = new();
     private readonly Subject<SurveyResult> onComplete = new();
+    private readonly Subject<Unit> onCompletionRequested = new();
     private readonly CompositeDisposable disp = new();
 
     private readonly SurveyManager survey;
-
-    private bool completed = false;
 
     public SurveyPageViewModel(SurveyManager survey)
     {
         this.survey = survey;
 
+        StageContainer = new(survey);
         StageContainer.SetStage(survey.CurrentStage!);
         StageContainer.Updated.Subscribe(_ => UpdateMoveNextButtonState());
 
         Submit = ReactiveCommand.Create(MoveToNextStage, canMoveNext);
         GoBack = ReactiveCommand.Create(MoveToPrevStage);
-        InvokeAction = ReactiveCommand.Create(survey.InvokeAction);
+        InvokeAction = ReactiveCommand.Create(CallInvokeAction);
 
         UpdateMoveNextButtonState();
 
@@ -41,17 +41,19 @@ public class SurveyPageViewModel : ViewModelBase, IDisposable
     }
 
     public IObservable<SurveyResult> OnComplete => onComplete;
+    public IObservable<Unit> OnCompletionRequested => onCompletionRequested;
+
     public IObservable<Unit> Submit { get; }
     public IObservable<Unit> GoBack { get; }
 
     public bool CanMoveBack => survey.CanMoveBack();
 
-    public bool HasAction => !string.IsNullOrEmpty(survey.ActionName);
-    public string ActionName => survey.ActionName ?? string.Empty;
+    public bool HasAction => !string.IsNullOrEmpty(StageContainer.Stage.ActionName);
+    public string ActionName => StageContainer.Stage.ActionName ?? string.Empty;
     public IObservable<Unit> InvokeAction { get; }
 
     public string Title => survey.Title;
-    public StageViewModel StageContainer { get; } = new();
+    public StageViewModel StageContainer { get; private set; }
     public int MaxWidth => StageContainer.MaxWidth ?? DefaultMaxWidth;
 
     private void UpdateMoveNextButtonState()
@@ -81,31 +83,24 @@ public class SurveyPageViewModel : ViewModelBase, IDisposable
         TryCompleteSurvey();
     }
 
-    public async void TryCompleteSurvey()
+    public void TryCompleteSurvey()
     {
-        if (completed)
-            return;
-        completed = true;
+        onCompletionRequested.OnNext(default);
+    }
 
-        var completeAlert = MessageBoxManager
-           .GetMessageBoxStandard(
-                "Подтверждение",
-                "Вы готовы сформировать список актуальных угроз?",
-               ButtonEnum.YesNo);
-
-        var result = await completeAlert.ShowAsync();
-        if (result == ButtonResult.Yes)
-        {
-            onComplete.OnNext(survey.GetResult());
-            return;
-        }
-
-        completed = false;
+    public void CompleteSurvey()
+    {
+        onComplete.OnNext(survey.GetResult());
     }
 
     private void MoveToPrevStage()
     {
         survey.MoveToPreviousStage();
+    }
+
+    private void CallInvokeAction()
+    {
+        StageContainer.Stage.InvokeAction();
     }
 
     public void Dispose()

@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Subjects;
 using Threats.Models.Questions;
 using Threats.Models.Survey;
 using Threats.ViewModels.Questions;
@@ -13,8 +15,14 @@ public class ObjectsStageViewModel : SurveyStageViewModel<ObjectsStage>
 {
     private readonly CompositeDisposable questionsSub = new();
 
-    public ObjectsStageViewModel(ObjectsStage stage) : base(stage)
+    private readonly Subject<Unit> onImportRequested = new();
+
+    private readonly SurveyManager surveyManager;
+
+    public ObjectsStageViewModel(SurveyManager surveyManager, ObjectsStage stage) : base(stage)
     {
+        this.surveyManager = surveyManager;
+
         PrimaryQuestion = new(stage.Questions[0]);
 
         Questions = new(stage.Questions.Skip(1).Select(
@@ -41,6 +49,9 @@ public class ObjectsStageViewModel : SurveyStageViewModel<ObjectsStage>
             .AddTo(questionsSub);
     }
 
+    public override string? ActionName => "Импорт";
+    public IObservable<Unit> OnImportRequested => onImportRequested;
+
     public QuestionViewModel PrimaryQuestion { get; }
     public ObservableCollection<YesNoOptionContainer<Question>> Questions { get; }
 
@@ -53,5 +64,19 @@ public class ObjectsStageViewModel : SurveyStageViewModel<ObjectsStage>
 
     public override void Refresh()
     {
+    }
+
+    public override void InvokeAction()
+    {
+        onImportRequested.OnNext(default);
+    }
+
+    public bool ImportFiles(IEnumerable<string> files)
+    {
+        if (!stage.ImportFiles(files))
+            return false;
+
+        surveyManager.MoveToNextStage();
+        return true;
     }
 }

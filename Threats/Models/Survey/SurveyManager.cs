@@ -33,7 +33,7 @@ public class SurveyManager
         {
             new NegativeTypesStage(state, data.NegativesStageData, entities),
             new NegativesStage(state, data.NegativesStageData, entities),
-            new ObjectsStage(this, state, data.ObjectsStageData, entities, questions),
+            new ObjectsStage(state, data.ObjectsStageData, entities, questions),
             new ObjectsAppendStage(state,data.ObjectsStageData, entities),
             new IntrudersStage(state, data.IntrudersStageData, entities),
             new IntrudersTypeStage(state,data.IntrudersStageData, entities),
@@ -52,8 +52,6 @@ public class SurveyManager
     public SurveyStage? CurrentStage => currentStage >= 0 && currentStage < stages.Count
         ? stages[currentStage]
         : null;
-
-    public string? ActionName => CurrentStage?.ActionName;
 
     public bool CanMoveBack() => currentStage > 0 || (CurrentStage?.CanMoveBack() ?? false);
     public bool CanMoveNext() => CurrentStage?.CanMoveNext() ?? false;
@@ -121,8 +119,6 @@ public class SurveyManager
         onStageChanged.OnNext(default);
         return true;
     }
-
-    public void InvokeAction() => CurrentStage?.InvokeAction();
 
     public SurveyResult GetResult() => state.GetResult();
 }
