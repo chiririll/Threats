@@ -75,14 +75,19 @@ jobs:
     permissions:
       contents: write
 
-    env:
-      pattern: Threats *.zip
-
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: ${{ env.pattern }}
+          pattern: Threats *
+
+      - name: Copy artifacts
+        run: |
+          mkdir Artifacts
+          cp "Threats Windows x64 .NET 9.0/Threats.exe" "Artifacts/Threats.Windows.x64.NET.9.0.exe"
+          cp "Threats Windows x64 .NET 9.0 Portable/Threats.exe" "Artifacts/Threats.Portable.Windows.x64.NET.9.0.exe"
+          cp "Threats Linux x64 .NET 9.0/Threats" "Artifacts/Threats.Linux.x64.NET.9.0"
+          cp "Threats Linux x64 .NET 9.0 Portable/Threats" "Artifacts/Threats.Portable.Linux.x64.NET.9.0"
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
@@ -92,4 +97,4 @@ jobs:
           draft: true
           body: |
             ### Threats v${{ github.ref_name }}
-          files: ${{ env.pattern }}
+          files: Artifacts/*
