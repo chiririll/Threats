@@ -10,6 +10,31 @@ jobs:
   build-release-artifacts:
     name: Build Release Artifacts
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - name: "Windows x64 .NET 9.0"
+            framework: "net9.0"
+            runtime: "win-x64"
+          - name: "Windows x64 .NET 9.0 Portable"
+            framework: "net9.0"
+            runtime: "win-x64"
+            sc: true
+          - name: "Windows x32 .NET 4.7"
+            framework: "net472"
+            runtime: "win-x86"
+          - name: "Linux x64 .NET 9.0"
+            framework: "net9.0"
+            runtime: "linux-x64"
+          - name: "Linux x64 .NET 9.0 Portable"
+            framework: "net9.0"
+            runtime: "linux-x64"
+            sc: true
+
+    env:
+      project: Threats/Threats.csproj
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,39 +46,50 @@ jobs:
 
       - name: Version Bump
         if: github.ref_type == 'tag'
-        run: sed -Ei "s|<VersionPrefix>[0-9]*\.[0-9]*\.[0-9]*</VersionPrefix>|<VersionPrefix>${GITHUB_REF_NAME}</VersionPrefix>|g" Threats/Threats.csproj
+        run: sed -Ei "s|<VersionPrefix>[0-9]*\.[0-9]*\.[0-9]*</VersionPrefix>|<VersionPrefix>${GITHUB_REF_NAME}</VersionPrefix>|g" ${{env.project}}
 
-      - name: Build
-        run: dotnet build -c Release
+      - name: Publish ${{ matrix.name }} Artifacts
+        run: |
+          ARTIFACTS=publish-${{ matrix.runtime }}-${{ matrix.framework }}${{ matrix.sc && '-portable' || '' }}
+          echo "ARTIFACTS=$ARTIFACTS" >> $GITHUB_ENV
 
-      - name: Publish Windows x64 .NET 9.0
-        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net9.0 -o publish-win64-net9.0
-      - name: Upload Win64 .NET 9.0 Artifacts
+          dotnet publish ${{env.project}} \
+            -c Release \
+            -r ${{ matrix.runtime }} \
+            -f ${{ matrix.framework }} \
+            ${{ matrix.sc && '--sc' || '' }} \
+            -o $ARTIFACTS
+
+      - name: Upload ${{ matrix.name }} Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Threats Windows x64 .NET 9.0
-          path: publish-win64-net9.0
+          name: Threats ${{ matrix.name }}
+          path: ${{ env.ARTIFACTS }}
 
-      - name: Publish Windows x64 .NET 4.7
-        run: dotnet publish Threats/Threats.csproj -c Release -r win-x64 -f net472 -o publish-win64-net472
-      - name: Upload Win64 .NET 4.7 Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Threats Windows x64 .NET 4.7
-          path: publish-win64-net472
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
 
-      - name: Publish Linux x64 .NET 9.0
-        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net9.0 -o publish-linux64-net9.0
-      - name: Upload .NET 9.0 Linux64 Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Threats Linux x64 .NET 9.0
-          path: publish-linux64-net9.0
+    needs: [ build-release-artifacts ]
+    permissions:
+      contents: write
 
-      - name: Publish Linux x64 .NET 9.0 Portable
-        run: dotnet publish Threats/Threats.csproj -c Release -r linux-x64 -f net9.0 --sc true -o publish-linux64-net9.0
-      - name: Upload .NET 9.0 Linux64 Portable Artifacts
-        uses: actions/upload-artifact@v4
+    env:
+      pattern: Threats *.zip
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
         with:
-          name: Threats Linux x64 .NET 9.0 Portable
-          path: publish-linux64-net9.0
+          pattern: ${{ env.pattern }}
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          fail_on_unmatched_files: true
+          prerelease: false
+          draft: true
+          body: |
+            ### Threats v${{ github.ref_name }}
+          files: ${{ env.pattern }}
