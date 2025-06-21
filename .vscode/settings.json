@@ -1,11 +1,28 @@
 {
+    "cSpell.language": "en,ru",
     "cSpell.words": [
         "Avalonia",
+        "MVVM",
         "NPOI",
+        "Palo",
+        "SIEM",
+        "STIX",
+        "Suricata",
+        "XSOAR",
         "XSSF",
+        "YARA",
+        "Zeek",
+        "десериализации",
+        "журналирования",
+        "кроссплатформенности",
+        "многопоточности",
+        "многопоточностью",
         "Петри",
+        "сериализации",
+        "узкоспециализированы",
         "ФСТЭК"
     ],
+
     "markdown.marp.themes": [
         "docs/presentation/theme.css"
     ]
