@@ -59,6 +59,16 @@ h2.title {
 }
 /* ========== */
 
+/* Smaller */
+p.smaller {
+    font-size: .8em;
+}
+
+img.smaller {
+    width: 85%;
+}
+/* ======= */
+
 .centered {
     justify-content: center;
     align-items: center;
