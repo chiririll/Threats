@@ -7,78 +7,62 @@ section {
     height: 768px;
 }
 
-.logo-header {
-    position: absolute;
-    margin: 40px;
-    top: 0px;
+/* Title Page */
+div.title {
     display: flex;
-    width: 90%;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.logo {
-    height: 120px;
+.title.logo {
+    height: 100px;
 }
 
-.header-text {
-    flex-grow: 1;
+.title.header {
+    display: block;
     text-align: center;
-    font-size: .7rem;
-    max-width: 800px;
+    font-size: .65rem;
 }
 
-.title-slide {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.title.department {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 0.7rem;
+}
+
+.title.year {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .8rem;
+    color: #666;
+}
+
+h1.title {
     text-align: center;
-    padding: 40px;
-    box-sizing: border-box;
+    font-size: 1.2em;
 }
 
-h1.title-slide {
-    font-size: 1rem;
+h2.title {
+    margin-top: 0px;
+    text-align: center;
+    font-size: .9em;
 }
 
-.top-right-info {
-    position: absolute;
-    right: 40px;
-    top: 190px;
-    font-size: .7rem;
-    text-align: right;
-    font-size: 0.8rem;
+.title.student {
+    text-align: center;
+    font-size: .9em;
 }
 
-.bottom-right-info {
-    position: absolute;
-    right: 40px;
-    bottom: 80px;
-    text-align: right;
-    font-size: 0.8rem;
+.title.director {
+    text-align: center;
+    font-size: .9em;
 }
-
-.title-slide h1 {
-    font-size: 1.5rem;
-    line-height: 1.4;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+/* ========== */
 
 .centered {
     justify-content: center;
     align-items: center;
     text-align: center;
-}
-
-.bottom-center {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-    color: #666;
 }
 
 .columns {
